@@ -3,10 +3,10 @@
   "name": "det-nota",
   "position": {
     "x": 16,
-    "y": 230,
+    "y": 366,
     "z": 20,
     "height": 44,
-    "width": 288,
+    "width": 348,
     "tabOrder": 20
   },
   "visual": {

@@ -6,7 +6,7 @@
     "y": 1024,
     "z": 900,
     "height": 46,
-    "width": 1362,
+    "width": 1824,
     "tabOrder": 900
   },
   "visual": {
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Dati Olist (Kaggle, CC BY-NC-SA 4.0), scaricati e congelati il 23/08/2026. Ordini consegnati: 96.470 su 99.441. I voti si appoggiano ai 95.824 ordini anche recensiti. Le due basi sono diverse e ogni misura dichiara la propria. Gli importi sono convertiti da reais a euro alla media dei cambi mensili BCE del periodo pesata per il fatturato: convertendo mese per mese il totale cambia dello 0,5%.",
+                    "value": "Dati Olist (Kaggle, CC BY-NC-SA 4.0), scaricati e congelati il 23/08/2026. Ordini consegnati: 96.470 su 99.441. I voti si appoggiano ai 95.824 ordini anche recensiti. Le due basi sono diverse e ogni misura dichiara la propria. Gli importi sono convertiti da reais a euro a 3,95, media dei cambi mensili BCE del periodo pesata per il fatturato: convertendo mese per mese il totale cambia dello 0,5%.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

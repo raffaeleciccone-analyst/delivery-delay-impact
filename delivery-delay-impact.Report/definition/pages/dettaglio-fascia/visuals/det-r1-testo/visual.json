@@ -3,10 +3,10 @@
   "name": "det-r1-testo",
   "position": {
     "x": 16,
-    "y": 64,
+    "y": 114,
     "z": 10,
     "height": 24,
-    "width": 162,
+    "width": 160,
     "tabOrder": 10
   },
   "visual": {

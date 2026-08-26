@@ -206,11 +206,14 @@ for pag, visuali in pagine.items():
                            % (pag + "/" + v["name"], alto, p["height"]))
 
     # 7. il numero di un riquadro ci sta nella sua casella
-    #    Il testo lungo Power BI lo fa scorrere; un numero grande no, quello lo
-    #    taglia e basta. La casella del numero e' quello che resta dell'altezza
-    #    del riquadro dopo il margine sopra e la fascia dell'etichetta: se il
-    #    riquadro si stringe di dieci pixel, il numero perde la pancia e nessuno
-    #    lo dice. Serve circa 1,4 volte il corpo del carattere.
+    #    Due modi di sbagliare, tutti e due silenziosi.
+    #    Il primo: la casella e' piu' bassa del carattere e il numero perde la
+    #    pancia. Serve circa 1,4 volte il corpo.
+    #    Il secondo, scoperto sul PDF del 26/08: sotto una certa taglia Power BI
+    #    la scheda non la disegna proprio, e lascia la casella vuota. Due
+    #    schede da 30x88 e 30x118 sono uscite bianche mentre quelle da 66x260
+    #    funzionavano. La soglia sta in mezzo: qui si pretendono 56x150, che e'
+    #    dal lato sicuro di tutte e due le misure.
     for v in visuali:
         if v["visual"]["visualType"] != "card":
             continue
@@ -219,14 +222,12 @@ for pag, visuali in pagine.items():
                        ["fontSize"]["expr"]["Literal"]["Value"].rstrip("D"))
         except (KeyError, IndexError, TypeError, ValueError):
             continue
-        serve = pt * 96.0 / 72.0 * 1.4
-        h = v["position"]["height"]
-        if h < serve:
-            guasto(pag + "/" + v["name"], "numero da %dpt tagliato: %d px di casella, "
-                                          "ne servono %d" % (pt, h, serve))
-        elif h < serve * 1.15:
-            stretti.append("%-34s numero da %dpt in %d px: ne servono %d"
-                           % (pag + "/" + v["name"], pt, h, serve))
+        serve = max(pt * 96.0 / 72.0 * 1.25, 56)
+        h, larg = v["position"]["height"], v["position"]["width"]
+        if h < serve or larg < 150:
+            guasto(pag + "/" + v["name"],
+                   "scheda troppo piccola, resta vuota: %dx%d px, servono %dx150"
+                   % (larg, h, serve))
 
 # 8. nessuna misura del modello gira a vuoto
 #    Una misura che non sta su nessun visuale e che nessun'altra misura cita e'

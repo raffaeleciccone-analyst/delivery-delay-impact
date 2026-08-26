@@ -3,8 +3,8 @@
   "name": "dettaglio-fascia",
   "displayName": "Dettaglio della fascia",
   "displayOption": "FitToPage",
-  "height": 288,
-  "width": 320,
+  "height": 424,
+  "width": 380,
   "objects": {
     "background": [
       {
