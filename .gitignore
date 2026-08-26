@@ -1,0 +1,24 @@
+# I dati grezzi non entrano nel repository.
+# Sono 164 MB, e soprattutto sono di Kaggle con licenza CC BY-NC-SA 4.0:
+# ridistribuirli qui sarebbe una scelta che non tocca a me. Il README dice come
+# scaricarli, e power-query/00-PercorsoDati.m e' l'unico punto in cui il
+# percorso locale compare.
+dati_grezzi/
+
+# Il .pbix e' un duplicato binario del progetto .pbip, che e' la sorgente vera:
+# 26 MB che invecchiano da soli e che in un diff non dicono niente.
+*.pbix
+
+# Roba di Power BI Desktop, non del progetto
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Le schermate della versione precedente, tenute solo finche' non si rifanno
+schermate/superate/
+
+__pycache__/
+*.pyc
+
+# La bozza di mail alla segreteria: nome, indirizzo e istituto. E' roba mia,
+# non del progetto, e un repository puo' sempre diventare pubblico.
+mail-its.md

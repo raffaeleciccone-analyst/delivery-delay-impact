@@ -1,0 +1,14 @@
+model Model
+	culture: it-IT
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+
+ref table Ordini
+ref table RigheOrdine
+ref table ControlloStatiOrdine
+ref table Clienti
+ref table Venditori
+ref table Prodotti
+ref table Calendario
+ref table Misure
+

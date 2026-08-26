@@ -1,0 +1,78 @@
+/// Una riga d'ordine. Qui sta il fatturato.
+table RigheOrdine
+
+	column order_id
+		dataType: string
+		sourceColumn: order_id
+
+	column order_item_id
+		dataType: int64
+		sourceColumn: order_item_id
+
+	column product_id
+		dataType: string
+		sourceColumn: product_id
+
+	column seller_id
+		dataType: string
+		sourceColumn: seller_id
+
+	/// scadenza contrattuale, arriva al 2020: NON collegata al calendario
+	column shipping_limit_date
+		dataType: dateTime
+		sourceColumn: shipping_limit_date
+
+	column price
+		dataType: double
+		sourceColumn: price
+
+	column freight_value
+		dataType: double
+		sourceColumn: freight_value
+
+	/// price + freight_value
+	column valore_riga
+		dataType: double
+		sourceColumn: valore_riga
+
+	partition RigheOrdine = m
+		mode: import
+		source =
+				// Query: RigheOrdine   -- tabella dei fatti, grana: una riga d'ordine
+				// Qui sta il fatturato. Il ritardo sta in Ordini: le due grane sono diverse
+				// e ogni misura deve dichiarare da quale delle due scende.
+				//
+				// Righe attese: 112.650
+				let
+				    Origine = Csv.Document(
+				        File.Contents(PercorsoDati & "\olist_order_items_dataset.csv"),
+				        [Delimiter = ",", Columns = 7, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    #"Intestazioni promosse" = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				
+				    // Il prezzo e' scritto 58.90 col punto: senza "en-US" diventa 5890 (§15).
+				    #"Tipi dichiarati in en-US" = Table.TransformColumnTypes(
+				        #"Intestazioni promosse",
+				        {
+				            {"order_id", type text},
+				            {"order_item_id", Int64.Type},
+				            {"product_id", type text},
+				            {"seller_id", type text},
+				            {"shipping_limit_date", type datetime},
+				            {"price", type number},
+				            {"freight_value", type number}
+				        },
+				        "en-US"
+				    ),
+				
+				    // Prezzo + spedizione: e' la definizione di fatturato usata in tutti i documenti.
+				    // 383 righe hanno spedizione a 0 (§12): spedizione gratis, non un dato mancante.
+				    #"Valore della riga" = Table.AddColumn(
+				        #"Tipi dichiarati in en-US",
+				        "valore_riga",
+				        each [price] + [freight_value],
+				        type number
+				    )
+				in
+				    #"Valore della riga"
+

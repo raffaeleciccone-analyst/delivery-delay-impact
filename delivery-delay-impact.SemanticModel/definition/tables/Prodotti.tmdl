@@ -1,0 +1,100 @@
+/// Dimensione prodotto.
+table Prodotti
+
+	column product_id
+		dataType: string
+		sourceColumn: product_id
+
+	/// tradotta dove possibile; '(non indicata)' per i 610 senza
+	column categoria
+		dataType: string
+		sourceColumn: categoria
+
+	/// falso per pc_gamer e portateis_cozinha_...: non hanno traduzione
+	column categoria_tradotta
+		dataType: boolean
+		sourceColumn: categoria_tradotta
+
+	column categoria_originale
+		dataType: string
+		sourceColumn: categoria_originale
+
+	column peso_g
+		dataType: int64
+		sourceColumn: peso_g
+
+	partition Prodotti = m
+		mode: import
+		source =
+				// Query: Prodotti   -- dimensione, grana: un prodotto
+				//
+				// Righe attese: 32.951
+				// §7 - 610 prodotti non hanno categoria, e due categorie (pc_gamer,
+				// portateis_cozinha_e_preparadores_de_alimentos) non hanno traduzione.
+				// Un merge ingenuo le trasformerebbe in vuoti e le farebbe sparire dai grafici:
+				// qui le non tradotte tengono il nome originale, e i vuoti diventano una
+				// categoria dichiarata invece che un buco.
+				let
+				    Origine = Csv.Document(
+				        File.Contents(PercorsoDati & "\olist_products_dataset.csv"),
+				        [Delimiter = ",", Columns = 9, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    #"Intestazioni promosse" = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    #"Tipi dichiarati in en-US" = Table.TransformColumnTypes(
+				        #"Intestazioni promosse",
+				        {
+				            {"product_id", type text},
+				            {"product_category_name", type text},
+				            {"product_name_lenght", Int64.Type},
+				            {"product_description_lenght", Int64.Type},
+				            {"product_photos_qty", Int64.Type},
+				            {"product_weight_g", Int64.Type},
+				            {"product_length_cm", Int64.Type},
+				            {"product_height_cm", Int64.Type},
+				            {"product_width_cm", Int64.Type}
+				        },
+				        "en-US"
+				    ),
+				
+				    // Il refuso e' nel file di partenza: "lenght" per "length". Si corregge qui.
+				    #"Correggi il refuso lenght" = Table.RenameColumns(
+				        #"Tipi dichiarati in en-US",
+				        {{"product_name_lenght", "product_name_length"}, {"product_description_lenght", "product_description_length"}}
+				    ),
+				
+				    #"Traduci le categorie tenendo le non tradotte" = Table.NestedJoin(
+				        #"Correggi il refuso lenght", {"product_category_name"},
+				        CategorieTradotte, {"product_category_name"},
+				        "tr", JoinKind.LeftOuter
+				    ),
+				    #"Espandi la traduzione" = Table.ExpandTableColumn(
+				        #"Traduci le categorie tenendo le non tradotte",
+				        "tr", {"product_category_name_english"}, {"categoria_en"}
+				    ),
+				
+				    // Tre casi, tutti dichiarati: senza categoria, tradotta, non tradotta.
+				    #"Categoria mancante -> (non indicata)" = Table.AddColumn(
+				        #"Espandi la traduzione",
+				        "categoria",
+				        each if [product_category_name] = null then "(non indicata)"
+				             else if [categoria_en] = null then [product_category_name]
+				             else [categoria_en],
+				        type text
+				    ),
+				    #"Segna le categorie senza traduzione" = Table.AddColumn(
+				        #"Categoria mancante -> (non indicata)",
+				        "categoria_tradotta",
+				        each [product_category_name] <> null and [categoria_en] <> null,
+				        type logical
+				    ),
+				    #"Tieni le colonne utili" = Table.SelectColumns(
+				        #"Segna le categorie senza traduzione",
+				        {"product_id", "categoria", "categoria_tradotta", "product_category_name", "product_weight_g"}
+				    ),
+				    #"Rinomina in italiano" = Table.RenameColumns(
+				        #"Tieni le colonne utili",
+				        {{"product_category_name", "categoria_originale"}, {"product_weight_g", "peso_g"}}
+				    )
+				in
+				    #"Rinomina in italiano"
+

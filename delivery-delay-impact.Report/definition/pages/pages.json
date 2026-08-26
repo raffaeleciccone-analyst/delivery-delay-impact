@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
+  "pageOrder": [
+    "la-domanda",
+    "di-chi-e-il-ritardo",
+    "come-cambia",
+    "cosa-non-dice",
+    "dettaglio-fascia"
+  ],
+  "activePageName": "la-domanda"
+}
