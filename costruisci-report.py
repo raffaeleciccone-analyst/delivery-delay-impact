@@ -450,9 +450,9 @@ def didascalia_misura(nome, x, y, w, z, misura, testo_, largo_n=150, largo_t=190
     verifica-tela.py adesso la fa rispettare."""
     sinistra = x + (w - (largo_n + 6 + largo_t)) // 2
     return [
-        _numero(nome + "-numero", sinistra, y, largo_n, alto, z, misura, 13, INCHIOSTRO),
+        _numero(nome + "-numero", sinistra, y, largo_n, alto, z, misura, 20, INCHIOSTRO),
         testo(nome + "-testo", sinistra + largo_n + 6, y + (alto - 28) // 2,
-              largo_t, 28, z + 1, [(testo_, 9, FONT, INCHIOSTRO_3)]),
+              largo_t, 28, z + 1, [(testo_, 10, FONT, INCHIOSTRO_2)]),
     ]
 
 
@@ -702,7 +702,7 @@ pagina("la-domanda", "1. La domanda", intestazione(
     "p1", "I ritardi di consegna quanto ci costano in recensioni negative?",
     "Marketplace Olist, Brasile. 96.470 ordini consegnati fra settembre 2016 e ottobre 2018. "
     "Dati Kaggle, licenza CC BY-NC-SA 4.0.",
-    "LA DOMANDA", "PAGINA 1 DI 4") + filtri("p1") + [
+    "LA DOMANDA", "PAGINA 1 DI 5") + filtri("p1") + [
 
     riquadro("p1-c1", X(0), RIQ_Y, W(3), RIQ_H, 10, "% ordini in ritardo",
              "Consegnati dopo la data promessa"),
@@ -775,7 +775,7 @@ pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
     "p2", "Il ritardo si forma quasi tutto dopo il venditore.",
     "Sugli ordini in ritardo il venditore impiega 1,2 giorni in piu' del solito, la logistica 17. "
     "La pagina scompone il tempo di consegna nelle due fasi che i dati registrano.",
-    "DI CHI E' IL RITARDO", "PAGINA 2 DI 4") + filtri("p2", nota=(
+    "DI CHI E' IL RITARDO", "PAGINA 2 DI 5") + filtri("p2", nota=(
         "I filtri valgono anche sulle altre pagine. Il clic su uno stato muove i due "
         "riquadri sui venditori; le mediane restano ferme, il filtro non le raggiunge.")) + [
 
@@ -855,7 +855,7 @@ pagina("come-cambia", "3. Come cambia", intestazione(
     "p3", "Il ritardo e' piu' che raddoppiato in un anno.",
     "Gennaio-agosto 2018 contro lo stesso periodo del 2017: dal 4,2% al 9,4% di consegne oltre "
     "la promessa, e le recensioni negative dal 10,5% al 13,3%.",
-    "COME CAMBIA", "PAGINA 3 DI 4") + filtri("p3", anno=False) + [
+    "COME CAMBIA", "PAGINA 3 DI 5") + filtri("p3", anno=False) + [
 
     riquadro("p3-c1", X(0), RIQ_Y, W(3), RIQ_H, 10, "% ordini in ritardo gen-ago 2018",
              "Consegne in ritardo, gen-ago 2018", accento=True),
@@ -911,7 +911,92 @@ pagina("come-cambia", "3. Come cambia", intestazione(
     ],
 )
 
-# ----------------------------------------------------- 4. COSA NON DICE
+# ------------------------------------------------------- 4. DENTRO UN MESE
+# La pagina 3 dice che marzo 2018 fa il 21,4% e giugno l'1,4%, e a quel punto la
+# domanda successiva e' sempre la stessa: e allora cosa e' successo a marzo?
+# Fino a ieri non c'era modo di chiederlo.
+#
+# Ci si arriva col tasto destro su un mese della pagina 3 (drillthrough): Power
+# BI deposita il mese scelto nel filtro d'ingresso, che sta sulla pagina e non su
+# una visuale, cosi' ci cascano dentro tutti i visuali insieme.
+#
+# La pagina NON e' nascosta, ed e' una scelta. Una pagina di drillthrough
+# nascosta ha un solo modo di uscire, il pulsante Indietro, che Power BI mette
+# da se' solo quando la pagina la costruisci nell'interfaccia — scrivendo il
+# JSON non c'e', e chi entra resta chiuso dentro. Lasciandola visibile si esce
+# dalla linguetta, e aperta da li' mostra tutto il periodo: e' una lettura che
+# ha senso lo stesso.
+#
+# Le due misure per fase sono le stesse di pagina 2, ristrette al mese: sono
+# quelle che rispondono davvero, perche' dicono se quel mese e' stato il
+# venditore o la logistica.
+M5_RIQ_H = 168                                       # 180 .. 348
+M5_DID_Y = CIMA + M5_RIQ_H + 6                       # 354
+M5_GRA_Y = M5_DID_Y + 44                             # 398
+M5_H = FONDO - M5_GRA_Y                              # 602
+
+pagina("dentro-un-mese", "4. Dentro un mese", intestazione(
+    "p4", "Dentro un mese",
+    "Col tasto destro su un mese della pagina 3 la pagina si apre su quel mese. Le due "
+    "domande sono: quanto era lungo il ritardo, e da quale fase arrivava.",
+    "DETTAGLIO", "PAGINA 4 DI 5") + [
+
+    riquadro("p4-c1", X(0), CIMA, W(3), M5_RIQ_H, 10, "% ordini in ritardo",
+             "Consegne oltre la promessa", accento=True),
+    riquadro("p4-c2", X(3), CIMA, W(3), M5_RIQ_H, 11, "Ordini consegnati",
+             "Ordini consegnati"),
+    riquadro("p4-c3", X(6), CIMA, W(3), M5_RIQ_H, 12, "% recensioni negative",
+             "Recensioni negative"),
+    riquadro("p4-c4", X(9), CIMA, W(3), M5_RIQ_H, 13, "Fatturato (EUR)",
+             "Fatturato consegnato"),
+
+    didascalia("p4-d1", X(0), M5_DID_Y, W(3), 14, "Sul mese d'acquisto."),
+    didascalia("p4-d2", X(3), M5_DID_Y, W(3), 15, "Base dei tempi."),
+    didascalia("p4-d3", X(6), M5_DID_Y, W(3), 16, "Base dei soli ordini recensiti."),
+    didascalia("p4-d4", X(9), M5_DID_Y, W(3), 17, "Somma delle righe d'ordine."),
+
+    barre("p4-fasce", X(0), M5_GRA_Y, W(5), M5_H, 20,
+          ("Ordini", "fascia_ritardo"), [("Ordini consegnati", ROSSO)],
+          "Quanto era lungo: ordini per fascia",
+          forma="fasce", dim_categoria=11),
+
+    barre("p4-fasi", X(5), M5_GRA_Y, W(4), M5_H, 21,
+          ("Ordini", "esito_consegna"),
+          [("Fase venditore (mediana)", GRIGIO),
+           ("Fase logistica (mediana)", ROSSO)],
+          "Da dove arrivava: giorni mediani per fase",
+          forma="fasce", legenda=True, dim_categoria=12, interno=12),
+
+    scheda("p4-lettura", X(9), M5_GRA_Y, W(3), M5_H, 22,
+           "Come si legge", [
+               "Il grafico a sinistra dice se il mese ha prodotto molti ritardi corti o pochi "
+               "ritardi lunghi. Sono due problemi diversi e si affrontano in modo diverso.",
+               "",
+               "Quello accanto dice da quale delle due fasi arrivava il tempo, con le stesse "
+               "due misure della pagina 2 ristrette al mese.",
+               "",
+               ("Se in un mese cattivo si allunga solo la fase logistica, quel mese non e' un "
+                "problema di venditori.", "forte"),
+               "",
+               "Restano fuori gli ordini a cronologia incoerente, come in pagina 2.",
+           ], dim=11),
+] + piede("p4",
+          "Il mese e' quello dell'acquisto. I quattro riquadri e il grafico delle fasce "
+          "girano sui consegnati, le recensioni negative sui soli recensiti, e le due "
+          "mediane per fase escludono gli ordini con timestamp incoerenti. Senza un mese "
+          "selezionato la pagina mostra tutto il periodo."),
+    campo_ingresso=("Calendario", "Etichetta mese"),
+    tipo="Drillthrough",
+    nascosta=False,
+    spegni=[
+        ("p4-fasce", ["p4-c1-numero", "p4-c2-numero", "p4-c3-numero", "p4-c4-numero",
+                      "p4-fasi"]),
+        ("p4-fasi", ["p4-c1-numero", "p4-c2-numero", "p4-c3-numero", "p4-c4-numero",
+                     "p4-fasce"]),
+    ],
+)
+
+# ----------------------------------------------------- 5. COSA NON DICE
 # Le schede dei limiti si stringono da 252 a 216 per lasciare 340 pixel alla
 # tabella: con 268 mostrava sei degli otto stati e le ultime due righe si
 # raggiungevano solo scorrendo. Una tabella che scorre dentro un cruscotto e'
@@ -930,8 +1015,8 @@ pagina("come-cambia", "3. Come cambia", intestazione(
 FILE_Y = [CIMA, 454, 728]                           # 180, 454, 728
 FILE_H = [250, 250, FONDO - 728]                    # 250, 250, 272
 TAB_H  = 376                                        # titolo, intestazione e otto righe
-P4_KPI_Y = CIMA + TAB_H + GRONDA                    # 580
-P4_KPI_H = (FONDO - P4_KPI_Y - GRONDA) // 2         # 214
+P5_KPI_Y = CIMA + TAB_H + GRONDA                    # 580
+P5_KPI_H = (FONDO - P5_KPI_Y - GRONDA) // 2         # 214
 
 LIMITI = [
     ("Correlazione e causa",
@@ -978,24 +1063,24 @@ LIMITI = [
 POSTI = [(X(3 * (i % 3)), FILE_Y[i // 3], FILE_H[i // 3]) for i in range(9)]
 
 schede_limiti = [
-    scheda("p4-l%d" % (i + 1), px, py, W(3), ph, 10 + i, t, corpo)
+    scheda("p5-l%d" % (i + 1), px, py, W(3), ph, 10 + i, t, corpo)
     for i, ((px, py, ph), (t, corpo)) in enumerate(zip(POSTI, LIMITI))
 ]
 
-pagina("cosa-non-dice", "4. Cosa NON dice", intestazione(
-    "p4", "Cosa questa analisi NON dice",
+pagina("cosa-non-dice", "5. Cosa NON dice", intestazione(
+    "p5", "Cosa questa analisi NON dice",
     "Ogni numero di questa pagina e' misurato sugli stessi dati dell'analisi. I limiti stanno "
-    "qui perche' condizionano il modo in cui si leggono le prime tre pagine.",
-    "I LIMITI", "PAGINA 4 DI 4") + schede_limiti + [
+    "qui perche' condizionano il modo in cui si leggono le prime quattro pagine.",
+    "I LIMITI", "PAGINA 5 DI 5") + schede_limiti + [
 
-    tabella("p4-esclusi", X(9), CIMA, W(3), TAB_H, 30,
+    tabella("p5-esclusi", X(9), CIMA, W(3), TAB_H, 30,
             [("ControlloStatiOrdine", "Stato dell'ordine"),
              ("ControlloStatiOrdine", "Ordini")],
             "Cosa entra nell'analisi",
             ordina=("ControlloStatiOrdine", "Ordini", "Descending"),
             larghezze=(216, 132)),
 
-    scheda("p4-nota", POSTI[8][0], POSTI[8][1], W(3), POSTI[8][2], 31,
+    scheda("p5-nota", POSTI[8][0], POSTI[8][1], W(3), POSTI[8][2], 31,
            "Come leggere la tabella", [
                "2.963 ordini non sono mai arrivati: annullati, non disponibili o ancora in "
                "viaggio. Piu' otto consegnati senza data di consegna.",
@@ -1007,105 +1092,20 @@ pagina("cosa-non-dice", "4. Cosa NON dice", intestazione(
                "dati cambiano, cambiano anche loro.",
            ]),
 
-    riquadro("p4-c1", X(9), P4_KPI_Y, W(3), P4_KPI_H, 32, "Ordini esclusi dall'analisi",
+    riquadro("p5-c1", X(9), P5_KPI_Y, W(3), P5_KPI_H, 32, "Ordini esclusi dall'analisi",
              "Ordini mai arrivati", dim=30),
-    riquadro("p4-c2", X(9), FONDO - P4_KPI_H, W(3), P4_KPI_H, 33, "Coppie venditore-ordine",
+    riquadro("p5-c2", X(9), FONDO - P5_KPI_H, W(3), P5_KPI_H, 33, "Coppie venditore-ordine",
              "Contro 96.470 ordini", dim=30),
-] + piede("p4",
+] + piede("p5",
           "Ogni numero e' riconciliato fra il calcolo di esplorazione in Python e il modello "
           "Power BI. Dove i due non coincidevano e' stata corretta la documentazione, tenendo "
           "il valore misurato."),
-    spegni=[("p4-esclusi", ["p4-c1-numero", "p4-c2-numero"])],
-)
-
-# ------------------------------------------------------- 5. DENTRO UN MESE
-# La pagina 3 dice che marzo 2018 fa il 21,4% e giugno l'1,4%, e a quel punto la
-# domanda successiva e' sempre la stessa: e allora cosa e' successo a marzo?
-# Fino a ieri non c'era modo di chiederlo.
-#
-# Ci si arriva col tasto destro su un mese della pagina 3 (drillthrough): Power
-# BI deposita il mese scelto nel filtro d'ingresso, che sta sulla pagina e non su
-# una visuale, cosi' ci cascano dentro tutti i visuali insieme.
-#
-# La pagina NON e' nascosta, ed e' una scelta. Una pagina di drillthrough
-# nascosta ha un solo modo di uscire, il pulsante Indietro, che Power BI mette
-# da se' solo quando la pagina la costruisci nell'interfaccia — scrivendo il
-# JSON non c'e', e chi entra resta chiuso dentro. Lasciandola visibile si esce
-# dalla linguetta, e aperta da li' mostra tutto il periodo: e' una lettura che
-# ha senso lo stesso.
-#
-# Le due misure per fase sono le stesse di pagina 2, ristrette al mese: sono
-# quelle che rispondono davvero, perche' dicono se quel mese e' stato il
-# venditore o la logistica.
-M5_RIQ_H = 168                                       # 180 .. 348
-M5_DID_Y = CIMA + M5_RIQ_H + 6                       # 354
-M5_GRA_Y = M5_DID_Y + 44                             # 398
-M5_H = FONDO - M5_GRA_Y                              # 602
-
-pagina("dentro-un-mese", "5. Dentro un mese", intestazione(
-    "p5", "Dentro un mese",
-    "Col tasto destro su un mese della pagina 3 la pagina si apre su quel mese. Le due "
-    "domande sono: quanto era lungo il ritardo, e da quale fase arrivava.",
-    "DETTAGLIO", "DA UN MESE DELLA PAGINA 3") + [
-
-    riquadro("p5-c1", X(0), CIMA, W(3), M5_RIQ_H, 10, "% ordini in ritardo",
-             "Consegne oltre la promessa", accento=True),
-    riquadro("p5-c2", X(3), CIMA, W(3), M5_RIQ_H, 11, "Ordini consegnati",
-             "Ordini consegnati"),
-    riquadro("p5-c3", X(6), CIMA, W(3), M5_RIQ_H, 12, "% recensioni negative",
-             "Recensioni negative"),
-    riquadro("p5-c4", X(9), CIMA, W(3), M5_RIQ_H, 13, "Fatturato (EUR)",
-             "Fatturato consegnato"),
-
-    didascalia("p5-d1", X(0), M5_DID_Y, W(3), 14, "Sul mese d'acquisto."),
-    didascalia("p5-d2", X(3), M5_DID_Y, W(3), 15, "Base dei tempi."),
-    didascalia("p5-d3", X(6), M5_DID_Y, W(3), 16, "Base dei soli ordini recensiti."),
-    didascalia("p5-d4", X(9), M5_DID_Y, W(3), 17, "Somma delle righe d'ordine."),
-
-    barre("p5-fasce", X(0), M5_GRA_Y, W(5), M5_H, 20,
-          ("Ordini", "fascia_ritardo"), [("Ordini consegnati", ROSSO)],
-          "Quanto era lungo: ordini per fascia",
-          forma="fasce", dim_categoria=11),
-
-    barre("p5-fasi", X(5), M5_GRA_Y, W(4), M5_H, 21,
-          ("Ordini", "esito_consegna"),
-          [("Fase venditore (mediana)", GRIGIO),
-           ("Fase logistica (mediana)", ROSSO)],
-          "Da dove arrivava: giorni mediani per fase",
-          forma="fasce", legenda=True, dim_categoria=12, interno=12),
-
-    scheda("p5-lettura", X(9), M5_GRA_Y, W(3), M5_H, 22,
-           "Come si legge", [
-               "Il grafico a sinistra dice se il mese ha prodotto molti ritardi corti o pochi "
-               "ritardi lunghi. Sono due problemi diversi e si affrontano in modo diverso.",
-               "",
-               "Quello accanto dice da quale delle due fasi arrivava il tempo, con le stesse "
-               "due misure della pagina 2 ristrette al mese.",
-               "",
-               ("Se in un mese cattivo si allunga solo la fase logistica, quel mese non e' un "
-                "problema di venditori.", "forte"),
-               "",
-               "Restano fuori gli ordini a cronologia incoerente, come in pagina 2.",
-           ], dim=11),
-] + piede("p5",
-          "Il mese e' quello dell'acquisto. I quattro riquadri e il grafico delle fasce "
-          "girano sui consegnati, le recensioni negative sui soli recensiti, e le due "
-          "mediane per fase escludono gli ordini con timestamp incoerenti. Senza un mese "
-          "selezionato la pagina mostra tutto il periodo."),
-    campo_ingresso=("Calendario", "Etichetta mese"),
-    tipo="Drillthrough",
-    nascosta=False,
-    spegni=[
-        ("p5-fasce", ["p5-c1-numero", "p5-c2-numero", "p5-c3-numero", "p5-c4-numero",
-                      "p5-fasi"]),
-        ("p5-fasi", ["p5-c1-numero", "p5-c2-numero", "p5-c3-numero", "p5-c4-numero",
-                     "p5-fasce"]),
-    ],
+    spegni=[("p5-esclusi", ["p5-c1-numero", "p5-c2-numero"])],
 )
 
 # --------------------------------------------------------- l'indice pagine
-ordine = ["la-domanda", "di-chi-e-il-ritardo", "come-cambia", "cosa-non-dice",
-          "dentro-un-mese", "dettaglio-fascia"]
+ordine = ["la-domanda", "di-chi-e-il-ritardo", "come-cambia", "dentro-un-mese",
+          "cosa-non-dice", "dettaglio-fascia"]
 scrivi(os.path.join(PAGINE, "pages.json"), {
     "$schema": S_PAGS,
     "pageOrder": ordine,

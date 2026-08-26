@@ -828,6 +828,28 @@ sono cinque lo script **esce** invece di avvisare. Meglio nessuna schermata che 
 schermata di un altro documento. Aggiunta anche la cartella temporanea dei lavori di stampa
 di Power BI ai posti dove cercare: se invece di Esporta si usa Stampa, il PDF finisce li'.
 
+### Le pagine 4 e 5 si scambiano di posto
+
+`Dentro un mese` diventa la **4**, `Cosa NON dice` la **5**. Due motivi, e sono tutti e due
+di lettura: il pannello dei limiti e' la chiusura del discorso e non un capitolo in mezzo,
+e la pagina di dettaglio si raggiunge dalla 3, quindi le sta naturale accanto.
+
+Lo scambio non e' solo nell'indice: sono stati scambiati anche i **prefissi dei visuali**
+(`p4-` e `p5-`) e l'ordine dei due blocchi dentro `costruisci-report.py`. Lasciare il
+codice che chiama `p4` la quinta pagina sarebbe stato un piccolo debito che costa ogni
+volta che qualcuno ci torna sopra.
+
+Le testate adesso contano cinque pagine — `PAGINA 4 DI 5` sostituisce il `DA UN MESE DELLA
+PAGINA 3` che stava nell'angolo del dettaglio, e come ci si arriva resta scritto nel
+sottotitolo. `schermate.py` segue il nuovo ordine.
+
+### Il 8,8% si perdeva
+
+Il numero della didascalia stava a 13pt accanto a un grigio chiaro da 9: si leggeva come
+una nota a pie' di pagina, non come un dato. Sale a **20pt** e le parole accanto passano da
+9 a 10 e da grigio chiaro a grigio scuro. La casella e' gia' 150x60, sopra la soglia sotto
+la quale Power BI non disegna.
+
 ### Le schermate sono vecchie
 
 `schermate/` contiene ancora le tre pagine del 26/08 mattina, senza filtri e senza la

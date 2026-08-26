@@ -21,9 +21,9 @@
                   {
                     "value": "del fatturato consegnato.",
                     "textStyle": {
-                      "fontSize": "9pt",
+                      "fontSize": "10pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
-                      "color": "#67655F"
+                      "color": "#52514E"
                     }
                   }
                 ]

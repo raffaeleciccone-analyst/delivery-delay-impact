@@ -30,8 +30,8 @@ NOMI = [
     "01-la-domanda.png",
     "02-di-chi-e-il-ritardo.png",
     "03-come-cambia.png",
-    "04-cosa-non-dice.png",
-    "05-dentro-un-mese.png",
+    "04-dentro-un-mese.png",
+    "05-cosa-non-dice.png",
 ]
 
 # La tela e' 1920x1080. A 2x le schermate reggono uno schermo denso e restano
