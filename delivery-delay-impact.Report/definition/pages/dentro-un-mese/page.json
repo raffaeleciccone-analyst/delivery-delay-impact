@@ -1,0 +1,150 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "dentro-un-mese",
+  "displayName": "5. Dentro un mese",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#EDECE8'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspace": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#EDECE8'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "type": "Drillthrough",
+  "pageBinding": {
+    "name": "dentro-un-mese",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "ingresso-dentro-un-mese",
+        "boundFilter": "ingresso-dentro-un-mese",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Calendario"
+              }
+            },
+            "Property": "Etichetta mese"
+          }
+        }
+      }
+    ]
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "ingresso-dentro-un-mese",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Calendario"
+              }
+            },
+            "Property": "Etichetta mese"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "p5-fasce",
+      "target": "p5-c1-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p5-fasce",
+      "target": "p5-c2-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p5-fasce",
+      "target": "p5-c3-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p5-fasce",
+      "target": "p5-c4-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p5-fasce",
+      "target": "p5-fasi",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p5-fasi",
+      "target": "p5-c1-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p5-fasi",
+      "target": "p5-c2-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p5-fasi",
+      "target": "p5-c3-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p5-fasi",
+      "target": "p5-c4-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p5-fasi",
+      "target": "p5-fasce",
+      "type": "NoFilter"
+    }
+  ]
+}

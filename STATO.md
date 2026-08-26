@@ -14,7 +14,7 @@ e' gia' fatto.
 | 5. Power Query | **fatto** — 11 query in `power-query/` | `power-query/` |
 | 6. Modello a stella | **fatto e verificato** | `costruisci-modello.ps1` |
 | 7. Misure DAX | **fatte** — 39 misure | `costruisci-modello.ps1` |
-| 8. La tela | **fatta** — 4 pagine piu' un riquadro di dettaglio, 132 visuali | `costruisci-report.py` |
+| 8. La tela | **fatta** — 4 pagine, una di dettaglio, un riquadro al mouse, 160 visuali | `costruisci-report.py` |
 | 9. Pannello «cosa NON dice» | **fatto** — e' la pagina 4 | `costruisci-report.py` |
 | 10. Consegna: repo, README, schermate | repo e README **fatti**; schermate **da rifare** | `README.md` |
 
@@ -732,6 +732,55 @@ controlli di `RICONCILIAZIONE.md`. Altrimenti e' un errore, non un avviso.
 
 Il diagramma del modello e' stato rigenerato dal TMDL nuovo e rinumerato in
 `05-modello`, perche' il 04 adesso e' la pagina dei limiti.
+
+### Il drillthrough: dentro un mese (26/08, sera)
+
+La pagina 3 dice che marzo 2018 fa il 21,4% e giugno l'1,4%, e la domanda successiva era
+sempre la stessa — **e allora cosa e' successo a marzo?** Fino a oggi non c'era modo di
+chiederlo.
+
+`dentro-un-mese` si apre col tasto destro su un mese del grafico della pagina 3. Power BI
+deposita il mese scelto nel filtro d'ingresso, che sta **sulla pagina** e non su una
+visuale: ci cascano dentro tutti i visuali insieme. Mostra due cose, e sono le due che
+servono a decidere:
+
+- **quanto era lungo il ritardo** in quel mese (ordini per fascia): molti ritardi corti e
+  pochi ritardi lunghi sono due problemi diversi;
+- **da quale fase arrivava** (le stesse due mediane della pagina 2, ristrette al mese): se
+  in un mese cattivo si allunga solo la logistica, quel mese non e' un problema di
+  venditori.
+
+**La pagina non e' nascosta, ed e' una scelta.** Una pagina di drillthrough nascosta ha un
+solo modo di uscire, il pulsante Indietro, che Power BI mette da se' solo quando la pagina
+la costruisci nell'interfaccia: scrivendo il JSON non c'e', e chi entra resta chiuso
+dentro. Lasciandola visibile si esce dalla linguetta, e aperta da li' mostra tutto il
+periodo — una lettura che ha senso lo stesso.
+
+Trovato correggendo: `verifica-tela.py` saltava il controllo della griglia su **tutte** le
+pagine con un tipo, e quindi anche su questa, che invece e' a tela piena e la griglia la
+deve rispettare. Adesso salta solo il riquadro al mouse, che e' l'unico fuori misura.
+
+### Segnalibri, parametri di campo, RLS: no, e il motivo
+
+Erano nella stessa lista del drillthrough. Non li ho fatti, e non per fretta:
+
+- **un segnalibro** serve a mettere due viste sotto lo stesso spazio. Qui le due viste che
+  varrebbe la pena alternare — ritardo e recensioni negative nel tempo — stanno gia' una
+  accanto all'altra sulla pagina 3, e un segnalibro le nasconderebbe a turno per far vedere
+  che so usare i segnalibri;
+- **un parametro di campo** e' la stessa cosa con una tabella calcolata in piu' da tenere
+  allineata;
+- **la RLS** vuole dei ruoli. Qui non c'e' nessuno da separare da nessun altro: dovrei
+  inventarmi un «responsabile di regione» che nei dati non esiste.
+
+Sono tre cose che si mettono in un cruscotto perche' servono a chi lo legge, non perche'
+compaiono in un annuncio di lavoro. Se un colloquio le chiede, la risposta e' questa.
+
+### Il .pbix superato
+
+Rinominato in `SUPERATO-delivery-delay-impact-13-08.pbix`. Era delle 13:08 e la sorgente e'
+di sei ore dopo: due artefatti, uno solo vero, e nessuna indicazione di quale. Adesso
+l'indicazione e' nel nome. Va rigenerato con Salva con nome o cancellato.
 
 ### Le schermate sono vecchie
 

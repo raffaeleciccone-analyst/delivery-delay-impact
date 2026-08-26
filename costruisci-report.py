@@ -516,7 +516,7 @@ def distendi(elenco):
 
 
 def pagina(nome, titolo_, visuali, spegni=(), tipo=None,
-           larghezza=L, altezza=A, sfondo=SFONDO):
+           larghezza=L, altezza=A, sfondo=SFONDO, nascosta=None, campo_ingresso=None):
     """spegni: coppie (sorgente, [bersagli]) per cui il clic sulla sorgente NON
     deve filtrare il bersaglio.
 
@@ -550,8 +550,27 @@ def pagina(nome, titolo_, visuali, spegni=(), tipo=None,
     }
     if tipo:
         corpo["type"] = tipo
-        corpo["visibility"] = "HiddenInViewMode"
         corpo["pageBinding"] = {"name": nome, "type": tipo}
+    if nascosta if nascosta is not None else bool(tipo):
+        corpo["visibility"] = "HiddenInViewMode"
+    if campo_ingresso:
+        # Il campo da cui si entra: Power BI ci deposita il valore del punto su
+        # cui e' stato premuto il tasto destro. Il filtro sta sulla pagina, non
+        # su una visuale, cosi' ci cascano dentro tutti i visuali insieme.
+        tab_i, col_i = campo_ingresso
+        espressione = {"Column": {"Expression": {"SourceRef": {"Entity": tab_i}},
+                                  "Property": col_i}}
+        corpo["filterConfig"] = {"filters": [{
+            "name": "ingresso-" + nome,
+            "field": espressione,
+            "type": "Categorical",
+            "howCreated": "Drillthrough",
+        }]}
+        corpo["pageBinding"]["parameters"] = [{
+            "name": "ingresso-" + nome,
+            "boundFilter": "ingresso-" + nome,
+            "fieldExpr": espressione,
+        }]
     if interazioni:
         corpo["visualInteractions"] = interazioni
     scrivi(os.path.join(cartella, "page.json"), corpo)
@@ -967,9 +986,94 @@ pagina("cosa-non-dice", "4. Cosa NON dice", intestazione(
     spegni=[("p4-esclusi", ["p4-c1-numero", "p4-c2-numero"])],
 )
 
+# ------------------------------------------------------- 5. DENTRO UN MESE
+# La pagina 3 dice che marzo 2018 fa il 21,4% e giugno l'1,4%, e a quel punto la
+# domanda successiva e' sempre la stessa: e allora cosa e' successo a marzo?
+# Fino a ieri non c'era modo di chiederlo.
+#
+# Ci si arriva col tasto destro su un mese della pagina 3 (drillthrough): Power
+# BI deposita il mese scelto nel filtro d'ingresso, che sta sulla pagina e non su
+# una visuale, cosi' ci cascano dentro tutti i visuali insieme.
+#
+# La pagina NON e' nascosta, ed e' una scelta. Una pagina di drillthrough
+# nascosta ha un solo modo di uscire, il pulsante Indietro, che Power BI mette
+# da se' solo quando la pagina la costruisci nell'interfaccia — scrivendo il
+# JSON non c'e', e chi entra resta chiuso dentro. Lasciandola visibile si esce
+# dalla linguetta, e aperta da li' mostra tutto il periodo: e' una lettura che
+# ha senso lo stesso.
+#
+# Le due misure per fase sono le stesse di pagina 2, ristrette al mese: sono
+# quelle che rispondono davvero, perche' dicono se quel mese e' stato il
+# venditore o la logistica.
+M5_RIQ_H = 168                                       # 180 .. 348
+M5_DID_Y = CIMA + M5_RIQ_H + 6                       # 354
+M5_GRA_Y = M5_DID_Y + 44                             # 398
+M5_H = FONDO - M5_GRA_Y                              # 602
+
+pagina("dentro-un-mese", "5. Dentro un mese", intestazione(
+    "p5", "Dentro un mese",
+    "Col tasto destro su un mese della pagina 3 la pagina si apre su quel mese. Le due "
+    "domande sono: quanto era lungo il ritardo, e da quale fase arrivava.",
+    "DETTAGLIO", "DA UN MESE DELLA PAGINA 3") + [
+
+    riquadro("p5-c1", X(0), CIMA, W(3), M5_RIQ_H, 10, "% ordini in ritardo",
+             "Consegne oltre la promessa", accento=True),
+    riquadro("p5-c2", X(3), CIMA, W(3), M5_RIQ_H, 11, "Ordini consegnati",
+             "Ordini consegnati"),
+    riquadro("p5-c3", X(6), CIMA, W(3), M5_RIQ_H, 12, "% recensioni negative",
+             "Recensioni negative"),
+    riquadro("p5-c4", X(9), CIMA, W(3), M5_RIQ_H, 13, "Fatturato (EUR)",
+             "Fatturato consegnato"),
+
+    didascalia("p5-d1", X(0), M5_DID_Y, W(3), 14, "Sul mese d'acquisto."),
+    didascalia("p5-d2", X(3), M5_DID_Y, W(3), 15, "Base dei tempi."),
+    didascalia("p5-d3", X(6), M5_DID_Y, W(3), 16, "Base dei soli ordini recensiti."),
+    didascalia("p5-d4", X(9), M5_DID_Y, W(3), 17, "Somma delle righe d'ordine."),
+
+    barre("p5-fasce", X(0), M5_GRA_Y, W(5), M5_H, 20,
+          ("Ordini", "fascia_ritardo"), [("Ordini consegnati", ROSSO)],
+          "Quanto era lungo: ordini per fascia",
+          forma="fasce", dim_categoria=11),
+
+    barre("p5-fasi", X(5), M5_GRA_Y, W(4), M5_H, 21,
+          ("Ordini", "esito_consegna"),
+          [("Fase venditore (mediana)", GRIGIO),
+           ("Fase logistica (mediana)", ROSSO)],
+          "Da dove arrivava: giorni mediani per fase",
+          forma="fasce", legenda=True, dim_categoria=12, interno=12),
+
+    scheda("p5-lettura", X(9), M5_GRA_Y, W(3), M5_H, 22,
+           "Come si legge", [
+               "Il grafico a sinistra dice se il mese ha prodotto molti ritardi corti o pochi "
+               "ritardi lunghi. Sono due problemi diversi e si affrontano in modo diverso.",
+               "",
+               "Quello accanto dice da quale delle due fasi arrivava il tempo, con le stesse "
+               "due misure della pagina 2 ristrette al mese.",
+               "",
+               ("Se in un mese cattivo si allunga solo la fase logistica, quel mese non e' un "
+                "problema di venditori.", "forte"),
+               "",
+               "Restano fuori gli ordini a cronologia incoerente, come in pagina 2.",
+           ], dim=11),
+] + piede("p5",
+          "Il mese e' quello dell'acquisto. I quattro riquadri e il grafico delle fasce "
+          "girano sui consegnati, le recensioni negative sui soli recensiti, e le due "
+          "mediane per fase escludono gli ordini con timestamp incoerenti. Senza un mese "
+          "selezionato la pagina mostra tutto il periodo."),
+    campo_ingresso=("Calendario", "Etichetta mese"),
+    tipo="Drillthrough",
+    nascosta=False,
+    spegni=[
+        ("p5-fasce", ["p5-c1-numero", "p5-c2-numero", "p5-c3-numero", "p5-c4-numero",
+                      "p5-fasi"]),
+        ("p5-fasi", ["p5-c1-numero", "p5-c2-numero", "p5-c3-numero", "p5-c4-numero",
+                     "p5-fasce"]),
+    ],
+)
+
 # --------------------------------------------------------- l'indice pagine
 ordine = ["la-domanda", "di-chi-e-il-ritardo", "come-cambia", "cosa-non-dice",
-          "dettaglio-fascia"]
+          "dentro-un-mese", "dettaglio-fascia"]
 scrivi(os.path.join(PAGINE, "pages.json"), {
     "$schema": S_PAGS,
     "pageOrder": ordine,
