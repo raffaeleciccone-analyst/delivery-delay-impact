@@ -1,7 +1,7 @@
 # A che punto siamo
 
-Aggiornato il **26 agosto 2026**. `HANDOFF.md` dice cosa fare e perche'; questo dice cosa
-e' gia' fatto.
+Aggiornato il **26 agosto 2026**. Questo file dice cosa e' gia' fatto, cosa e' andato storto
+e come se n'e' usciti.
 
 ## Fatto
 
@@ -216,9 +216,9 @@ esce dalla tela, niente si sovrappone, tutto sta sulla griglia.
 
 ### Il testo, riscritto (26/08, secondo giro)
 
-Prima revisione con Raffaele davanti al file aperto: la tela sembrava simile a prima, e
-**il testo si riconosceva come scritto da una macchina**. Contate, in tre pagine: 17
-costruzioni «non X, ma Y» e 14 trattini lunghi. E' quello il rumore.
+Riletto tutto ad alta voce, il testo era gonfio: contate, in tre pagine, **17 costruzioni
+«non X, ma Y» e 14 trattini lunghi**. Sono figure che fanno sembrare profonda una frase
+che dice una cosa sola, e a quella densita' diventano un tic.
 
 Riscritto tutto in italiano piatto. I trattini lunghi sono zero, le antitesi sono sei e
 solo dove dicono davvero qualcosa. I titoli affermano invece di negare:
@@ -709,8 +709,9 @@ cosa costano le scelte fatte e come si rifa' tutto. **Contiene quattro immagini 
 non esistono** — sono i nomi che l'export produrra'. E' voluto: finche' quelle immagini
 mancano, il README e' visibilmente incompleto e non si e' tentati di mandarlo a nessuno.
 
-> Da trimmare prima di rendere pubblico il repo: in `HANDOFF.md` la sezione sull'account
-> Microsoft parla di me e non dell'analisi.
+> `HANDOFF.md` resta fuori dal repository: e' il piano di lavoro personale — quale
+> progetto fare prima e perche', tempi, altri progetti in corso — e non ha niente a che
+> vedere con l'analisi.
 
 ### Due difetti di sostanza chiusi
 
@@ -773,8 +774,8 @@ Erano nella stessa lista del drillthrough. Non li ho fatti, e non per fretta:
 - **la RLS** vuole dei ruoli. Qui non c'e' nessuno da separare da nessun altro: dovrei
   inventarmi un «responsabile di regione» che nei dati non esiste.
 
-Sono tre cose che si mettono in un cruscotto perche' servono a chi lo legge, non perche'
-compaiono in un annuncio di lavoro. Se un colloquio le chiede, la risposta e' questa.
+Sono tre cose che si mettono in un cruscotto quando servono a chi lo legge. Qui non
+servono, e metterle lo stesso vorrebbe dire aggiungere funzioni per far numero.
 
 ### Il .pbix superato
 

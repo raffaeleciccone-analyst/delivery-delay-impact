@@ -23,3 +23,7 @@ __pycache__/
 # La bozza di mail alla segreteria: nome, indirizzo e istituto. E' roba mia,
 # non del progetto, e un repository puo' sempre diventare pubblico.
 mail-its.md
+
+# Il piano di lavoro personale: quale progetto fare prima e perche', tempi,
+# altri progetti in corso, come pubblicare. E' roba mia, non dell'analisi.
+HANDOFF.md
