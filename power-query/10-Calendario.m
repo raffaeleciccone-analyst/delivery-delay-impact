@@ -49,7 +49,7 @@ let
     ),
 
     // L'etichetta che finisce sull'asse dei grafici. "Anno-mese" e' "2017-01":
-    // ordina bene e non si legge — nessuno pensa in yyyy-MM. Questa e' "gen 17",
+    // ordina bene e non si legge, nessuno pensa in yyyy-MM. Questa e' "gen 17",
     // e resta unica su tutto il periodo, che e' la condizione perche' Power BI
     // possa ordinarla per "Anno-mese" invece che alfabeticamente: "feb" da solo
     // comparirebbe due volte e i due febbrai finirebbero nella stessa categoria.

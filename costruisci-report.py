@@ -439,8 +439,8 @@ def _numero(nome, x, y, w, h, z, misura, dim, colore, tabella="Misure", colonna=
 def didascalia_misura(nome, x, y, w, z, misura, testo_, largo_n=150, largo_t=190,
                       alto=60):
     """Una didascalia in cui il numero non e' battuto a mano: scende dal modello
-    come quello del riquadro sopra. Serve dove la cifra grande da sola non basta
-    — un valore assoluto senza la sua quota non si sa se sia molto o poco.
+    come quello del riquadro sopra. Serve dove la cifra grande da sola non basta:
+    un valore assoluto senza la sua quota non si sa se sia molto o poco.
 
     Le misure della casella non sono estetiche. La prima versione era 88x30 e
     **sul file aperto non disegnava niente**: Power BI, sotto una certa taglia,
@@ -559,7 +559,7 @@ def pagina(nome, titolo_, visuali, spegni=(), tipo=None,
     Serve piu' di quanto sembri. Power BI incrocia i filtri fra visuali per
     impostazione predefinita: senza queste righe, chi clicca una fascia del
     grafico cambia i numeri dei riquadri in alto, mentre il testo scritto
-    accanto resta quello di prima — e la pagina si contraddice da sola al primo
+    accanto resta quello di prima, e la pagina si contraddice da sola al primo
     clic. I riquadri sono la cornice fissa della pagina: si muovono con i filtri
     in alto, non con i clic sui grafici."""
     visuali = distendi(visuali)
@@ -922,7 +922,7 @@ pagina("come-cambia", "3. Come cambia", intestazione(
 #
 # La pagina NON e' nascosta, ed e' una scelta. Una pagina di drillthrough
 # nascosta ha un solo modo di uscire, il pulsante Indietro, che Power BI mette
-# da se' solo quando la pagina la costruisci nell'interfaccia — scrivendo il
+# da se' solo quando la pagina la costruisci nell'interfaccia, scrivendo il
 # JSON non c'e', e chi entra resta chiuso dentro. Lasciandola visibile si esce
 # dalla linguetta, e aperta da li' mostra tutto il periodo: e' una lettura che
 # ha senso lo stesso.

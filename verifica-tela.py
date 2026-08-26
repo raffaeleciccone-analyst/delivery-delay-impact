@@ -33,7 +33,7 @@ def guasto(dove, cosa):
 def leggi_modello():
     """Oltre ai nomi restituisce il DAX intero e le misure marcate nascoste:
     servono al controllo 8, che distingue una misura orfana da un ingranaggio
-    intermedio — l'ingranaggio lo nomina qualcun altro."""
+    intermedio, l'ingranaggio lo nomina qualcun altro."""
     misure, colonne, testi, nascoste = set(), set(), [], set()
     for f in os.listdir(os.path.join(MODELLO, "tables")):
         tab = f[:-5]
