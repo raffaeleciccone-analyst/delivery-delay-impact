@@ -1,6 +1,6 @@
 # La domanda, scritta prima di aprire Power BI
 
-Passo 3 di `HANDOFF.md`. Finche' questo file non e' deciso, Power BI resta chiuso.
+Finche' questo file non e' deciso, Power BI resta chiuso.
 
 Scritto prima di scaricare i dati. **Verificato il 23/08 sui dati veri**: le ipotesi che
 erano marcate `[V]` sono state controllate una per una, e i risultati stanno in
@@ -126,7 +126,7 @@ da quale delle due tabelle scende, altrimenti «fatturato degli ordini in ritard
 ambiguo.
 
 **`Calendario` va creata a parte**, non derivata da una colonna dei fatti, e marcata come
-tabella data. Vedi le trappole in `HANDOFF.md`.
+tabella data: e' la trappola numero uno, e in questi dati e' viva.
 
 ## Le misure
 
