@@ -466,8 +466,8 @@ dei conti si e' accorciato di una riga.
 | `01-la-domanda.png` | `schermate.py`, dal PDF esportato da Power BI |
 | `02-di-chi-e-il-ritardo.png` | idem |
 | `03-cosa-non-dice.png` | idem |
-| `05-modello.png` | `diagramma-modello.py`, **letto dal TMDL** |
-| `05-modello.svg` | lo stesso, vettoriale, per il README |
+| `06-modello.png` | `diagramma-modello.py`, **letto dal TMDL** |
+| `06-modello.svg` | lo stesso, vettoriale, per il README |
 
 **Le tre pagine vengono dall'export in PDF, non da catture a mano.** L'export rende la
 pagina a piena risoluzione e senza le tre icone che Power BI mostra sopra ogni visuale
@@ -731,7 +731,7 @@ marcata `isHidden` come `Fatturato consegnato e recensito`, che serve solo a rif
 controlli di `RICONCILIAZIONE.md`. Altrimenti e' un errore, non un avviso.
 
 Il diagramma del modello e' stato rigenerato dal TMDL nuovo e rinumerato in
-`05-modello`, perche' il 04 adesso e' la pagina dei limiti.
+`06-modello`, perche' il 04 adesso e' la pagina dei limiti.
 
 ### Il drillthrough: dentro un mese (26/08, sera)
 
