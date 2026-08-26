@@ -44,16 +44,16 @@ punta, non venditori da sospendere.
 
 ![Come cambia](schermate/03-come-cambia.png)
 
-![Cosa non dice](schermate/04-cosa-non-dice.png)
+![Dentro un mese](schermate/04-dentro-un-mese.png)
 
-![Dentro un mese](schermate/05-dentro-un-mese.png)
+![Cosa non dice](schermate/05-cosa-non-dice.png)
 
-La quinta pagina si apre col tasto destro su un mese del grafico della terza, e mostra per
-quel mese quanto era lungo il ritardo e da quale delle due fasi arrivava. Passando il mouse
-su una fascia della prima pagina si apre un riquadro con gli ordini, il voto e il fatturato
-di quella fascia.
+La quarta pagina si apre anche col tasto destro su un mese del grafico della terza, e mostra
+per quel mese quanto era lungo il ritardo e da quale delle due fasi arrivava. Passando il
+mouse su una fascia della prima pagina si apre un riquadro con gli ordini, il voto e il
+fatturato di quella fascia.
 
-La quarta pagina non è un'appendice: è stata progettata insieme alle altre, prima di
+L'ultima pagina non è un'appendice: è stata progettata insieme alle altre, prima di
 costruirle. Elenca cosa l'analisi **non** può dire — che la recensione misura la
 percezione e non il danno, che «in ritardo» è rispetto a una promessa e non a un tempo
 ragionevole, che manca il costo di rimediare e quindi il cruscotto informa chi decide ma

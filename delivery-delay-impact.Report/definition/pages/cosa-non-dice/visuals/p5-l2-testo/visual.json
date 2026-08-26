@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "p5-l2-testo",
+  "position": {
+    "x": 530,
+    "y": 198,
+    "z": 12,
+    "height": 216,
+    "width": 398,
+    "tabOrder": 12
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "La recensione non misura il danno economico",
+                    "textStyle": {
+                      "fontSize": "14pt",
+                      "fontFamily": "Georgia, serif",
+                      "color": "#1A1A19"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "",
+                    "textStyle": {
+                      "fontSize": "5pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Da questi dati non si puo' sapere se un cliente con una stella ha smesso di comprare. Ci sono 96.096 persone per 99.441 ordini: il 97% compra una volta sola, e non c'e' un comportamento successivo da osservare.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
