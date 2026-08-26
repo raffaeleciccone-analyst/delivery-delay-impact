@@ -16,7 +16,7 @@ e' gia' fatto.
 | 7. Misure DAX | **fatte** — 39 misure | `costruisci-modello.ps1` |
 | 8. La tela | **fatta** — 4 pagine, una di dettaglio, un riquadro al mouse, 160 visuali | `costruisci-report.py` |
 | 9. Pannello «cosa NON dice» | **fatto** — e' la pagina 4 | `costruisci-report.py` |
-| 10. Consegna: repo, README, schermate | repo e README **fatti**; schermate **da rifare** | `README.md` |
+| 10. Consegna: repo, README, schermate | **fatti** — manca solo il push | `README.md` |
 
 **Ambiente:** Power BI Desktop **2.157.879.0 (26.08)** x64, installato il 23/08 da winget
 (`Microsoft.PowerBI`, sorgente `winget`). Non e' la versione dello Store: non si aggiorna
@@ -850,12 +850,15 @@ una nota a pie' di pagina, non come un dato. Sale a **20pt** e le parole accanto
 9 a 10 e da grigio chiaro a grigio scuro. La casella e' gia' 150x60, sopra la soglia sotto
 la quale Power BI non disegna.
 
-### Le schermate sono vecchie
+### Le schermate ci sono (26/08, sera)
 
-`schermate/` contiene ancora le tre pagine del 26/08 mattina, senza filtri e senza la
-pagina della tendenza. **Vanno rifatte**: export in PDF da Power BI Desktop, poi
-`schermate.py`. Il nome dei file cambia, perche' le pagine adesso sono quattro e la terza
-non e' piu' quella dei limiti.
+Cinque pagine a 2952x1692, dall'export in PDF, piu' il diagramma del modello disegnato dal
+TMDL. Il README non ha piu' immagini rotte, e nella cartella c'e' anche il PDF intero del
+report: e' il file da allegare a una mail senza chiedere a nessuno di installare Power BI.
+
+Le vecchie stanno in `schermate/superate/`, fuori dal repository. Restano li' finche' non
+servono piu' a niente: sono la versione a tre pagine, e servono solo a ricordare da dove si
+e' partiti.
 
 ## La prossima cosa, in concreto
 
