@@ -1,7 +1,7 @@
 // Query: RecensioniPerOrdine   -- NON caricata nel modello (serve al merge di Ordini)
 //
 // Il file ha 99.224 recensioni per 98.673 ordini: 547 ordini ne hanno piu' d'una,
-// e 789 review_id compaiono su piu' ordini — la chiave dichiarata non e' una chiave
+// e 789 review_id compaiono su piu' ordini, la chiave dichiarata non e' una chiave
 // (§5). Quindi review_id non entra nel modello, e il voto per ordine e' una MEDIA.
 // Su 547 ordini il voto mostrato non e' un voto che qualcuno ha dato: sta scritto
 // nel pannello dei limiti, e la colonna recensioni_sull_ordine permette di trovarli.

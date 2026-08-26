@@ -1,7 +1,7 @@
 // Query: Clienti   -- dimensione, grana: un cliente-ordine
 //
 // ATTENZIONE (§6): customer_id NON e' la persona. Ci sono 99.441 customer_id
-// distinti — esattamente quanti gli ordini — contro 96.096 customer_unique_id.
+// distinti, esattamente quanti gli ordini, contro 96.096 customer_unique_id.
 // La persona e' customer_unique_id, e solo il 3,1% compra piu' di una volta.
 // La chiave della relazione con Ordini e' customer_id.
 //

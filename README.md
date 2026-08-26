@@ -13,7 +13,7 @@ risponde a quella e a nient'altro.
 
 **Il ritardo è raro e costa molto.** L'8,1% degli ordini arriva dopo la data promessa al
 cliente. Su quelli il voto medio scende da 4,29 a 2,57 e le recensioni negative passano
-dal 9,2% al **54,0%**.
+dal 9,2% al 54,0%.
 
 **Il legame non è una pendenza, è un dirupo.** Fra dieci giorni di anticipo e la consegna
 appena in orario le recensioni negative passano dall'8,9% all'11,0%. Fra 3 e 7 giorni di
@@ -23,7 +23,7 @@ cruscotto non c'è nessuna correlazione, ci sono le fasce.
 
 **Il ritardo non si forma dal venditore.** Spezzando il tempo di consegna nei due
 intervalli che i dati registrano: sugli ordini in ritardo il venditore impiega 1,2 giorni
-in più del solito, la logistica ne impiega **17**. E non esiste una manciata di colpevoli:
+in più del solito, la logistica ne impiega 17. E non esiste una manciata di colpevoli:
 1.390 venditori su 2.970 producono almeno un ritardo, e i venti peggiori spiegano il 24%
 del totale.
 
@@ -54,7 +54,7 @@ mouse su una fascia della prima pagina si apre un riquadro con gli ordini, il vo
 fatturato di quella fascia.
 
 L'ultima pagina non è un'appendice: è stata progettata insieme alle altre, prima di
-costruirle. Elenca cosa l'analisi **non** può dire — che la recensione misura la
+costruirle. Elenca cosa l'analisi non può dire, che la recensione misura la
 percezione e non il danno, che «in ritardo» è rispetto a una promessa e non a un tempo
 ragionevole, che manca il costo di rimediare e quindi il cruscotto informa chi decide ma
 non decide.
@@ -113,9 +113,9 @@ una barra di scorrimento) e che nessuna misura del modello giri a vuoto.
 Il diagramma è disegnato dal TMDL invece che catturato dalla vista Modello: se il modello
 cambia, il disegno cambia con lui.
 
-**Il progetto è stato costruito con l'aiuto di un assistente IA.** Le scelte che contano —
-la domanda, le soglie dichiarate, le due tabelle che nel modello non sono entrate, il tasso
-di cambio a cui sono convertiti gli importi — sono scritte con il loro perché in
+**Il progetto è stato costruito con l'aiuto di un assistente IA.** Le scelte che contano (la
+domanda, le soglie dichiarate, le due tabelle che nel modello non sono entrate, il tasso
+di cambio a cui sono convertiti gli importi) sono scritte con il loro perché in
 `DOMANDA.md` e nei commenti degli script. Una scelta che non si sa spiegare non serve a
 niente, e questa è la ragione per cui sono scritte tutte.
 

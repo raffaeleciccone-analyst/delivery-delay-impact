@@ -405,7 +405,7 @@ $mod.Tables["Misure"].Measures["Fatturato consegnato e recensito"].IsHidden = $t
 
 # ------------------------------------------------------------------ si scrive
 #
-# Si riscrive SOLO la cartella definition\ — il modello, che e' roba nostra.
+# Si riscrive SOLO la cartella definition\, il modello, che e' roba nostra.
 # Tutto il resto del progetto (.platform, definition.pbism, .pbi\, il report)
 # lo scrive Power BI col Salva con nome, ed e' roba sua: sovrascriverlo a mano
 # significa indovinare schemi e versioni, che e' gia' costato un pomeriggio.

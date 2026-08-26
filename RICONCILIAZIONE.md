@@ -3,17 +3,17 @@
 I conteggi di `DATI-SPORCHI.md` e `DOMANDA.md` sono stati calcolati leggendo i CSV, **non
 dentro Power BI**. Se il cruscotto e il README dicono numeri diversi, il README mente.
 
-Questa e' la lista da spuntare **appena il modello sta in piedi**, prima di disegnare
+Questa e' la lista da spuntare appena il modello sta in piedi, prima di disegnare
 qualsiasi cosa. Ogni riga si controlla con una misura buttata su una tabella qualsiasi e
 poi cancellata: sono trenta minuti, e sono quelli che tengono insieme il progetto.
 
-Se un numero non torna, **non si aggiusta il documento**: si trova quale passaggio di
+Se un numero non torna, non si aggiusta il documento: si trova quale passaggio di
 Power Query si comporta diversamente. Quasi sempre e' un filtro applicato in un ordine
 diverso, o una base sbagliata (vedi l'ultima sezione).
 
 ---
 
-## TUTTI SPUNTATI — 23/08, sul modello costruito
+## TUTTI SPUNTATI, 23/08, sul modello costruito
 
 Il modello e' stato scritto in un'istanza di Power BI Desktop e interrogato con le sue
 misure DAX (non con formule scritte a parte). Ogni riga qui sotto e' il risultato di una
@@ -36,7 +36,7 @@ misura del modello, letto dal motore.
 | 16 | Coppie venditore-ordine | 97.811 | **97.811** |
 | 17 | Ordini esclusi dal cruscotto | 2.963 | **2.963** |
 
-**Nessuna divergenza.** L'unico scarto — l'8,77% contro l'8,6% — non era un errore ma una
+Nessuna divergenza. L'unico scarto, l'8,77% contro l'8,6%, non era un errore ma una
 base diversa, ed e' stato corretto in `DATI-SPORCHI.md`: per il fatturato la popolazione
 giusta e' tutti i consegnati, non i soli recensiti.
 
@@ -53,18 +53,18 @@ dallo schermo:
 | 3 | Ordini consegnati con data | 96.470 | **96.470** |
 | 4 | Consegnati e recensiti | 95.824 | **95.824** |
 | 5 | Consegnati in ritardo | 7.826 | **7.826** |
-| — | Ordini a cronologia sana | 95.082 | **95.082** |
+|, | Ordini a cronologia sana | 95.082 | **95.082** |
 | 6 | Ritardo mediano | 5,8 | **5,806** |
 | 8 | Voto medio in orario / in ritardo | 4,29 / 2,57 | **4,294 / 2,567** |
-| — | Righe di ControlloStatiOrdine | 8 | **8** |
+|, | Righe di ControlloStatiOrdine | 8 | **8** |
 
-**Power Query riproduce i numeri calcolati sui CSV.** Le due trappole di lettura (§14
+Power Query riproduce i numeri calcolati sui CSV. Le due trappole di lettura (§14
 a capo dentro i commenti, §15 punto decimale) sono superate: se una delle due fosse
 scattata, questi numeri sarebbero diversi.
 
-**Trovato nello stesso controllo:** Power BI aveva creato **nove tabelle data automatiche**
+Trovato nello stesso controllo: Power BI aveva creato nove tabelle data automatiche
 nascoste (`LocalDateTable_...`, una per colonna data, piu' un modello). E' la funzione
-«Data/ora automatica», e va spenta — va in conflitto con la tabella `Calendario` creata a
+«Data/ora automatica», e va spenta, va in conflitto con la tabella `Calendario` creata a
 mano e gonfia il file. Si toglie da Opzioni -> Caricamento dati, sia per il file corrente
 sia nelle impostazioni globali.
 
@@ -99,15 +99,15 @@ e ogni confronto anno su anno del cruscotto e' sbagliato senza dirlo.
 
 ## Le due basi, da non confondere mai
 
-Nel cruscotto convivono due popolazioni diverse, e **ogni misura deve dichiarare la sua**:
+Nel cruscotto convivono due popolazioni diverse, e ogni misura deve dichiarare la sua:
 
-- **96.470** — ordini consegnati con data. E' la base di tutto cio' che riguarda **tempi,
-  ritardi e venditori**: per sapere se un pacco e' arrivato tardi la recensione non serve.
-- **95.824** — di quelli, i recensiti. E' la base di tutto cio' che riguarda i **voti**.
+- **96.470**, ordini consegnati con data. E' la base di tutto cio' che riguarda tempi,
+  ritardi e venditori: per sapere se un pacco e' arrivato tardi la recensione non serve.
+- **95.824**, di quelli, i recensiti. E' la base di tutto cio' che riguarda i voti.
 
 Le 646 righe di differenza sembrano niente e non lo sono: usare la base sbagliata sposta
 i venditori da 2.970 a 2.965 e quelli con almeno un ritardo da 1.390 a 1.376. **E'
-l'errore che e' stato commesso e corretto scrivendo `DATI-SPORCHI.md`** — la direzione
+l'errore che e' stato commesso e corretto scrivendo `DATI-SPORCHI.md`**, la direzione
 della conclusione non cambiava, ma cinque numeri pubblicati erano sbagliati.
 
 Un errore cosi' non da' nessun messaggio di errore. L'unica difesa e' scrivere la base

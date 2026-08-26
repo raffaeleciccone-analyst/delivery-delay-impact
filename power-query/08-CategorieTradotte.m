@@ -4,7 +4,7 @@
 // la prima colonna prende un nome sporco e il merge con Prodotti non aggancia
 // piu' niente, senza dare nessun errore.
 //
-// Righe attese: 71 — contro 73 categorie nei prodotti: due non hanno traduzione.
+// Righe attese: 71, contro 73 categorie nei prodotti: due non hanno traduzione.
 let
     Origine = Csv.Document(
         File.Contents(PercorsoDati & "\product_category_name_translation.csv"),
