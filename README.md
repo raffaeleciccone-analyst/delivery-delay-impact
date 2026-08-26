@@ -113,6 +113,12 @@ una barra di scorrimento) e che nessuna misura del modello giri a vuoto.
 Il diagramma è disegnato dal TMDL invece che catturato dalla vista Modello: se il modello
 cambia, il disegno cambia con lui.
 
+**Il progetto è stato costruito con l'aiuto di un assistente IA.** Le scelte che contano —
+la domanda, le soglie dichiarate, le due tabelle che nel modello non sono entrate, il tasso
+di cambio a cui sono convertiti gli importi — sono scritte con il loro perché in
+`DOMANDA.md` e nei commenti degli script. Una scelta che non si sa spiegare non serve a
+niente, e questa è la ragione per cui sono scritte tutte.
+
 ---
 
 ## Rifarlo
@@ -144,7 +150,6 @@ Il lavoro è documentato mentre si faceva, non dopo:
 | `DOMANDA.md` | la domanda e le sei sotto-domande, scritte prima di aprire Power BI, poi verificate una per una sui dati |
 | `DATI-SPORCHI.md` | tredici problemi trovati esplorando i CSV, con il passaggio di Power Query che li tratta |
 | `RICONCILIAZIONE.md` | i numeri che il modello deve riprodurre, e il loro esito |
-| `STATO.md` | il diario: cosa è stato fatto, cosa è stato sbagliato e come se n'è usciti |
 
 Il criterio in `RICONCILIAZIONE.md`: se il cruscotto e i documenti dicono numeri diversi,
 mentono i documenti. Ogni scarto trovato è stato risolto correggendo il documento e
