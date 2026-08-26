@@ -1,7 +1,8 @@
 # I ritardi di consegna quanto costano in recensioni negative
 
 Analisi in Power BI sul marketplace brasiliano Olist: 96.470 ordini consegnati fra
-settembre 2016 e ottobre 2018.
+settembre 2016 e ottobre 2018. I dati sono il dump pubblico che Olist ha rilasciato su
+Kaggle, licenza CC BY-NC-SA 4.0, e non sono nel repository: come scaricarli sta più sotto.
 
 La domanda è stata scritta prima di aprire Power BI, in `DOMANDA.md`, e il cruscotto
 risponde a quella e a nient'altro.
