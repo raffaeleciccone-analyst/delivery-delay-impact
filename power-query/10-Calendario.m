@@ -1,6 +1,6 @@
 // Query: Calendario   -- dimensione data, CREATA, non derivata
 //
-// E' la trappola numero uno dell'handoff, e in questi dati e' viva: novembre 2016
+// E' la trappola numero uno di una tabella data, e in questi dati e' viva: novembre 2016
 // non ha nessun ordine (§11). Una tabella data derivata da una colonna dei fatti
 // salterebbe quel mese, e la time intelligence sbaglierebbe in silenzio.
 // Qui i giorni sono generati uno per uno dal 1 gennaio 2016 al 31 dicembre 2018:

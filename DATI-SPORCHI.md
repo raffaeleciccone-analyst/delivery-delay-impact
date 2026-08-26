@@ -1,6 +1,6 @@
 # Cosa e' rotto nei dati, e cosa se ne fa
 
-Passo 4 di `HANDOFF.md`. Trovato il 23 agosto 2026 leggendo i CSV **senza modificarli**.
+Trovato il 23 agosto 2026 leggendo i CSV **senza modificarli**.
 I file in `dati_grezzi/` restano come sono scaricati: ogni correzione qui elencata
 diventa un **passaggio con un nome** in Power Query, e i nomi sono quelli in grassetto.
 
@@ -168,7 +168,7 @@ resta nel fatturato, e le due basi vanno dette.
 | set 2018 | 16 |
 | ott 2018 | 4 |
 
-**E' esattamente la trappola dell'handoff.** Novembre 2016 non ha nessun ordine: senza
+**E' la trappola annunciata.** Novembre 2016 non ha nessun ordine: senza
 tabella calendario separata e marcata come tale, la time intelligence salta il mese e i
 confronti anno su anno lo fanno in silenzio.
 
