@@ -243,13 +243,13 @@ scrivi(pag, "La tabella data e' creata a parte, non derivata dai fatti. La secon
 if not os.path.isdir(FUORI):
     os.makedirs(FUORI)
 
-png = os.path.join(FUORI, "05-modello.png")
+png = os.path.join(FUORI, "06-modello.png")
 pag.get_pixmap(matrix=pymupdf.Matrix(SCALA, SCALA)).save(png)
-io.open(os.path.join(FUORI, "05-modello.svg"), "w", encoding="utf-8").write(
+io.open(os.path.join(FUORI, "06-modello.svg"), "w", encoding="utf-8").write(
     pag.get_svg_image())
 doc.close()
 
 print("letto dal modello: %d tabelle, %d relazioni (%d inattiva)"
       % (len(tabelle), len(relazioni), sum(1 for r in relazioni if not r["attiva"])))
 print("scritto %s  (%d x %d)" % (png, L * SCALA, A * SCALA))
-print("scritto anche 05-modello.svg, vettoriale, per il README")
+print("scritto anche 06-modello.svg, vettoriale, per il README")

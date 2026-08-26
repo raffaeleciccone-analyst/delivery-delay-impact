@@ -46,10 +46,12 @@ punta, non venditori da sospendere.
 
 ![Cosa non dice](schermate/04-cosa-non-dice.png)
 
-Una quinta pagina, `Dentro un mese`, si apre col tasto destro su un mese del grafico della
-terza: mostra per quel mese quanto era lungo il ritardo e da quale delle due fasi arrivava.
-Passando il mouse su una fascia della prima pagina si apre un riquadro con gli ordini, il
-voto e il fatturato di quella fascia.
+![Dentro un mese](schermate/05-dentro-un-mese.png)
+
+La quinta pagina si apre col tasto destro su un mese del grafico della terza, e mostra per
+quel mese quanto era lungo il ritardo e da quale delle due fasi arrivava. Passando il mouse
+su una fascia della prima pagina si apre un riquadro con gli ordini, il voto e il fatturato
+di quella fascia.
 
 La quarta pagina non è un'appendice: è stata progettata insieme alle altre, prima di
 costruirle. Elenca cosa l'analisi **non** può dire — che la recensione misura la
@@ -61,7 +63,7 @@ non decide.
 
 ## Il modello
 
-![Il modello](schermate/05-modello.svg)
+![Il modello](schermate/06-modello.svg)
 
 Schema a stella: due tabelle dei fatti a grana diversa (l'ordine e la riga d'ordine),
 quattro dimensioni, una tabella di sole misure e una tabella di controllo con il conteggio

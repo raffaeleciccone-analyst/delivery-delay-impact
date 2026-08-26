@@ -23,10 +23,15 @@ FUORI = os.path.join(RADICE, "schermate")
 
 # Le pagine escono nell'ordine di pages.json. I nomi dei file cominciano con un
 # numero perche' su GitHub la cartella si ordina da sola.
+# "dettaglio-fascia" non c'e': e' il riquadro che compare al passaggio del
+# mouse, ed e' nascosto in visualizzazione, quindi l'export in PDF lo salta.
+# "dentro-un-mese" invece e' visibile e viene esportata come le altre.
 NOMI = [
     "01-la-domanda.png",
     "02-di-chi-e-il-ritardo.png",
-    "03-cosa-non-dice.png",
+    "03-come-cambia.png",
+    "04-cosa-non-dice.png",
+    "05-dentro-un-mese.png",
 ]
 
 # La tela e' 1920x1080. A 2x le schermate reggono uno schermo denso e restano
