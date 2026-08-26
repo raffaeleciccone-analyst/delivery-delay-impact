@@ -129,7 +129,8 @@ print()
 for pag, visuali in pagine.items():
     largo_pag, alto_pag, tipo_pag = misure_pagina[pag]
     print("--- %s: %d visuali%s" % (pag, len(visuali),
-                                    "  (riquadro di dettaglio)" if tipo_pag else ""))
+                                    {"Tooltip": "  (riquadro al mouse)",
+                                     "Drillthrough": "  (pagina di dettaglio)"}.get(tipo_pag, "")))
 
     # 1. ogni misura e ogni colonna citata esiste davvero
     for v in visuali:
@@ -163,7 +164,7 @@ for pag, visuali in pagine.items():
     # 4. il corpo sta sulla griglia a dodici colonne. Quello che sta dentro una
     #    carta (il testo delle schede, l'etichetta e il numero dei riquadri) e'
     #    rientrato apposta: sulla griglia ci sta la carta che lo contiene.
-    for v in (corpo if not tipo_pag else []):
+    for v in (corpo if tipo_pag != "Tooltip" else []):
         if v["name"].endswith(("-testo", "-etichetta", "-numero")):
             continue
         p = v["position"]

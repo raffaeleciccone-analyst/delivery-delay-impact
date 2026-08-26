@@ -46,6 +46,11 @@ punta, non venditori da sospendere.
 
 ![Cosa non dice](schermate/04-cosa-non-dice.png)
 
+Una quinta pagina, `Dentro un mese`, si apre col tasto destro su un mese del grafico della
+terza: mostra per quel mese quanto era lungo il ritardo e da quale delle due fasi arrivava.
+Passando il mouse su una fascia della prima pagina si apre un riquadro con gli ordini, il
+voto e il fatturato di quella fascia.
+
 La quarta pagina non è un'appendice: è stata progettata insieme alle altre, prima di
 costruirle. Elenca cosa l'analisi **non** può dire — che la recensione misura la
 percezione e non il danno, che «in ritardo» è rispetto a una promessa e non a un tempo
@@ -94,7 +99,7 @@ controllo di versione. Nessuno dei due è disegnato a mano:
 |---|---|
 | `power-query/*.m` | le query, una per tabella, con i controlli di riga attesi nei commenti |
 | `costruisci-modello.ps1` | monta tabelle, relazioni e 39 misure DAX e scrive il TMDL |
-| `costruisci-report.py` | scrive le pagine in PBIR, un JSON per visuale |
+| `costruisci-report.py` | scrive le pagine in PBIR, un JSON per visuale: quattro pagine, una di dettaglio e un riquadro al mouse |
 | `verifica-tela.py` | otto controlli sulla tela, senza aprire Power BI |
 | `diagramma-modello.py` | disegna il diagramma leggendo il TMDL, non fotografando lo schermo |
 

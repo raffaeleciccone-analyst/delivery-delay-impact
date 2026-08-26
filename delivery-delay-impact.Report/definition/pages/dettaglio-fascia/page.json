@@ -56,9 +56,9 @@
     ]
   },
   "type": "Tooltip",
-  "visibility": "HiddenInViewMode",
   "pageBinding": {
     "name": "dettaglio-fascia",
     "type": "Tooltip"
-  }
+  },
+  "visibility": "HiddenInViewMode"
 }

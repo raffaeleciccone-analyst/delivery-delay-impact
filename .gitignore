@@ -8,6 +8,7 @@ dati_grezzi/
 # Il .pbix e' un duplicato binario del progetto .pbip, che e' la sorgente vera:
 # 26 MB che invecchiano da soli e che in un diff non dicono niente.
 *.pbix
+SUPERATO-*
 
 # Roba di Power BI Desktop, non del progetto
 **/.pbi/localSettings.json
