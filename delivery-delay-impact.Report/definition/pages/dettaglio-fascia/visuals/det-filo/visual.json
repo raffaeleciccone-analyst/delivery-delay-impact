@@ -3,10 +3,10 @@
   "name": "det-filo",
   "position": {
     "x": 16,
-    "y": 48,
+    "y": 84,
     "z": 2,
     "height": 1,
-    "width": 288,
+    "width": 348,
     "tabOrder": 2
   },
   "visual": {

@@ -3,10 +3,10 @@
   "name": "det-fascia",
   "position": {
     "x": 16,
-    "y": 12,
+    "y": 14,
     "z": 1,
-    "height": 28,
-    "width": 288,
+    "height": 60,
+    "width": 348,
     "tabOrder": 1
   },
   "visual": {
@@ -40,7 +40,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13D"
+                  "Value": "14D"
                 }
               }
             },

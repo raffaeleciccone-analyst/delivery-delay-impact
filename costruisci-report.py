@@ -7,7 +7,7 @@
 #
 # Uso:  python costruisci-report.py && python verifica-tela.py
 
-import io, json, os, shutil
+import io, json, os, re, shutil
 
 RADICE = r"C:\dev\_powerbi"
 REPORT = os.path.join(RADICE, "delivery-delay-impact.Report", "definition")
@@ -17,6 +17,28 @@ _S = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition
 S_VIS  = _S + "visualContainer/2.12.0/schema.json"
 S_PAG  = _S + "page/2.1.0/schema.json"
 S_PAGS = _S + "pagesMetadata/1.1.0/schema.json"
+
+# =========================================================== DAL MODELLO
+
+
+def costante(misura):
+    """Legge dal TMDL il valore di una misura che e' un numero fisso.
+
+    Serve per il tasso di cambio nel piede di pagina 1. La strada ovvia sarebbe
+    una scheda numerica come quelle dei riquadri, ma una scheda di 30 pixel
+    Power BI non la disegna: mostra la casella vuota, e sul PDF del 26/08 il
+    numero non c'era. Cosi' invece il valore entra nel testo quando si genera la
+    pagina: se qualcuno cambia la misura, il piede cambia alla prossima
+    generazione, e non c'e' nessun numero scritto a mano che possa mentire."""
+    tmdl = os.path.join(RADICE, "delivery-delay-impact.SemanticModel", "definition",
+                        "tables", "Misure.tmdl")
+    testo = io.open(tmdl, encoding="utf-8").read()
+    m = re.search(r"^	measure '" + re.escape(misura) + r"' = ([0-9.]+)\s*$",
+                  testo, re.M)
+    if not m:
+        raise SystemExit("non trovo la costante %s in Misure.tmdl" % misura)
+    return m.group(1).replace(".", ",")
+
 
 # =========================================================== LA GRIGLIA
 # Dodici colonne, gronda 24, margine 48. Ogni visuale comincia e finisce su una
@@ -276,6 +298,9 @@ def _assi(dim_categoria=11, interno=None, etichette=True, asse_valori=False):
         "labels": [{"properties": {
             "show": _lit("true" if etichette else "false"), "fontSize": _lit("11D"),
             "fontFamily": _txt(FONT_G), "color": _col(INCHIOSTRO),
+            # 1 = nessuna unita'. Senza, l'ultima fascia di pagina 5 scriveva
+            # "0K" su 360 ordini: un arrotondamento che cancella il dato.
+            "labelDisplayUnits": _lit("1D"),
         }}],
     }
 
@@ -411,25 +436,36 @@ def _numero(nome, x, y, w, h, z, misura, dim, colore, tabella="Misure", colonna=
     })
 
 
-def didascalia_misura(nome, x, y, w, z, misura, testo_, largo_n=88, largo_t=170):
+def didascalia_misura(nome, x, y, w, z, misura, testo_, largo_n=150, largo_t=190,
+                      alto=60):
     """Una didascalia in cui il numero non e' battuto a mano: scende dal modello
     come quello del riquadro sopra. Serve dove la cifra grande da sola non basta
-    — un valore assoluto senza la sua quota non si sa se sia molto o poco."""
+    — un valore assoluto senza la sua quota non si sa se sia molto o poco.
+
+    Le misure della casella non sono estetiche. La prima versione era 88x30 e
+    **sul file aperto non disegnava niente**: Power BI, sotto una certa taglia,
+    la scheda numerica la lascia vuota invece di rimpicciolire il numero, e non
+    lo dice. Le schede che funzionano in questo file sono larghe almeno 180 e
+    alte almeno 60; queste stanno sopra quella soglia, e il controllo 7 di
+    verifica-tela.py adesso la fa rispettare."""
     sinistra = x + (w - (largo_n + 6 + largo_t)) // 2
     return [
-        _numero(nome + "-numero", sinistra, y - 4, largo_n, 30, z, misura, 13, INCHIOSTRO),
-        testo(nome + "-testo", sinistra + largo_n + 6, y, largo_t, 28, z + 1,
-              [(testo_, 9, FONT, INCHIOSTRO_3)]),
+        _numero(nome + "-numero", sinistra, y, largo_n, alto, z, misura, 13, INCHIOSTRO),
+        testo(nome + "-testo", sinistra + largo_n + 6, y + (alto - 28) // 2,
+              largo_t, 28, z + 1, [(testo_, 9, FONT, INCHIOSTRO_3)]),
     ]
 
 
-def riga_valore(nome, x, y, w, z, etichetta, misura, largo_n=118, dim=13):
+def riga_valore(nome, x, y, w, z, etichetta, misura, largo_n=180, dim=14, alto=60):
     """Una riga del riquadro di dettaglio: la voce a sinistra, il numero a destra.
-    Due visuali, perche' la voce e' testo e il numero deve scendere dal modello."""
+    Due visuali, perche' la voce e' testo e il numero deve scendere dal modello.
+
+    Le righe sono alte 60 e la scheda larga 180 per la stessa ragione della
+    didascalia: sotto quella taglia Power BI la scheda numerica la lascia vuota."""
     return [
-        testo(nome + "-testo", x, y + 6, w - largo_n - 8, 24, z,
+        testo(nome + "-testo", x, y + (alto - 24) // 2, w - largo_n - 8, 24, z,
               [(etichetta, 10, FONT, INCHIOSTRO_2)]),
-        _numero(nome + "-numero", x + w - largo_n, y, largo_n, 30, z + 1,
+        _numero(nome + "-numero", x + w - largo_n, y, largo_n, alto, z + 1,
                 misura, dim, INCHIOSTRO),
     ]
 
@@ -628,14 +664,14 @@ def filtri(prefisso, anno=True, nota=NOTA_FILTRI):
 #
 # Le quattro voci scendono tutte da Ordini o da RigheOrdine, cioe' da dove
 # arriva il filtro della fascia: nessuna resta ferma fingendo di aver risposto.
-DET_L, DET_A, DET_M, DET_RIGA = 320, 288, 16, 42
+DET_L, DET_A, DET_M, DET_RIGA = 380, 424, 16, 66
 DET_W = DET_L - 2 * DET_M
-DET_Y = 58
+DET_Y = 96
 
 pagina("dettaglio-fascia", "Dettaglio della fascia", [
-    _numero("det-fascia", DET_M, 12, DET_W, 28, 1, "fascia_ritardo", 13, ROSSO,
+    _numero("det-fascia", DET_M, 14, DET_W, 60, 1, "fascia_ritardo", 14, ROSSO,
             tabella="Ordini", colonna=True),
-    banda("det-filo", DET_M, 48, DET_W, 1, 2, BORDO),
+    banda("det-filo", DET_M, 84, DET_W, 1, 2, BORDO),
 
     riga_valore("det-r1", DET_M, DET_Y, DET_W, 10,
                 "Ordini consegnati", "Ordini consegnati"),
@@ -646,7 +682,7 @@ pagina("dettaglio-fascia", "Dettaglio della fascia", [
     riga_valore("det-r4", DET_M, DET_Y + 3 * DET_RIGA, DET_W, 16,
                 "Fatturato", "Fatturato (EUR)"),
 
-    testo("det-nota", DET_M, DET_Y + 4 * DET_RIGA + 4, DET_W, 44, 20,
+    testo("det-nota", DET_M, DET_Y + 4 * DET_RIGA + 6, DET_W, 44, 20,
           [("Ordini e fatturato sui consegnati; voto e recensioni sui recensiti.",
             8, FONT, INCHIOSTRO_3)]),
 ], tipo="Tooltip", larghezza=DET_L, altezza=DET_A, sfondo=CARTA)
@@ -655,9 +691,9 @@ pagina("dettaglio-fascia", "Dettaglio della fascia", [
 # --------------------------------------------------------- 1. LA DOMANDA
 # I riquadri crescono da 150 a 210: l'etichetta ha bisogno della sua fascia con
 # un margine sopra, e il grafico di quello spazio non aveva bisogno.
-RIQ_Y, RIQ_H = CORPO, 168                            # 282 .. 450
-DID_Y = RIQ_Y + RIQ_H + 6                            # 456
-GRA_Y = DID_Y + 44                                   # 500
+RIQ_Y, RIQ_H = CORPO, 152                            # 282 .. 434
+DID_Y = RIQ_Y + RIQ_H + 6                            # 440
+GRA_Y = DID_Y + 60                                   # 500
 P1_SCH_H = 326                                       # 500 .. 826
 VOTI_Y = GRA_Y + P1_SCH_H + GRONDA                   # 850
 MEZZA = W(2)                                         # 284: mezza colonna da quattro
@@ -718,13 +754,9 @@ pagina("la-domanda", "1. La domanda", intestazione(
           "Dati Olist (Kaggle, CC BY-NC-SA 4.0), scaricati e congelati il 23/08/2026. "
           "Ordini consegnati: 96.470 su 99.441. I voti si appoggiano ai 95.824 ordini anche "
           "recensiti. Le due basi sono diverse e ogni misura dichiara la propria. Gli importi "
-          "sono convertiti da reais a euro alla media dei cambi mensili BCE del periodo pesata "
-          "per il fatturato: convertendo mese per mese il totale cambia dello 0,5%.", largo=9) + [
-    # il tasso non si scrive nel piede: se qualcuno cambia la misura, un numero
-    # battuto a mano resta li' a raccontare il cambio di ieri
-    didascalia_misura("p1-cambio", X(9), PIEDE - 2, W(3), 901, "Cambio reais per euro",
-                      "reais per euro, media BCE", largo_n=70, largo_t=190),
-],
+          "sono convertiti da reais a euro a " + costante("Cambio reais per euro") +
+          ", media dei cambi mensili BCE del periodo pesata per il fatturato: convertendo "
+          "mese per mese il totale cambia dello 0,5%."),
     spegni=[("p1-dirupo", ["p1-c1-numero", "p1-c2-numero", "p1-c3-numero", "p1-c4-numero",
                            "p1-d4-numero", "p1-voto1-numero", "p1-voto2-numero"])],
 )

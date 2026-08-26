@@ -782,6 +782,52 @@ Rinominato in `SUPERATO-delivery-delay-impact-13-08.pbix`. Era delle 13:08 e la 
 di sei ore dopo: due artefatti, uno solo vero, e nessuna indicazione di quale. Adesso
 l'indicazione e' nel nome. Va rigenerato con Salva con nome o cancellato.
 
+### Il file aperto, finalmente (26/08, 18:04)
+
+Le tre cose che aspettavo di vedere funzionano: **i filtri a discesa ci stanno** nei 78
+pixel, sull'asse della pagina 3 ci sono **venti mesi** da `gen 17` ad `ago 18`, e la
+**serie grigia dell'anno prima e' vuota sul 2017 e piena dal 2018** — la marcatura come
+tabella data fa quello che deve. Il drillthrough apre la pagina 5.
+
+Ma il PDF ha mostrato due cose che nessun controllo vedeva.
+
+**Le schede numeriche piccole restano bianche.** La quota del fatturato sotto il quarto
+riquadro e il tasso di cambio nel piede: etichetta stampata, numero assente. Non e' un
+errore di misura o di formato — **sotto una certa taglia Power BI la scheda non la disegna
+proprio**, e non lo dice. Le due che sono uscite vuote erano 88x30 e 118x30; quelle che
+funzionano in questo file sono 260x66 e piu' grandi.
+
+Il rapporto col corpo del carattere, che era il criterio del controllo 7, **non discrimina
+niente**: la scheda da 78 pixel con il numero da 40pt (rapporto 1,47) si vede benissimo,
+quella da 30 pixel con il numero da 13pt (rapporto 1,73) e' vuota. Conta la taglia
+assoluta. Il controllo adesso pretende **150x56** e la fascia di avviso graduata e' sparita,
+perche' inventava una precisione che non ho.
+
+Le due caselle sono state risolte in modo diverso, ed e' la parte che conta:
+
+- la **quota del fatturato** e' un numero che si calcola sui dati, quindi resta una scheda:
+  e' cresciuta a 150x60;
+- il **tasso di cambio** e' una costante, e non ha bisogno di una scheda. `costante()` lo
+  legge dal TMDL **mentre si genera la tela** e lo mette nel testo del piede. Il numero non
+  e' battuto a mano lo stesso — se qualcuno cambia la misura, il piede cambia alla prossima
+  generazione — e non dipende da quanto e' grande una casella.
+
+**Le etichette delle barre erano abbreviate.** Sulla pagina 5 l'ultima fascia diceva `0K`
+invece di 360 ordini: un arrotondamento che cancella il dato. `labelDisplayUnits` a 1, come
+gia' era sui riquadri e non sui grafici.
+
+### Lo script delle schermate ha convertito il PDF sbagliato
+
+`trova_pdf()` prendeva il PDF piu' recente fra progetto, Download, Desktop e Documenti. Il
+piu' recente era un **CV**, e lo script ne ha convertito la prima pagina salvandola come
+`01-la-domanda.png`. Il controllo sul numero di pagine c'era e ha stampato l'avviso — poi
+ha scritto lo stesso.
+
+Due correzioni: il nome del PDF deve contenere `delivery-delay-impact`, e se le pagine non
+sono cinque lo script **esce** invece di avvisare. Meglio nessuna schermata che la
+schermata di un altro documento. Aggiunta anche la cartella temporanea dei lavori di stampa
+di Power BI ai posti dove cercare: se invece di Esporta si usa Stampa, il PDF finisce li'.
+
 ### Le schermate sono vecchie
 
 `schermate/` contiene ancora le tre pagine del 26/08 mattina, senza filtri e senza la

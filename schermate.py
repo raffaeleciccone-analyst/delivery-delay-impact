@@ -38,19 +38,33 @@ NOMI = [
 # leggibili quando GitHub le rimpicciolisce.
 SCALA = 2.0
 
+# il nome che il PDF deve avere perche' sia il nostro
+ATTESO = "delivery-delay-impact"
+
 
 def trova_pdf():
+    """Il PDF piu' recente che somigli a questo report.
+
+    La prima versione prendeva il piu' recente e basta, e il 26/08 ha pescato un
+    CV dai Download scrivendoci sopra una schermata. Adesso il nome deve
+    contenere quello del progetto. Fra i posti dove guardare c'e' anche la
+    cartella temporanea dei lavori di stampa di Power BI, dove il PDF finisce se
+    invece di Esporta si usa Stampa."""
+    temp = os.environ.get("TEMP", "")
     cerca = [os.path.join(RADICE, "*.pdf"),
              os.path.join(os.path.expanduser("~"), "Downloads", "*.pdf"),
              os.path.join(os.path.expanduser("~"), "Desktop", "*.pdf"),
-             os.path.join(os.path.expanduser("~"), "Documents", "*.pdf")]
+             os.path.join(os.path.expanduser("~"), "Documents", "*.pdf"),
+             os.path.join(temp, "Power BI Desktop", "print-job-*", "*.pdf")]
     trovati = []
     for c in cerca:
         trovati.extend(glob.glob(c))
-    if not trovati:
-        sys.exit("nessun PDF trovato: passalo come argomento\n"
-                 "  python schermate.py \"C:\\percorso\\del\\file.pdf\"")
-    return max(trovati, key=os.path.getmtime)
+    nostri = [p for p in trovati if ATTESO in os.path.basename(p).lower()]
+    if not nostri:
+        sys.exit("nessun PDF di questo report: ne cerco uno che si chiami '%s...'.\n"
+                 "Passalo come argomento:\n"
+                 "  python schermate.py \"C:\\percorso\\del\\file.pdf\"" % ATTESO)
+    return max(nostri, key=os.path.getmtime)
 
 
 pdf = sys.argv[1] if len(sys.argv) > 1 else trova_pdf()
@@ -60,9 +74,13 @@ if not os.path.isfile(pdf):
 doc = fitz.open(pdf)
 print("PDF: %s  (%d pagine)" % (pdf, doc.page_count))
 
+# Non un avviso: un'uscita. Con un avviso, il 26/08 lo script ha convertito la
+# prima pagina di un PDF sbagliato e l'ha salvata come 01-la-domanda.png.
+# Meglio nessuna schermata che una schermata di un altro documento.
 if doc.page_count != len(NOMI):
-    print("ATTENZIONE: mi aspettavo %d pagine, ne trovo %d. "
-          "Controlla di aver esportato tutto il report." % (len(NOMI), doc.page_count))
+    sys.exit("mi aspettavo %d pagine, ne trovo %d in %s. "
+             "Non scrivo niente: controlla di aver esportato tutto il report."
+             % (len(NOMI), doc.page_count, pdf))
 
 if not os.path.isdir(FUORI):
     os.makedirs(FUORI)
@@ -77,10 +95,9 @@ for i, pagina in enumerate(doc):
 
 doc.close()
 
-manca = os.path.join(FUORI, "04-modello.png")
+manca = os.path.join(FUORI, "06-modello.png")
 if not os.path.isfile(manca):
     print()
-    print("Manca ancora 04-modello.png: la vista Modello non esce nell'export.")
-    print("In Power BI apri la vista Modello (l'icona in basso a sinistra),")
-    print("sistema le otto tabelle in modo che le sei relazioni si vedano tutte,")
-    print("e catturala a mano dentro schermate\\04-modello.png.")
+    print("Manca 06-modello.png: non viene dall'export, lo disegna")
+    print("diagramma-modello.py leggendo il TMDL.")
+    print("  python diagramma-modello.py")

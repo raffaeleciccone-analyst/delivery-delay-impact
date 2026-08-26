@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p1-d4-numero",
   "position": {
-    "x": 1521,
-    "y": 452,
+    "x": 1480,
+    "y": 440,
     "z": 17,
-    "height": 30,
-    "width": 88,
+    "height": 60,
+    "width": 150,
     "tabOrder": 17
   },
   "visual": {
