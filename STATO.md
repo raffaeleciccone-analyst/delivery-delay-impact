@@ -13,10 +13,10 @@ e' gia' fatto.
 | 4. Esplorare e trovare lo sporco | **fatto** — 13 problemi | `DATI-SPORCHI.md` |
 | 5. Power Query | **fatto** — 11 query in `power-query/` | `power-query/` |
 | 6. Modello a stella | **fatto e verificato** | `costruisci-modello.ps1` |
-| 7. Misure DAX | **fatte** — 40 misure | `costruisci-modello.ps1` |
+| 7. Misure DAX | **fatte** — 39 misure | `costruisci-modello.ps1` |
 | 8. La tela | **fatta** — 4 pagine piu' un riquadro di dettaglio, 132 visuali | `costruisci-report.py` |
 | 9. Pannello «cosa NON dice» | **fatto** — e' la pagina 4 | `costruisci-report.py` |
-| 10. Consegna: repo, README, schermate | schermate **fatte**; README e repo da fare | `schermate/` |
+| 10. Consegna: repo, README, schermate | repo e README **fatti**; schermate **da rifare** | `README.md` |
 
 **Ambiente:** Power BI Desktop **2.157.879.0 (26.08)** x64, installato il 23/08 da winget
 (`Microsoft.PowerBI`, sorgente `winget`). Non e' la versione dello Store: non si aggiorna
@@ -686,6 +686,53 @@ intercambiabili.
 Il tasso non e' sepolto in una formula: e' la misura `Cambio reais per euro`, e sta scritto
 nel piede della pagina 1.
 
+### Il repository esiste (26/08, sera)
+
+`git init`, `.gitignore`, primo commit locale — **mai pushato**, e non va pushato finche'
+le schermate non sono rifatte.
+
+Cosa resta fuori dal repository, e perche':
+
+- **`dati_grezzi/`**: 164 MB, e sono di Kaggle con licenza CC BY-NC-SA 4.0. Ridistribuirli
+  e' una scelta che non tocca a me. Il README dice come scaricarli.
+- **`delivery-delay-impact.pbix`**: e' un duplicato binario del `.pbip`, che e' la sorgente
+  vera. 26 MB che invecchiano da soli e che in un diff non dicono niente. **Va rigenerato o
+  cancellato**: quello su disco e' delle 13:08 e non contiene niente di quello che e' stato
+  fatto dopo.
+- **`mail-its.md`**: nome, indirizzo e istituto. Roba mia, non del progetto, e un
+  repository puo' sempre diventare pubblico.
+- **`schermate/superate/`**: le tre pagine della versione a tre pagine, spostate li' perche'
+  non finiscano in un README per sbaglio.
+
+Il README non prova a convincere nessuno: dice cosa dicono i dati, cosa c'e' nel modello,
+cosa costano le scelte fatte e come si rifa' tutto. **Contiene quattro immagini che ancora
+non esistono** — sono i nomi che l'export produrra'. E' voluto: finche' quelle immagini
+mancano, il README e' visibilmente incompleto e non si e' tentati di mandarlo a nessuno.
+
+> Da trimmare prima di rendere pubblico il repo: in `HANDOFF.md` la sezione sull'account
+> Microsoft parla di me e non dell'analisi.
+
+### Due difetti di sostanza chiusi
+
+**La misura orfana e' stata tolta.** `% ritardo del venditore (sopra soglia)` era scritta
+per la classifica dei venditori di pagina 2, e quella pagina ha smesso di essere una
+classifica quando i dati hanno detto che i venditori non sono il problema. E' rimasta tre
+giorni a girare a vuoto. **La soglia dei 30 ordini non e' sparita con lei**: vive nel
+riquadro da 627 e nella soglia dei 100 di `% ritardo dello stato`.
+
+**Il tasso di cambio non e' piu' battuto a mano.** Il piede di pagina 1 scriveva «3,95»
+come testo mentre la misura `Cambio reais per euro` stava nel modello: cambiando la misura,
+il piede avrebbe raccontato il cambio di ieri. Adesso il numero sul piede scende dal
+modello, come quello dei riquadri.
+
+E il **controllo 8** di `verifica-tela.py` impedisce che la prima cosa ricapiti: ogni
+misura del modello deve stare su un visuale, o essere citata da un'altra misura, o essere
+marcata `isHidden` come `Fatturato consegnato e recensito`, che serve solo a rifare i
+controlli di `RICONCILIAZIONE.md`. Altrimenti e' un errore, non un avviso.
+
+Il diagramma del modello e' stato rigenerato dal TMDL nuovo e rinumerato in
+`05-modello`, perche' il 04 adesso e' la pagina dei limiti.
+
 ### Le schermate sono vecchie
 
 `schermate/` contiene ancora le tre pagine del 26/08 mattina, senza filtri e senza la
@@ -695,14 +742,20 @@ non e' piu' quella dei limiti.
 
 ## La prossima cosa, in concreto
 
-1. **Aprire `delivery-delay-impact.pbip` e guardare le quattro pagine.** La lista di cosa
-   controllare sta qui sopra, in fondo al giro del 26/08. I filtri e la serie dell'anno
-   prima sono le due cose che nessuno ha ancora visto girare.
-2. **Rifare le schermate**: export in PDF, poi `schermate.py`. Quattro pagine, piu' quella
-   del modello.
-3. **Il README**: la domanda, le scelte di modellazione, come si rigenera il tutto.
-4. **`git init`**: il repository non esiste ancora, e finche' non esiste il lavoro non e'
-   visibile a nessuno.
+**Tutto quello che restava e' fatto tranne la prima riga, e la prima riga vale per due.**
+
+1. **Aprire `delivery-delay-impact.pbip`, aggiornare i dati e guardare le quattro pagine.**
+   L'aggiornamento serve: `Etichetta mese` e' una colonna nuova. La lista di cosa
+   controllare sta qui sopra. Niente di quello che e' stato fatto dopo le 13:08 e' mai
+   comparso su uno schermo.
+2. **Rifare le schermate**: export in PDF, poi `schermate.py`. Quattro pagine — i nomi che
+   servono al README sono `01-la-domanda`, `02-di-chi-e-il-ritardo`, `03-come-cambia`,
+   `04-cosa-non-dice`.
+3. **Decidere del `.pbix`**: rigenerarlo con Salva con nome, o cancellarlo. Non lasciarlo
+   li' vecchio di mezza giornata accanto alla sorgente.
+4. **Secondo commit** con le schermate, e solo allora un `remote` e un push.
+5. **La quarta card sul sito**, che nell'ordine di lavoro viene per ultima e ha bisogno di
+   un repository pubblico a cui puntare.
 
 ## Una cosa ancora da decidere
 
