@@ -1,0 +1,46 @@
+// Query: Venditori   -- dimensione, grana: un venditore
+//
+// Righe attese: 3.095
+// Di questi, 2.970 hanno almeno un ordine consegnato e 627 stanno sopra la
+// soglia dichiarata di 30 ordini (vedi DATI-SPORCHI.md, sotto-domanda 4).
+// La soglia NON si applica qui: si applica nelle misure, cosi' resta visibile
+// quanti venditori taglia fuori.
+let
+    Origine = Csv.Document(
+        File.Contents(PercorsoDati & "\olist_sellers_dataset.csv"),
+        [Delimiter = ",", Columns = 4, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    #"Intestazioni promosse" = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+    #"Tipi dichiarati in en-US" = Table.TransformColumnTypes(
+        #"Intestazioni promosse",
+        {
+            {"seller_id", type text},
+            {"seller_zip_code_prefix", Int64.Type},
+            {"seller_city", type text},
+            {"seller_state", type text}
+        },
+        "en-US"
+    ),
+
+    // §8 - stessa normalizzazione dei clienti: "sp / sp", "lages - sc", ecc.
+    #"Normalizza le citta'" = Table.AddColumn(
+        #"Tipi dichiarati in en-US",
+        "citta",
+        each Text.Proper(
+            Text.Trim(
+                List.First(
+                    Text.Split(Text.Replace(Text.Replace([seller_city], " - ", "/"), " / ", "/"), "/")
+                )
+            )
+        ),
+        type text
+    ),
+    #"Tieni le colonne utili" = Table.SelectColumns(
+        #"Normalizza le citta'", {"seller_id", "seller_zip_code_prefix", "citta", "seller_state"}
+    ),
+    #"Rinomina in italiano" = Table.RenameColumns(
+        #"Tieni le colonne utili",
+        {{"seller_zip_code_prefix", "cap"}, {"seller_state", "stato"}}
+    )
+in
+    #"Rinomina in italiano"

@@ -1,0 +1,188 @@
+/// Contiene solo misure.
+table Misure
+
+	/// Base dei tempi e dei venditori: 96.470.
+	measure 'Ordini consegnati' = COUNTROWS( Ordini )
+		formatString: #,0
+
+	/// Base dei voti: 95.824. Non e' la stessa dei tempi.
+	measure 'Ordini recensiti' = CALCULATE( [Ordini consegnati], Ordini[recensito] = TRUE() )
+		formatString: #,0
+
+	measure 'Ordini in ritardo' = CALCULATE( [Ordini consegnati], Ordini[in_ritardo] = TRUE() )
+		formatString: #,0
+
+	measure '% ordini in ritardo' = DIVIDE( [Ordini in ritardo], [Ordini consegnati] )
+		formatString: 0.0%
+
+	/// Mediana e non media: la coda arriva a 189 giorni e la media la segue.
+	measure 'Giorni di ritardo (mediana)' = MEDIANX( FILTER( Ordini, Ordini[in_ritardo] = TRUE() ), Ordini[giorni_ritardo] )
+		formatString: 0.0
+
+	/// Quanti giorni prima della data promessa arrivano gli ordini in orario: 12,3.
+	measure 'Margine di consegna (mediana)' = - MEDIANX( FILTER( Ordini, Ordini[in_ritardo] = FALSE() ), Ordini[giorni_ritardo] )
+		formatString: 0.0
+
+	measure 'Voto medio' = AVERAGE( Ordini[voto] )
+		formatString: 0.00
+
+	/// Negativa = 1 o 2 stelle. La soglia e' una scelta.
+	measure '% recensioni negative' = DIVIDE( CALCULATE( [Ordini consegnati], Ordini[voto_negativo] = TRUE() ), [Ordini recensiti] )
+		formatString: 0.0%
+
+	/// 9,2%. Serve accanto a quella in ritardo: da sola non dice niente.
+	measure '% recensioni negative in orario' = CALCULATE( [% recensioni negative], Ordini[in_ritardo] = FALSE() )
+		formatString: 0.0%
+
+	/// 54,0%. Quasi sei volte l'altra: e' il numero che regge tutto il lavoro.
+	measure '% recensioni negative in ritardo' = CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE() )
+		formatString: 0.0%
+
+	/// La stessa misura, ristretta alle fasce prima della data promessa: sul grafico e' il contesto grigio.
+	measure '% negative (consegne in orario)' = IF( SELECTEDVALUE( Ordini[fascia_ordine] ) <= 3, [% recensioni negative] )
+		formatString: 0.0%
+
+	/// La stessa misura, ristretta alle fasce oltre la data promessa: sul grafico e' l'accento rosso.
+	measure '% negative (consegne in ritardo)' = IF( SELECTEDVALUE( Ordini[fascia_ordine] ) >= 4, [% recensioni negative] )
+		formatString: 0.0%
+
+	/// Prezzo + spedizione, sui soli ordini consegnati.
+	measure Fatturato = CALCULATE( SUM( RigheOrdine[valore_riga] ), Ordini )
+		formatString: "R$" #,0
+
+	/// R$ 15.289.974 - la base su cui sono calcolate le quote dei documenti.
+	measure 'Fatturato consegnato e recensito' = CALCULATE( SUM( RigheOrdine[valore_riga] ), Ordini[recensito] = TRUE() )
+		formatString: "R$" #,0
+		isHidden
+
+	measure 'Fatturato in ritardo' = CALCULATE( SUM( RigheOrdine[valore_riga] ), Ordini[in_ritardo] = TRUE() )
+		formatString: "R$" #,0
+
+	measure '% fatturato in ritardo' = DIVIDE( [Fatturato in ritardo], [Fatturato] )
+		formatString: 0.0%
+
+	/// Dall'approvazione all'affidamento al corriere. Esclude i 1.388 ordini a cronologia rotta.
+	measure 'Fase venditore (mediana)' = MEDIANX( FILTER( Ordini, Ordini[cronologia_ok] = TRUE() ), Ordini[giorni_fase_venditore] )
+		formatString: 0.0
+
+	/// Dall'affidamento al corriere alla consegna.
+	measure 'Fase logistica (mediana)' = MEDIANX( FILTER( Ordini, Ordini[cronologia_ok] = TRUE() ), Ordini[giorni_fase_logistica] )
+		formatString: 0.0
+
+	/// Venditori con almeno un ordine consegnato: 2.970.
+	measure 'Venditori misurati' = CALCULATE( DISTINCTCOUNT( RigheOrdine[seller_id] ), Ordini )
+		formatString: #,0
+
+	/// Ordini consegnati che contengono almeno una riga del venditore.
+	measure 'Ordini del venditore' = CALCULATE( DISTINCTCOUNT( RigheOrdine[order_id] ), Ordini )
+		formatString: #,0
+
+	measure 'Ordini in ritardo del venditore' = CALCULATE( DISTINCTCOUNT( RigheOrdine[order_id] ), Ordini[in_ritardo] = TRUE() )
+		formatString: #,0
+
+	measure '% ritardo del venditore' = DIVIDE( [Ordini in ritardo del venditore], [Ordini del venditore] )
+		formatString: 0.0%
+
+	/// 627 venditori: il 21% di quelli misurati, ma l'83,5% degli ordini.
+	measure 'Venditori sopra soglia' = SUMX( VALUES( Venditori[seller_id] ), IF( [Ordini del venditore] >= 30, 1, 0 ) )
+		formatString: #,0
+
+	/// Ritardo per stato del venditore. Sotto i 100 ordini consegnati resta vuota: stessa disciplina della soglia sui venditori. NB: si appoggia alle righe d'ordine, perche' il filtro dello stato non risale fino agli ordini.
+	measure '% ritardo dello stato' = IF( [Ordini del venditore] >= 100, [% ritardo del venditore] )
+		formatString: 0.0%
+
+	/// 97.811 contro 96.470 ordini: 1.278 ordini hanno piu' di un venditore.
+	measure 'Coppie venditore-ordine' = CALCULATE( COUNTROWS( SUMMARIZE( RigheOrdine, RigheOrdine[order_id], RigheOrdine[seller_id] ) ), Ordini )
+		formatString: #,0
+
+	/// 2.963. Sta nel pannello dei limiti e non e' battuto a mano.
+	measure 'Ordini esclusi dall''analisi' = CALCULATE( SUM( ControlloStatiOrdine[ordini] ), ControlloStatiOrdine[nell_analisi] = FALSE() )
+		formatString: #,0
+
+	/// 4,29. Il voto quando la consegna rispetta la promessa.
+	measure 'Voto medio in orario' = CALCULATE( [Voto medio], Ordini[in_ritardo] = FALSE() )
+		formatString: 0.00
+
+	/// 2,57. Lo stesso voto quando la promessa salta. Base: i 95.824 recensiti.
+	measure 'Voto medio in ritardo' = CALCULATE( [Voto medio], Ordini[in_ritardo] = TRUE() )
+		formatString: 0.00
+
+	/// La serie mensile vive solo su gennaio 2017 - agosto 2018.
+	measure '% ordini in ritardo (mese)' = IF( SELECTEDVALUE( Calendario[periodo_utile] ) = TRUE(), [% ordini in ritardo] )
+		formatString: 0.0%
+
+	/// Lo stesso mese dell'anno prima. Sui mesi del 2017 resta vuota: il 2016 non e' confrontabile.
+	measure '% ordini in ritardo (anno prec.)' =
+			IF(
+			    SELECTEDVALUE( Calendario[periodo_utile] ) = TRUE(),
+			    CALCULATE(
+			        [% ordini in ritardo],
+			        SAMEPERIODLASTYEAR( Calendario[Data] ),
+			        Calendario[periodo_utile] = TRUE()
+			    )
+			)
+		formatString: 0.0%
+
+	/// Come sopra, sulla base dei recensiti.
+	measure '% recensioni negative (mese)' = IF( SELECTEDVALUE( Calendario[periodo_utile] ) = TRUE(), [% recensioni negative] )
+		formatString: 0.0%
+
+	/// Come sopra.
+	measure '% recensioni negative (anno prec.)' =
+			IF(
+			    SELECTEDVALUE( Calendario[periodo_utile] ) = TRUE(),
+			    CALCULATE(
+			        [% recensioni negative],
+			        SAMEPERIODLASTYEAR( Calendario[Data] ),
+			        Calendario[periodo_utile] = TRUE()
+			    )
+			)
+		formatString: 0.0%
+
+	/// 9,4%. Piu' del doppio dello stesso periodo dell'anno prima.
+	measure '% ordini in ritardo gen-ago 2018' = CALCULATE( [% ordini in ritardo], Calendario[Anno] = 2018, Calendario[confrontabile] = TRUE() )
+		formatString: 0.0%
+
+	/// 4,2%. La finestra di confronto.
+	measure '% ordini in ritardo gen-ago 2017' = CALCULATE( [% ordini in ritardo], Calendario[Anno] = 2017, Calendario[confrontabile] = TRUE() )
+		formatString: 0.0%
+
+	/// 13,3%. Stessa finestra, base dei recensiti.
+	measure '% recensioni negative gen-ago 2018' = CALCULATE( [% recensioni negative], Calendario[Anno] = 2018, Calendario[confrontabile] = TRUE() )
+		formatString: 0.0%
+
+	/// 10,5%. Stessa finestra, base dei recensiti.
+	measure '% recensioni negative gen-ago 2017' = CALCULATE( [% recensioni negative], Calendario[Anno] = 2017, Calendario[confrontabile] = TRUE() )
+		formatString: 0.0%
+
+	/// Media dei cambi mensili BCE 2016-2018 pesata per il fatturato. Il tasso sta qui e in un posto solo.
+	measure 'Cambio reais per euro' = 3.95
+		formatString: 0.00
+
+	/// Lo stesso fatturato in euro. La conversione e' una scelta, e il tasso e' una misura visibile.
+	measure 'Fatturato (EUR)' = DIVIDE( [Fatturato], [Cambio reais per euro] )
+		formatString: "€" #,0
+
+	/// EUR 342.000 circa. E' il numero che sta sul riquadro di pagina 1.
+	measure 'Fatturato in ritardo (EUR)' = DIVIDE( [Fatturato in ritardo], [Cambio reais per euro] )
+		formatString: "€" #,0
+
+	column segnaposto
+		dataType: string
+		isHidden
+		sourceColumn: segnaposto
+
+	partition Misure = m
+		mode: import
+		source =
+				// Query: Misure   -- tabella vuota che tiene solo le misure DAX
+				//
+				// Le misure stanno tutte qui e non sparse nelle tabelle dei fatti: chi apre il
+				// modello le trova in un posto solo, e nessuna tabella dei fatti finisce per
+				// sembrare il posto dove "vivono" i numeri.
+				// Una colonna sola, nascosta, e nessuna riga.
+				let
+				    Origine = #table({"segnaposto"}, {})
+				in
+				    Origine
+

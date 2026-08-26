@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "delivery-delay-impact"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "96d732ed-d683-4f0e-8c07-2310339a11f7"
+  }
+}

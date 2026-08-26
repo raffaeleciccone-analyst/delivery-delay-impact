@@ -1,0 +1,25 @@
+relationship 'RigheOrdine.order_id -> Ordini.order_id'
+	fromColumn: RigheOrdine.order_id
+	toColumn: Ordini.order_id
+
+relationship 'Ordini.customer_id -> Clienti.customer_id'
+	fromColumn: Ordini.customer_id
+	toColumn: Clienti.customer_id
+
+relationship 'RigheOrdine.seller_id -> Venditori.seller_id'
+	fromColumn: RigheOrdine.seller_id
+	toColumn: Venditori.seller_id
+
+relationship 'RigheOrdine.product_id -> Prodotti.product_id'
+	fromColumn: RigheOrdine.product_id
+	toColumn: Prodotti.product_id
+
+relationship 'Ordini.data_acquisto -> Calendario.Data'
+	fromColumn: Ordini.data_acquisto
+	toColumn: Calendario.Data
+
+relationship 'Ordini.data_consegna -> Calendario.Data'
+	isActive: false
+	fromColumn: Ordini.data_consegna
+	toColumn: Calendario.Data
+
