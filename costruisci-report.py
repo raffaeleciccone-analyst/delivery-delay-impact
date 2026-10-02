@@ -9,7 +9,8 @@
 
 import io, json, os, re, shutil
 
-RADICE = r"C:\dev\_powerbi"
+# la cartella del progetto e' quella dello script: si clona dove si vuole
+RADICE = os.path.dirname(os.path.abspath(__file__))
 REPORT = os.path.join(RADICE, "delivery-delay-impact.Report", "definition")
 PAGINE = os.path.join(REPORT, "pages")
 

@@ -18,7 +18,8 @@ try:
 except ImportError:
     sys.exit("manca pymupdf: installalo con  python -m pip install pymupdf")
 
-RADICE = r"C:\dev\_powerbi"
+# la cartella del progetto e' quella dello script: si clona dove si vuole
+RADICE = os.path.dirname(os.path.abspath(__file__))
 FUORI = os.path.join(RADICE, "schermate")
 
 # Le pagine escono nell'ordine di pages.json. I nomi dei file cominciano con un

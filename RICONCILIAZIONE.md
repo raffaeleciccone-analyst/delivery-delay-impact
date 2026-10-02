@@ -22,20 +22,20 @@ cambia solo il confronto fra date: cosi' lo scarto e' tutto dovuto alla correzio
 | # | Misura | 23/08 | Atteso dal 2/10 | Dal modello |
 |---|---|---:|---:|---:|
 | 5 | Ordini in ritardo | 7.826 (8,1%) | **6.534 (6,8%)** | **6,8%** |
-| 6 | Giorni di ritardo (mediana) | 5,8 | **7** | da spuntare |
+| 6 | Giorni di ritardo (mediana) | 5,8 | **7** | **7,0** |
 | 7 | Margine di consegna (mediana) | 12,3 | **13** | **13** |
 | 9 | % negative in orario | 9,2% | **9,2%** | **9,2%** |
 | 21 | % recensioni in ritardo scritte prima del pacco | - | **70,1%** (4.476 su 6.381) | **70,1%** |
 | 22 | % negative prima del pacco | - | **80,6%** | **80,6%** |
 | 23 | % negative in ritardo dopo il pacco | - | **19,4%** (su 1.905) | **19,4%** |
 | 11 | % fatturato in ritardo | 8,77% | **7,5%** | **7,5%** |
-| 12 | Fase venditore in orario / in ritardo | 1,784 / 3,019 | **1,79 / 3,07** | da spuntare |
-| 13 | Fase logistica in orario / in ritardo | 6,935 / 23,922 | **6,96 / 26,20** | da spuntare |
+| 12 | Fase venditore in orario / in ritardo | 1,784 / 3,019 | **1,79 / 3,07** | **1,8 / 3,1** |
+| 13 | Fase logistica in orario / in ritardo | 6,935 / 23,922 | **6,96 / 26,20** | **7,0 / 26,2** |
 | - | % ritardo gen-ago 2017 / 2018 | 4,2% / 9,4% | **3,5% / 7,7%** | **3,5% / 7,7%** |
 
 La colonna «Dal modello» e' letta dal report esportato in PDF il 2/10 dopo l'aggiornamento
-dei dati in Power BI Desktop. Le righe ancora «da spuntare» sono mediane che il cruscotto
-mostra arrotondate al giorno: tornano a vista, non al decimale.
+dei dati in Power BI Desktop. Le tre mediane (righe 6, 12 e 13) il cruscotto le mostra con un decimale: tornano a
+quel decimale.
 
 Non cambiano: 96.470, 95.824, 2.970, 627, 97.811, 2.963, 1.388, le negative gen-ago
 (10,5% e 13,3%, che dipendono dal mese d'acquisto e non dal ritardo).

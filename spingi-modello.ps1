@@ -15,7 +15,7 @@ $ErrorActionPreference = "Stop"
 $bin = "C:\Program Files\Microsoft Power BI Desktop\bin"
 Add-Type -Path "$bin\Microsoft.PowerBI.Tabular.dll"
 
-$def = "C:\dev\_powerbi\delivery-delay-impact.SemanticModel\definition"
+$def = Join-Path $PSScriptRoot "delivery-delay-impact.SemanticModel\definition"
 if (-not (Test-Path $def)) { throw "manca $def - lancia prima costruisci-modello.ps1" }
 
 # il modello gia' costruito e validato

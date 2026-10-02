@@ -11,7 +11,8 @@ $ErrorActionPreference = "Stop"
 $bin = "C:\Program Files\Microsoft Power BI Desktop\bin"
 Add-Type -Path "$bin\Microsoft.PowerBI.Tabular.dll"
 
-$radice   = "C:\dev\_powerbi"
+# la cartella del progetto e' quella dello script: si clona dove si vuole
+$radice   = $PSScriptRoot
 $pq       = Join-Path $radice "power-query"
 $cartella = Join-Path $radice "delivery-delay-impact.SemanticModel"
 
@@ -50,6 +51,11 @@ foreach ($e in $espressioni) {
     $ne.Name = $e.Nome
     $ne.Kind = [Microsoft.AnalysisServices.Tabular.ExpressionKind]::M
     $ne.Expression = (Leggi-M $e.File)
+    # il percorso dei dati segue la cartella del progetto, non quella di chi l'ha scritto
+    if ($e.Nome -eq "PercorsoDati") {
+        $nuovo = '"' + (Join-Path $radice "dati_grezzi\csv") + '"'
+        $ne.Expression = $ne.Expression -replace '"[A-Za-z]:\\[^"]*"', $nuovo.Replace('$', '$$')
+    }
     $mod.Expressions.Add($ne)
 }
 
@@ -431,7 +437,7 @@ if (-not (Test-Path (Join-Path $cartella "definition.pbism"))) {
 Manca l'involucro del progetto in $cartella
 Non lo genero a mano: va creato una volta da Power BI Desktop, con
   File -> Salva con nome -> Progetto Power BI (*.pbip)
-salvando come 'delivery-delay-impact' in C:\dev\_powerbi.
+salvando come 'delivery-delay-impact' nella cartella del progetto.
 Poi questo script riscrive solo il modello, lasciando intatto il resto.
 "@
 }
