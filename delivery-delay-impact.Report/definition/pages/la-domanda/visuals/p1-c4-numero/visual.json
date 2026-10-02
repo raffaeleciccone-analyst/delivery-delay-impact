@@ -23,11 +23,11 @@
                       "Entity": "Misure"
                     }
                   },
-                  "Property": "Fatturato in ritardo (EUR)"
+                  "Property": "% recensioni in ritardo scritte prima del pacco"
                 }
               },
-              "queryRef": "Misure.Fatturato in ritardo (EUR)",
-              "nativeQueryRef": "Fatturato in ritardo (EUR)"
+              "queryRef": "Misure.% recensioni in ritardo scritte prima del pacco",
+              "nativeQueryRef": "% recensioni in ritardo scritte prima del pacco"
             }
           ]
         }

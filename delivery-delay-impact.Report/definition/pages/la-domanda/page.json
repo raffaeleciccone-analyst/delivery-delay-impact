@@ -83,12 +83,12 @@
     },
     {
       "source": "p1-dirupo",
-      "target": "p1-voto1-numero",
+      "target": "p1-fatt1-numero",
       "type": "NoFilter"
     },
     {
       "source": "p1-dirupo",
-      "target": "p1-voto2-numero",
+      "target": "p1-fatt2-numero",
       "type": "NoFilter"
     }
   ]

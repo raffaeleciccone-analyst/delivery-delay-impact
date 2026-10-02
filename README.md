@@ -11,28 +11,49 @@ risponde a quella e a nient'altro.
 
 ## Cosa dicono i dati
 
-**Il ritardo è raro e costa molto.** L'8,1% degli ordini arriva dopo la data promessa al
-cliente. Su quelli il voto medio scende da 4,29 a 2,57 e le recensioni negative passano
-dal 9,2% al 54,0%.
+**Il danno arriva prima del pacco.** Il 6,8% degli ordini arriva dopo il giorno promesso.
+Su quegli ordini Olist non aspetta la consegna per chiedere il voto: manda il questionario
+due giorni dopo la data promessa, e **7 clienti su 10 rispondono prima di avere il pacco.
+L'81% di loro boccia.**
+
+**Chi il pacco lo riceve in ritardo boccia il doppio.** Fra chi risponde dopo la consegna,
+le recensioni negative passano dal 9,2% (in orario) al **19,4%**. È il danno della
+consegna; il resto è il danno dell'attesa, ed è lì che avvisare il cliente prima della data
+promessa avrebbe qualcosa da cambiare.
 
 **Il legame non è una pendenza, è un dirupo.** Fra dieci giorni di anticipo e la consegna
-appena in orario le recensioni negative passano dall'8,9% all'11,0%. Fra 3 e 7 giorni di
-ritardo sono già il 61,3%. Un coefficiente di correlazione su tutti gli ordini varrebbe
-−0,18, cioè «legame debole»: è schiacciato dal 92% di consegne in anticipo. Per questo nel
-cruscotto non c'è nessuna correlazione, ci sono le fasce.
+nel giorno promesso le recensioni negative passano dall'8,9% all'11,3%. Fra 4 e 7 giorni
+di ritardo sono il 67,6%, quasi tutte scritte prima del pacco. Un coefficiente di
+correlazione su tutti gli ordini varrebbe −0,18, cioè «legame debole»: è schiacciato dal
+92% di consegne in anticipo. Per questo nel cruscotto non c'è nessuna correlazione, ci
+sono le fasce.
 
 **Il ritardo non si forma dal venditore.** Spezzando il tempo di consegna nei due
-intervalli che i dati registrano: sugli ordini in ritardo il venditore impiega 1,2 giorni
-in più del solito, la logistica ne impiega 17. E non esiste una manciata di colpevoli:
-1.390 venditori su 2.970 producono almeno un ritardo, e i venti peggiori spiegano il 24%
-del totale.
+intervalli che i dati registrano: sugli ordini in ritardo il venditore impiega 1,3 giorni
+in più del solito, la logistica ne impiega 19 (mediane). E non esiste una manciata di
+colpevoli: 1.274 venditori su 2.970 producono almeno un ritardo, e i venti peggiori
+spiegano il 25% del totale.
 
-**Sta peggiorando, a picchi.** Gennaio-agosto 2018 contro lo stesso periodo 2017: dal 4,2%
-al 9,4% di consegne oltre la promessa. Ma per quasi tutto il 2017 il ritardo sta sotto il
-4%, poi novembre 2017 fa 14,3% e marzo 2018 fa 21,4%, e giugno 2018 torna all'1,4%.
+**Sta peggiorando, a picchi.** Gennaio-agosto 2018 contro lo stesso periodo 2017: dal 3,5%
+al 7,7% di consegne oltre la promessa. Ma per quasi tutto il 2017 il ritardo sta intorno al
+3%, poi novembre 2017 fa 12,4% e marzo 2018 fa 19,0%, e giugno 2018 torna all'1,2%.
 
 Messe insieme, le ultime due cambiano cosa si propone: un problema di capacità nei mesi di
 punta, non venditori da sospendere.
+
+### Corretto il 2 ottobre 2026
+
+Una revisione esterna ha trovato due errori nella prima versione, che diceva «le recensioni
+negative passano dal 9,2% al 54%»:
+
+1. **Il ritardo era calcolato fra due istanti**, ma la data promessa è un giorno a
+   mezzanotte: un pacco arrivato alle 14 del giorno promesso risultava in ritardo. Erano
+   1.292 ordini; contando per data la quota in ritardo scende dall'8,1% al 6,8%.
+2. **Il 54% mescolava due cose:** chi giudica la consegna e chi, senza pacco, giudica
+   l'attesa. Le due ora sono separate.
+
+Le correzioni stanno accanto ai numeri vecchi in `DATI-SPORCHI.md` (§4b e §16), non al
+loro posto.
 
 ---
 
@@ -86,8 +107,8 @@ Le decisioni che sono costate qualcosa:
   per venditore, uno stato sotto i 100 non entra nel grafico per stato. Non sono «a posto»:
   sono non misurabili.
 - **Gli importi sono in euro**, convertiti dai reais alla media dei cambi mensili BCE del
-  periodo pesata per il fatturato. Il tasso è una misura del modello, non un numero scritto
-  in una nota. Convertire mese per mese sposterebbe il totale dello 0,02%; usare il cambio
+  periodo pesata per il fatturato. Il tasso è una costante nel modello (3,95), con il
+  calcolo che la giustifica nel commento dello script. Convertire mese per mese sposterebbe il totale dello 0,02%; usare il cambio
   di un anno solo lo sposterebbe del 9%.
 
 ---
@@ -100,7 +121,7 @@ controllo di versione. Nessuno dei due è disegnato a mano:
 | File | Cosa fa |
 |---|---|
 | `power-query/*.m` | le query, una per tabella, con i controlli di riga attesi nei commenti |
-| `costruisci-modello.ps1` | monta tabelle, relazioni e 39 misure DAX e scrive il TMDL |
+| `costruisci-modello.ps1` | monta tabelle, relazioni e 40 misure DAX e scrive il TMDL |
 | `costruisci-report.py` | scrive le pagine in PBIR, un JSON per visuale: quattro pagine, una di dettaglio e un riquadro al mouse |
 | `verifica-tela.py` | otto controlli sulla tela, senza aprire Power BI |
 | `diagramma-modello.py` | disegna il diagramma leggendo il TMDL, non fotografando lo schermo |
@@ -148,7 +169,7 @@ Il lavoro è documentato mentre si faceva, non dopo:
 | File | Cosa contiene |
 |---|---|
 | `DOMANDA.md` | la domanda e le sei sotto-domande, scritte prima di aprire Power BI, poi verificate una per una sui dati |
-| `DATI-SPORCHI.md` | tredici problemi trovati esplorando i CSV, con il passaggio di Power Query che li tratta |
+| `DATI-SPORCHI.md` | i problemi trovati esplorando i CSV, con il passaggio di Power Query che li tratta (§4b e §16 aggiunti il 2/10) |
 | `RICONCILIAZIONE.md` | i numeri che il modello deve riprodurre, e il loro esito |
 
 Il criterio in `RICONCILIAZIONE.md`: se il cruscotto e i documenti dicono numeri diversi,

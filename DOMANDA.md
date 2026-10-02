@@ -33,6 +33,10 @@ serve a una di queste, non entra nella tela.
    **54%** negative. Ma tutto succede nei primi giorni oltre la promessa, e il numero
    riassuntivo (correlazione -0,18) direbbe il contrario del vero: si mostrano le
    fasce, mai il coefficiente.
+   `[corretto il 2/10]` Il 54% mescolava due cose. Sui ritardi Olist manda il
+   questionario due giorni dopo la data promessa senza aspettare il pacco, e il 70%
+   risponde prima di averlo (80,6% negative). Chi risponde dopo averlo ricevuto
+   boccia nel 19,4% dei casi, il doppio del 9,2% in orario. Vedi `DATI-SPORCHI.md` §16.
 3. Quanto fatturato passa da ordini consegnati in ritardo, l'ordine di grandezza
    che dice se la cosa merita un intervento. Prezzo piu' spedizione delle righe d'ordine.
 4. Quali venditori concentrano il ritardo, normalizzato per volume e con una soglia
@@ -53,7 +57,8 @@ serve a una di queste, non entra nella tela.
 
    `[verificato]` Ed e' la sotto-domanda che ha cambiato il cruscotto. Il venditore
    ci mette 1,2 giorni in piu' sugli ordini in ritardo; la logistica ne mette 17 in
-   piu' (mediana da 6,9 a 23,9 giorni). Nessuna manciata di colpevoli: 1.390 venditori su
+   piu' (mediana da 6,9 a 23,9 giorni). `[corretto il 2/10, contando per data: 1,3 e 19,
+   da 7,0 a 26,2; 1.274 venditori con un ritardo, i venti peggiori il 25%]` Nessuna manciata di colpevoli: 1.390 venditori su
    2.970 producono almeno un ritardo, e i venti peggiori spiegano solo il 24% dei ritardi.
    **La seconda meta' del titolo ha una risposta scomoda: in larga parte non sono i
    venditori.** La pagina 2 smette di essere una classifica e diventa una scomposizione

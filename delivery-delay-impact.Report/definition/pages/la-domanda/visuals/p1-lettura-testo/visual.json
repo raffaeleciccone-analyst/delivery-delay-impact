@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Il salto sta nei primi giorni di ritardo",
+                    "value": "Il danno arriva prima del pacco",
                     "textStyle": {
                       "fontSize": "14pt",
                       "fontFamily": "Georgia, serif",
@@ -41,7 +41,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Fra dieci giorni di anticipo e la consegna appena in orario le recensioni negative passano dall'8,9% all'11,0%. Due punti su venti giorni di scarto.",
+                    "value": "Fra dieci giorni di anticipo e la consegna nel giorno promesso le recensioni negative passano dall'8,9% all'11,3%.",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
@@ -63,7 +63,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Fra 3 e 7 giorni di ritardo si arriva al 61,3%: la maggioranza delle recensioni e' negativa.",
+                    "value": "Con 4-7 giorni di ritardo sono il 67,6%. Ma Olist chiede il voto due giorni dopo la data promessa, pacco o no: sui ritardi 7 clienti su 10 rispondono senza averlo, e l'81% di loro boccia.",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
@@ -86,7 +86,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Perche' non c'e' un coefficiente di correlazione",
+                    "value": "Chi il pacco lo riceve",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
@@ -99,7 +99,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Calcolato su tutti gli ordini varrebbe -0,18, cioe' un legame debole. Il valore e' schiacciato dal 92% di consegne in anticipo, che domina il conteggio. Per questo la pagina mostra le fasce.",
+                    "value": "Fra chi risponde dopo la consegna il ritardo porta le negative dal 9,2% al 19,4%: il doppio. Il resto e' il costo dell'attesa, ed e' li' che un avviso al cliente avrebbe qualcosa da cambiare.",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

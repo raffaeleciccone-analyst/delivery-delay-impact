@@ -75,6 +75,28 @@ Quindi «in ritardo» qui significa *in ritardo rispetto a una promessa gia' gen
 che rende il ritardo un fatto piu' grave, non meno. Va scritto nel pannello: chi legge
 assume che la stima sia una previsione, e non lo e'.
 
+**Corretto il 2/10: con le date il margine e' 13 giorni.** Vedi §4b.
+
+## 4b. La promessa e' un giorno, la consegna un istante
+
+Trovato il 2 ottobre 2026, in una revisione esterna del progetto. `order_estimated_delivery_date`
+sta sempre alla mezzanotte: e' un giorno, non un'ora. `order_delivered_customer_date` ha
+l'ora. Sottraendo i due istanti, un pacco consegnato alle 14 del giorno promesso risultava
+in ritardo di 0,6 giorni.
+
+Erano **1.292 ordini** consegnati nel giorno promesso e contati in ritardo. Con il
+confronto fra date:
+
+| | prima (istanti) | dopo (date) |
+|---|---:|---:|
+| ordini in ritardo | 7.826 (8,1%) | **6.534 (6,8%)** |
+| ritardo mediano | 5,8 giorni | 7 giorni |
+| anticipo mediano in orario | 12,3 giorni | 13 giorni |
+| quota del fatturato in ritardo | 8,8% | 7,5% |
+
+Passaggio: `Giorni di ritardo` ora sottrae `DateTime.Date` da `DateTime.Date` e da' giorni
+interi. Le fasce cambiano etichetta per dire gli estremi veri («4-7 gg» invece di «3-7»).
+
 ## 5. Le recensioni non sono una per ordine
 
 - 99.224 righe, **98.410** `review_id` distinti, 98.673 `order_id` distinti.
@@ -227,9 +249,60 @@ controllo: il fatturato deve fare R$ 15.289.974, non un numero con troppi zeri.
 
 ---
 
+## 16. Sui ritardi la recensione arriva prima del pacco
+
+Trovato il 2 ottobre 2026, insieme al §4b. `review_creation_date` e' il giorno in cui
+Olist manda il questionario, `review_answer_timestamp` quello in cui il cliente risponde.
+
+- Se il pacco arriva in orario, il questionario parte **il giorno dopo la consegna**
+  (97% dei casi).
+- Se il pacco e' in ritardo, Olist **non lo aspetta**: il questionario parte **due giorni
+  dopo la data promessa** (4.460 recensioni su 6.409), pacco arrivato o no.
+
+Il risultato: sui 6.381 ordini in ritardo e recensiti, **4.476 (70,1%) hanno la risposta
+prima della consegna**. Quelle recensioni giudicano l'attesa, non il pacco, e l'**80,6%**
+e' negativo. Sugli ordini in orario la stessa cosa succede nello 0,3% dei casi.
+
+Il 54% di recensioni negative in ritardo, il numero di testa del progetto fino a oggi,
+mescolava quindi due cose diverse:
+
+| ordini in ritardo, recensiti | ordini | % negative |
+|---|---:|---:|
+| risposta **prima** di ricevere il pacco | 4.476 | **80,6%** |
+| risposta **dopo** averlo ricevuto | 1.905 | **19,4%** |
+| in orario, per confronto | 89.443 | 9,2% |
+
+Passaggio: `RecensioniPerOrdine` tiene anche `prima_risposta` (il minimo di
+`review_answer_timestamp`); `Ordini` ne ricava `recensione_prima_del_pacco` e
+`momento_recensione`, poi butta via l'istante.
+
+---
+
 # Le tre ipotesi di `DOMANDA.md`, verificate
 
 ## `[V]` Il legame ritardo -> recensione: **c'e', ed e' netto**
+
+**Corretto il 2 ottobre 2026** (§4b e §16). Con il ritardo contato per data, e separando
+chi risponde prima di avere il pacco:
+
+| fascia | ordini recensiti | % 1-2 stelle | di cui scritte prima del pacco |
+|---|---:|---:|---:|
+| 10 gg o piu' in anticipo | 61.523 | 8,9% | 0% |
+| 5-9 gg in anticipo | 20.032 | 9,6% | 0% |
+| 0-4 gg in anticipo | 7.888 | 11,3% | 0,1 punti |
+| **1-3 gg di ritardo** | 1.852 | **32,2%** | 17,8 punti |
+| **4-7 gg** | 1.748 | **67,6%** | 63,0 punti |
+| 8-15 gg | 1.601 | 80,0% | 79,0 punti |
+| 16-30 gg | 851 | 82,1% | 81,7 punti |
+| oltre 30 gg | 329 | 67,8% | 66,6 punti |
+
+Il dirupo resta, ma da 4 giorni di ritardo in su e' fatto quasi solo di recensioni scritte
+mentre il pacco non c'e'. Chi il pacco lo riceve in ritardo boccia nel **19,4%** dei casi,
+il doppio del 9,2% in orario: e' questo il danno della consegna. Il resto e' il danno
+dell'attesa. La correlazione di Spearman non cambia (-0,176).
+
+La tabella qui sotto e' quella del 23/08, contata per istanti e senza separare il momento
+della recensione. Resta per confronto.
 
 Su 95.824 ordini consegnati e recensiti (media dei punteggi dove ce n'e' piu' d'una):
 
@@ -260,6 +333,9 @@ coda.
 
 ## `[V]` Il fatturato esposto: **R$ 1,35 milioni, l'8,8%**
 
+**Corretto il 2/10:** contando il ritardo per data sono R$ 1.150.892, il **7,5%** del
+fatturato consegnato, su 6,8% degli ordini. La conclusione sotto non cambia.
+
 **Corretto il 23/08 costruendo il modello.** Il primo calcolo dava l'8,6%, ma era fatto
 sui soli ordini recensiti (R$ 15.289.974), la base era ereditata dall'analisi sulle
 recensioni, e per il fatturato non c'entra niente: un ordine costa e incassa che sia stato
@@ -273,6 +349,10 @@ L'8,1% degli ordini consegnati arriva in ritardo e pesa l'8,8% del fatturato: gl
 in ritardo non sono sistematicamente piu' grandi o piu' piccoli degli altri.
 
 ## `[V]` Di chi e' il ritardo: **della logistica, non dei venditori**
+
+**Corretto il 2/10**, contando per data: il venditore ci mette 1,3 giorni in piu' (mediana
+da 1,8 a 3,1), la logistica **19 in piu'** (da 7,0 a 26,2). 1.274 venditori su 2.970
+fanno almeno un ritardo, e i venti peggiori ne spiegano il 25%. La conclusione non cambia.
 
 Giorni mediani per fase:
 

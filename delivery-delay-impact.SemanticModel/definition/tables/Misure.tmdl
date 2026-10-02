@@ -15,11 +15,11 @@ table Misure
 	measure '% ordini in ritardo' = DIVIDE( [Ordini in ritardo], [Ordini consegnati] )
 		formatString: 0.0%
 
-	/// Mediana e non media: la coda arriva a 189 giorni e la media la segue.
+	/// Mediana e non media: la coda arriva a 188 giorni e la media la segue.
 	measure 'Giorni di ritardo (mediana)' = MEDIANX( FILTER( Ordini, Ordini[in_ritardo] = TRUE() ), Ordini[giorni_ritardo] )
 		formatString: 0.0
 
-	/// Quanti giorni prima della data promessa arrivano gli ordini in orario: 12,3.
+	/// Quanti giorni prima della data promessa arrivano gli ordini in orario: 13.
 	measure 'Margine di consegna (mediana)' = - MEDIANX( FILTER( Ordini, Ordini[in_ritardo] = FALSE() ), Ordini[giorni_ritardo] )
 		formatString: 0.0
 
@@ -34,16 +34,28 @@ table Misure
 	measure '% recensioni negative in orario' = CALCULATE( [% recensioni negative], Ordini[in_ritardo] = FALSE() )
 		formatString: 0.0%
 
-	/// 54,0%. Quasi sei volte l'altra: e' il numero che regge tutto il lavoro.
-	measure '% recensioni negative in ritardo' = CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE() )
-		formatString: 0.0%
-
 	/// La stessa misura, ristretta alle fasce prima della data promessa: sul grafico e' il contesto grigio.
 	measure '% negative (consegne in orario)' = IF( SELECTEDVALUE( Ordini[fascia_ordine] ) <= 3, [% recensioni negative] )
 		formatString: 0.0%
 
-	/// La stessa misura, ristretta alle fasce oltre la data promessa: sul grafico e' l'accento rosso.
-	measure '% negative (consegne in ritardo)' = IF( SELECTEDVALUE( Ordini[fascia_ordine] ) >= 4, [% recensioni negative] )
+	/// 70,1%: 4.476 recensioni su 6.381 ordini in ritardo e recensiti.
+	measure '% recensioni in ritardo scritte prima del pacco' = DIVIDE( CALCULATE( [Ordini recensiti], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() ), CALCULATE( [Ordini recensiti], Ordini[in_ritardo] = TRUE() ) )
+		formatString: 0.0%
+
+	/// 80,6%: chi recensisce mentre aspetta e' quasi sempre arrabbiato.
+	measure '% negative prima del pacco' = CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() )
+		formatString: 0.0%
+
+	/// 19,4%: chi il pacco in ritardo lo ha ricevuto. Il doppio del 9,2% in orario.
+	measure '% negative in ritardo, dopo il pacco' = CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = FALSE() )
+		formatString: 0.0%
+
+	/// Sul grafico: la parte di rosso scritta prima di avere il pacco.
+	measure '% negative (ritardo, prima del pacco)' = IF( SELECTEDVALUE( Ordini[fascia_ordine] ) >= 4, DIVIDE( CALCULATE( [Ordini consegnati], Ordini[voto_negativo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() ), [Ordini recensiti] ) )
+		formatString: 0.0%
+
+	/// Sul grafico: la parte di rosso scritta col pacco in mano.
+	measure '% negative (ritardo, dopo il pacco)' = IF( SELECTEDVALUE( Ordini[fascia_ordine] ) >= 4, DIVIDE( CALCULATE( [Ordini consegnati], Ordini[voto_negativo] = TRUE(), Ordini[recensione_prima_del_pacco] = FALSE() ), [Ordini recensiti] ) )
 		formatString: 0.0%
 
 	/// Prezzo + spedizione, sui soli ordini consegnati.
@@ -99,14 +111,6 @@ table Misure
 	measure 'Ordini esclusi dall''analisi' = CALCULATE( SUM( ControlloStatiOrdine[ordini] ), ControlloStatiOrdine[nell_analisi] = FALSE() )
 		formatString: #,0
 
-	/// 4,29. Il voto quando la consegna rispetta la promessa.
-	measure 'Voto medio in orario' = CALCULATE( [Voto medio], Ordini[in_ritardo] = FALSE() )
-		formatString: 0.00
-
-	/// 2,57. Lo stesso voto quando la promessa salta. Base: i 95.824 recensiti.
-	measure 'Voto medio in ritardo' = CALCULATE( [Voto medio], Ordini[in_ritardo] = TRUE() )
-		formatString: 0.00
-
 	/// La serie mensile vive solo su gennaio 2017 - agosto 2018.
 	measure '% ordini in ritardo (mese)' = IF( SELECTEDVALUE( Calendario[periodo_utile] ) = TRUE(), [% ordini in ritardo] )
 		formatString: 0.0%
@@ -139,11 +143,11 @@ table Misure
 			)
 		formatString: 0.0%
 
-	/// 9,4%. Piu' del doppio dello stesso periodo dell'anno prima.
+	/// 7,7%. Piu' del doppio dello stesso periodo dell'anno prima.
 	measure '% ordini in ritardo gen-ago 2018' = CALCULATE( [% ordini in ritardo], Calendario[Anno] = 2018, Calendario[confrontabile] = TRUE() )
 		formatString: 0.0%
 
-	/// 4,2%. La finestra di confronto.
+	/// 3,5%. La finestra di confronto.
 	measure '% ordini in ritardo gen-ago 2017' = CALCULATE( [% ordini in ritardo], Calendario[Anno] = 2017, Calendario[confrontabile] = TRUE() )
 		formatString: 0.0%
 

@@ -95,7 +95,7 @@ $null = Aggiungi-Tabella "Ordini" "02-Ordini.m" @(
     @("order_delivered_carrier_date", "DateTime"),
     @("order_delivered_customer_date", "DateTime"),
     @("order_estimated_delivery_date", "DateTime", "data PROMESSA al cliente, non una previsione"),
-    @("giorni_ritardo", "Double", "positivo = in ritardo; negativo = margine di anticipo"),
+    @("giorni_ritardo", "Int64", "giorni fra la data promessa e la data di consegna; positivo = in ritardo"),
     @("in_ritardo", "Boolean"),
     @("esito_consegna", "String", "in orario / in ritardo, in parole invece che Vero-Falso"),
     @("fascia_ritardo", "String", "serve a mostrare il dirupo: il legame non e' una pendenza"),
@@ -108,7 +108,9 @@ $null = Aggiungi-Tabella "Ordini" "02-Ordini.m" @(
     @("voto", "Double", "media dei punteggi quando l'ordine ha piu' di una recensione"),
     @("recensioni_sull_ordine", "Int64"),
     @("voto_negativo", "Boolean", "voto <= 2"),
-    @("recensito", "Boolean", "distingue le due basi: 96.470 consegnati, 95.824 recensiti")
+    @("recensito", "Boolean", "distingue le due basi: 96.470 consegnati, 95.824 recensiti"),
+    @("recensione_prima_del_pacco", "Boolean", "il cliente ha risposto prima che il pacco arrivasse: giudica l'attesa, non la consegna"),
+    @("momento_recensione", "String", "prima / dopo aver ricevuto il pacco, in parole")
 ) "Un ordine consegnato. Base dei tempi e dei venditori."
 
 $null = Aggiungi-Tabella "RigheOrdine" "04-RigheOrdine.m" @(
@@ -228,10 +230,10 @@ Aggiungi-Misura "% ordini in ritardo" "DIVIDE( [Ordini in ritardo], [Ordini cons
 
 Aggiungi-Misura "Giorni di ritardo (mediana)" `
     "MEDIANX( FILTER( Ordini, Ordini[in_ritardo] = TRUE() ), Ordini[giorni_ritardo] )" "0.0" `
-    "Mediana e non media: la coda arriva a 189 giorni e la media la segue."
+    "Mediana e non media: la coda arriva a 188 giorni e la media la segue."
 Aggiungi-Misura "Margine di consegna (mediana)" `
     "- MEDIANX( FILTER( Ordini, Ordini[in_ritardo] = FALSE() ), Ordini[giorni_ritardo] )" "0.0" `
-    "Quanti giorni prima della data promessa arrivano gli ordini in orario: 12,3."
+    "Quanti giorni prima della data promessa arrivano gli ordini in orario: 13."
 
 Aggiungi-Misura "Voto medio" "AVERAGE( Ordini[voto] )" "0.00" $null
 Aggiungi-Misura "% recensioni negative" `
@@ -241,16 +243,34 @@ Aggiungi-Misura "% recensioni negative" `
 Aggiungi-Misura "% recensioni negative in orario" `
     "CALCULATE( [% recensioni negative], Ordini[in_ritardo] = FALSE() )" "0.0%" `
     "9,2%. Serve accanto a quella in ritardo: da sola non dice niente."
-Aggiungi-Misura "% recensioni negative in ritardo" `
-    "CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE() )" "0.0%" `
-    "54,0%. Quasi sei volte l'altra: e' il numero che regge tutto il lavoro."
+# Qui stava "% recensioni negative in ritardo" (54%, poi 62,4% contando per data),
+# tolta il 2/10: mescolava chi giudica la consegna e chi giudica l'attesa (§16).
+# Al suo posto le tre misure sul momento della recensione, piu' sotto.
 
 Aggiungi-Misura "% negative (consegne in orario)" `
     "IF( SELECTEDVALUE( Ordini[fascia_ordine] ) <= 3, [% recensioni negative] )" "0.0%" `
     "La stessa misura, ristretta alle fasce prima della data promessa: sul grafico e' il contesto grigio."
-Aggiungi-Misura "% negative (consegne in ritardo)" `
-    "IF( SELECTEDVALUE( Ordini[fascia_ordine] ) >= 4, [% recensioni negative] )" "0.0%" `
-    "La stessa misura, ristretta alle fasce oltre la data promessa: sul grafico e' l'accento rosso."
+# --- il momento della recensione (§16) -------------------------------------
+# Sui ritardi Olist non aspetta il pacco: manda il questionario due giorni dopo la
+# data promessa, e 7 clienti su 10 rispondono prima di averlo. Il 62% di negative in ritardo mescola due
+# cose diverse, e queste misure le separano.
+Aggiungi-Misura "% recensioni in ritardo scritte prima del pacco" `
+    "DIVIDE( CALCULATE( [Ordini recensiti], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() ), CALCULATE( [Ordini recensiti], Ordini[in_ritardo] = TRUE() ) )" "0.0%" `
+    "70,1%: 4.476 recensioni su 6.381 ordini in ritardo e recensiti."
+Aggiungi-Misura "% negative prima del pacco" `
+    "CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() )" "0.0%" `
+    "80,6%: chi recensisce mentre aspetta e' quasi sempre arrabbiato."
+Aggiungi-Misura "% negative in ritardo, dopo il pacco" `
+    "CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = FALSE() )" "0.0%" `
+    "19,4%: chi il pacco in ritardo lo ha ricevuto. Il doppio del 9,2% in orario."
+# le due parti del rosso sul grafico delle fasce: impilate fanno la quota intera
+# di negative della fascia, quindi il denominatore e' [Ordini recensiti] di tutta la fascia
+Aggiungi-Misura "% negative (ritardo, prima del pacco)" `
+    "IF( SELECTEDVALUE( Ordini[fascia_ordine] ) >= 4, DIVIDE( CALCULATE( [Ordini consegnati], Ordini[voto_negativo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() ), [Ordini recensiti] ) )" "0.0%" `
+    "Sul grafico: la parte di rosso scritta prima di avere il pacco."
+Aggiungi-Misura "% negative (ritardo, dopo il pacco)" `
+    "IF( SELECTEDVALUE( Ordini[fascia_ordine] ) >= 4, DIVIDE( CALCULATE( [Ordini consegnati], Ordini[voto_negativo] = TRUE(), Ordini[recensione_prima_del_pacco] = FALSE() ), [Ordini recensiti] ) )" "0.0%" `
+    "Sul grafico: la parte di rosso scritta col pacco in mano."
 
 Aggiungi-Misura "Fatturato" "CALCULATE( SUM( RigheOrdine[valore_riga] ), Ordini )" '"R$" #,0' `
     "Prezzo + spedizione, sui soli ordini consegnati."
@@ -303,14 +323,9 @@ Aggiungi-Misura "Ordini esclusi dall'analisi" `
     "CALCULATE( SUM( ControlloStatiOrdine[ordini] ), ControlloStatiOrdine[nell_analisi] = FALSE() )" "#,0" `
     "2.963. Sta nel pannello dei limiti e non e' battuto a mano."
 
-# --- il crollo del voto: era il numero che regge il lavoro, e non stava da nessuna
-#     parte nel cruscotto. Adesso sono due riquadri di pagina 1.
-Aggiungi-Misura "Voto medio in orario" `
-    "CALCULATE( [Voto medio], Ordini[in_ritardo] = FALSE() )" "0.00" `
-    "4,29. Il voto quando la consegna rispetta la promessa."
-Aggiungi-Misura "Voto medio in ritardo" `
-    "CALCULATE( [Voto medio], Ordini[in_ritardo] = TRUE() )" "0.00" `
-    "2,57. Lo stesso voto quando la promessa salta. Base: i 95.824 recensiti."
+# --- qui stavano "Voto medio in orario" e "Voto medio in ritardo" (4,29 e 2,27),
+#     tolte il 2/10: il voto in ritardo conta anche chi risponde senza avere il
+#     pacco. Il loro posto in pagina 1 va al fatturato, che e' la sotto-domanda 3.
 
 # --- la serie nel tempo (pagina 3).
 #
@@ -359,10 +374,10 @@ IF(
 #     pagina il filtro dell'anno non c'e'.
 Aggiungi-Misura "% ordini in ritardo gen-ago 2018" `
     "CALCULATE( [% ordini in ritardo], Calendario[Anno] = 2018, Calendario[confrontabile] = TRUE() )" "0.0%" `
-    "9,4%. Piu' del doppio dello stesso periodo dell'anno prima."
+    "7,7%. Piu' del doppio dello stesso periodo dell'anno prima."
 Aggiungi-Misura "% ordini in ritardo gen-ago 2017" `
     "CALCULATE( [% ordini in ritardo], Calendario[Anno] = 2017, Calendario[confrontabile] = TRUE() )" "0.0%" `
-    "4,2%. La finestra di confronto."
+    "3,5%. La finestra di confronto."
 Aggiungi-Misura "% recensioni negative gen-ago 2018" `
     "CALCULATE( [% recensioni negative], Calendario[Anno] = 2018, Calendario[confrontabile] = TRUE() )" "0.0%" `
     "13,3%. Stessa finestra, base dei recensiti."

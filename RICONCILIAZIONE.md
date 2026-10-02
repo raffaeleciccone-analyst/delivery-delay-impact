@@ -13,6 +13,29 @@ diverso, o una base sbagliata (vedi l'ultima sezione).
 
 ---
 
+## Ricontati il 2/10, dopo le correzioni §4b e §16
+
+Calcolati in Python sui CSV, replicando i passaggi di Power Query. Lo stesso script
+riproduce prima tutti i numeri del 23/08 (8,1%, 54,0%, 1.388, 1.390, 4,2% e 9,4%...), poi
+cambia solo il confronto fra date: cosi' lo scarto e' tutto dovuto alla correzione.
+
+| # | Misura | 23/08 | Atteso dal 2/10 | Dal modello |
+|---|---|---:|---:|---:|
+| 5 | Ordini in ritardo | 7.826 (8,1%) | **6.534 (6,8%)** | da spuntare |
+| 6 | Giorni di ritardo (mediana) | 5,8 | **7** | da spuntare |
+| 7 | Margine di consegna (mediana) | 12,3 | **13** | da spuntare |
+| 9 | % negative in orario | 9,2% | **9,2%** | da spuntare |
+| 21 | % recensioni in ritardo scritte prima del pacco | - | **70,1%** (4.476 su 6.381) | da spuntare |
+| 22 | % negative prima del pacco | - | **80,6%** | da spuntare |
+| 23 | % negative in ritardo, dopo il pacco | - | **19,4%** (su 1.905) | da spuntare |
+| 11 | % fatturato in ritardo | 8,77% | **7,5%** | da spuntare |
+| 12 | Fase venditore in orario / in ritardo | 1,784 / 3,019 | **1,79 / 3,07** | da spuntare |
+| 13 | Fase logistica in orario / in ritardo | 6,935 / 23,922 | **6,96 / 26,20** | da spuntare |
+| - | % ritardo gen-ago 2017 / 2018 | 4,2% / 9,4% | **3,5% / 7,7%** | da spuntare |
+
+Non cambiano: 96.470, 95.824, 2.970, 627, 97.811, 2.963, 1.388, le negative gen-ago
+(10,5% e 13,3%, che dipendono dal mese d'acquisto e non dal ritardo).
+
 ## TUTTI SPUNTATI, 23/08, sul modello costruito
 
 Il modello e' stato scritto in un'istanza di Power BI Desktop e interrogato con le sue

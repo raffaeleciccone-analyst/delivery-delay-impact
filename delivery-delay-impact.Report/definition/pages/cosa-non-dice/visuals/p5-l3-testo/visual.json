@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "«In ritardo» e' rispetto a una promessa",
+                    "value": "Ritardo e voto dipendono dalla promessa",
                     "textStyle": {
                       "fontSize": "14pt",
                       "fontFamily": "Georgia, serif",
@@ -41,11 +41,34 @@
               {
                 "textRuns": [
                   {
-                    "value": "Quando un ordine arriva in orario, arriva 12,3 giorni prima della data promessa (mediana). Allargando la stima il ritardo sparirebbe dai numeri senza che nessuno consegni prima, e questa analisi non se ne accorgerebbe.",
+                    "value": "Gli ordini in orario arrivano 13 giorni prima della data promessa (mediana): allargando la stima il ritardo sparirebbe dai numeri.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
                       "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "",
+                    "textStyle": {
+                      "fontSize": "6pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "E sui ritardi il voto si chiede due giorni dopo la promessa, pacco o no: 7 recensioni su 10 sono scritte prima del pacco, e giudicano l'attesa.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
+                      "color": "#1A1A19",
+                      "fontWeight": "bold"
                     }
                   }
                 ]
