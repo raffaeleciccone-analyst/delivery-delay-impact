@@ -47,7 +47,9 @@ let
             {"voto", each List.Average([review_score]), type number},
             {"recensioni_sull_ordine", each Table.RowCount(_), Int64.Type},
             {"con_commento", each List.Count(List.Select([ha_commento], each _ = true)), Int64.Type},
-            {"prima_recensione", each List.Min([review_creation_date]), type datetime}
+            {"prima_recensione", each List.Min([review_creation_date]), type datetime},
+            // quando il cliente ha RISPOSTO: la creazione e' l'invio del questionario (§16)
+            {"prima_risposta", each List.Min([review_answer_timestamp]), type datetime}
         }
     ),
 

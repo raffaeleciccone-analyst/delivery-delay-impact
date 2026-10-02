@@ -42,7 +42,7 @@ expression RecensioniPerOrdine =
 		// Query: RecensioniPerOrdine   -- NON caricata nel modello (serve al merge di Ordini)
 		//
 		// Il file ha 99.224 recensioni per 98.673 ordini: 547 ordini ne hanno piu' d'una,
-		// e 789 review_id compaiono su piu' ordini — la chiave dichiarata non e' una chiave
+		// e 789 review_id compaiono su piu' ordini, la chiave dichiarata non e' una chiave
 		// (§5). Quindi review_id non entra nel modello, e il voto per ordine e' una MEDIA.
 		// Su 547 ordini il voto mostrato non e' un voto che qualcuno ha dato: sta scritto
 		// nel pannello dei limiti, e la colonna recensioni_sull_ordine permette di trovarli.
@@ -88,7 +88,9 @@ expression RecensioniPerOrdine =
 		            {"voto", each List.Average([review_score]), type number},
 		            {"recensioni_sull_ordine", each Table.RowCount(_), Int64.Type},
 		            {"con_commento", each List.Count(List.Select([ha_commento], each _ = true)), Int64.Type},
-		            {"prima_recensione", each List.Min([review_creation_date]), type datetime}
+		            {"prima_recensione", each List.Min([review_creation_date]), type datetime},
+		            // quando il cliente ha RISPOSTO: la creazione e' l'invio del questionario (§16)
+		            {"prima_risposta", each List.Min([review_answer_timestamp]), type datetime}
 		        }
 		    ),
 		
@@ -109,7 +111,7 @@ expression CategorieTradotte =
 		// la prima colonna prende un nome sporco e il merge con Prodotti non aggancia
 		// piu' niente, senza dare nessun errore.
 		//
-		// Righe attese: 71 — contro 73 categorie nei prodotti: due non hanno traduzione.
+		// Righe attese: 71, contro 73 categorie nei prodotti: due non hanno traduzione.
 		let
 		    Origine = Csv.Document(
 		        File.Contents(PercorsoDati & "\product_category_name_translation.csv"),

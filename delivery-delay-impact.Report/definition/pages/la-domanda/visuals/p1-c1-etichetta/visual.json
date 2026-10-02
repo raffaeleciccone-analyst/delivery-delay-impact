@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Consegnati dopo la data promessa",
+                    "value": "Consegnati dopo il giorno promesso",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",

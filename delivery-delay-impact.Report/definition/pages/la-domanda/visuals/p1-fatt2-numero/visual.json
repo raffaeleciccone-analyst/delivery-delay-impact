@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "p1-voto2-numero",
+  "name": "p1-fatt2-numero",
   "position": {
     "x": 1600,
     "y": 908,
@@ -23,11 +23,11 @@
                       "Entity": "Misure"
                     }
                   },
-                  "Property": "Voto medio in ritardo"
+                  "Property": "% fatturato in ritardo"
                 }
               },
-              "queryRef": "Misure.Voto medio in ritardo",
-              "nativeQueryRef": "Voto medio in ritardo"
+              "queryRef": "Misure.% fatturato in ritardo",
+              "nativeQueryRef": "% fatturato in ritardo"
             }
           ]
         }

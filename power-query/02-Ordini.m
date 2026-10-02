@@ -19,11 +19,18 @@ let
     ),
 
     // Il ritardo e' rispetto alla data PROMESSA, non a un tempo ragionevole (§4).
+    // Si confrontano due DATE, non due istanti: la promessa e' un giorno e nel file
+    // sta alla mezzanotte, la consegna ha l'ora. Sottraendo gli istanti un pacco
+    // arrivato alle 14 del giorno promesso risultava in ritardo di 0,6 giorni:
+    // erano 1.292 ordini, e la quota in ritardo saliva dal 6,8% all'8,1% (§4b).
     #"Giorni di ritardo" = Table.AddColumn(
         #"Scarta i consegnati senza data di consegna",
         "giorni_ritardo",
-        each Duration.TotalDays([order_delivered_customer_date] - [order_estimated_delivery_date]),
-        type number
+        each Duration.Days(
+            DateTime.Date([order_delivered_customer_date])
+                - DateTime.Date([order_estimated_delivery_date])
+        ),
+        Int64.Type
     ),
     #"In ritardo si o no" = Table.AddColumn(
         #"Giorni di ritardo", "in_ritardo", each [giorni_ritardo] > 0, type logical
@@ -39,17 +46,18 @@ let
     // Le fasce servono a mostrare il DIRUPO (DATI-SPORCHI.md, ipotesi 1): il legame
     // fra ritardo e recensione non e' una pendenza, e un indicatore riassuntivo
     // direbbe il falso. Mostrando le fasce si vede dove succede davvero.
-    // I tagli sono gli stessi dell'analisi: -10, -5, 0, 3, 7, 15, 30 giorni.
+    // I tagli sono gli stessi dell'analisi: -10, -5, 0, 3, 7, 15, 30 giorni. Con i giorni
+    // interi le etichette dicono gli estremi veri: "4-7" e' da 4 a 7 compresi.
     #"Fascia di ritardo" = Table.AddColumn(
         #"Esito della consegna",
         "fascia_ritardo",
-        each if [giorni_ritardo] <= -10 then "Oltre 10 gg in anticipo"
-             else if [giorni_ritardo] <= -5 then "5-10 gg in anticipo"
-             else if [giorni_ritardo] <= 0  then "0-5 gg in anticipo"
-             else if [giorni_ritardo] <= 3  then "0-3 gg in ritardo"
-             else if [giorni_ritardo] <= 7  then "3-7 gg di ritardo"
-             else if [giorni_ritardo] <= 15 then "7-15 gg di ritardo"
-             else if [giorni_ritardo] <= 30 then "15-30 gg di ritardo"
+        each if [giorni_ritardo] <= -10 then "10 gg o piu' in anticipo"
+             else if [giorni_ritardo] <= -5 then "5-9 gg in anticipo"
+             else if [giorni_ritardo] <= 0  then "0-4 gg in anticipo"
+             else if [giorni_ritardo] <= 3  then "1-3 gg di ritardo"
+             else if [giorni_ritardo] <= 7  then "4-7 gg di ritardo"
+             else if [giorni_ritardo] <= 15 then "8-15 gg di ritardo"
+             else if [giorni_ritardo] <= 30 then "16-30 gg di ritardo"
              else "Oltre 30 gg di ritardo",
         type text
     ),
@@ -122,14 +130,39 @@ let
     #"Espandi il voto" = Table.ExpandTableColumn(
         #"Aggancia il voto della recensione",
         "rec",
-        {"voto", "recensioni_sull_ordine", "voto_negativo"},
-        {"voto", "recensioni_sull_ordine", "voto_negativo"}
+        {"voto", "recensioni_sull_ordine", "voto_negativo", "prima_risposta"},
+        {"voto", "recensioni_sull_ordine", "voto_negativo", "prima_risposta"}
     ),
 
     // LE DUE BASI, dichiarate come colonna invece che ricordate a memoria:
     // tempi e venditori -> tutti i 96.470;  voti -> i 95.824 con recensito = true.
     #"Segna se recensito" = Table.AddColumn(
         #"Espandi il voto", "recensito", each [voto] <> null, type logical
+    ),
+
+    // §16 - Olist manda il questionario il giorno dopo la consegna, ma se il pacco
+    // e' in ritardo non lo aspetta: lo manda due giorni dopo la data promessa (4.460
+    // ritardi su 6.409 recensioni). Chi aspetta riceve la domanda mentre il pacco non
+    // c'e', e risponde lo stesso: sui ritardi succede 7 volte su 10. Quelle
+    // recensioni giudicano l'attesa, non la consegna, e vanno contate a parte.
+    // Si confronta la PRIMA risposta con l'istante di consegna.
+    #"Recensione prima del pacco" = Table.AddColumn(
+        #"Segna se recensito",
+        "recensione_prima_del_pacco",
+        each [recensito] and [prima_risposta] <> null
+            and [prima_risposta] < [order_delivered_customer_date],
+        type logical
+    ),
+    #"Momento della recensione" = Table.AddColumn(
+        #"Recensione prima del pacco",
+        "momento_recensione",
+        each if not [recensito] then "Non recensito"
+             else if [recensione_prima_del_pacco] then "Prima di ricevere il pacco"
+             else "Dopo aver ricevuto il pacco",
+        type text
+    ),
+    #"Togli l'istante della risposta" = Table.RemoveColumns(
+        #"Momento della recensione", {"prima_risposta"}
     )
 in
-    #"Segna se recensito"
+    #"Togli l'istante della risposta"

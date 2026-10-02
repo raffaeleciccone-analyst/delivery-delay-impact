@@ -63,7 +63,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "In orario: 1,8 giorni il venditore, 6,9 la logistica.",
+                    "value": "In orario: 1,8 giorni il venditore, 7,0 la logistica.",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
@@ -76,7 +76,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "In ritardo: 3,0 il venditore, 23,9 la logistica.",
+                    "value": "In ritardo: 3,1 il venditore, 26,2 la logistica.",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
@@ -99,7 +99,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "I conti tornano: 1,2 piu' 17,0 fanno 18,2; tolto il margine di 12,3 restano 5,9 attesi contro 5,8 misurati.",
+                    "value": "I conti tornano all'ingrosso: 1,3 piu' 19,2 fanno 20,5; tolto il margine di 13 restano 7,5 attesi contro 7 misurati. Sono mediane: non si sommano alla pari.",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

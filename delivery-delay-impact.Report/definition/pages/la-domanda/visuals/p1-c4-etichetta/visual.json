@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Fatturato che passa da ordini in ritardo",
+                    "value": "Ritardi recensiti prima del pacco",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",

@@ -23,11 +23,11 @@
                       "Entity": "Misure"
                     }
                   },
-                  "Property": "% fatturato in ritardo"
+                  "Property": "% negative prima del pacco"
                 }
               },
-              "queryRef": "Misure.% fatturato in ritardo",
-              "nativeQueryRef": "% fatturato in ritardo"
+              "queryRef": "Misure.% negative prima del pacco",
+              "nativeQueryRef": "% negative prima del pacco"
             }
           ]
         }

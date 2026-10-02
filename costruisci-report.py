@@ -76,6 +76,7 @@ RIENTRO_X, RIENTRO_S, RIENTRO_G = 20, 18, 16
 # di 3:1: le barre "in orario" sparivano.
 ROSSO        = "#E34948"
 ROSSO_TENUE  = "#FBEBEA"   # il fondo del riquadro-perno
+ROSSO_SCURO  = "#8E1F1E"   # le recensioni scritte prima del pacco: stesso rosso, piu' cupo
 GRIGIO       = "#8A8880"   # il contesto nei grafici
 SFONDO       = "#EDECE8"   # un gradino piu' grigio: la carta bianca stacca di piu'
 CARTA        = "#FFFFFF"
@@ -704,52 +705,62 @@ pagina("la-domanda", "1. La domanda", intestazione(
     "Dati Kaggle, licenza CC BY-NC-SA 4.0.",
     "LA DOMANDA", "PAGINA 1 DI 5") + filtri("p1") + [
 
+    # Fino al 2/10 il terzo riquadro era "% recensioni negative in ritardo" (54%).
+    # Mescolava due cose: sui ritardi Olist manda il questionario due giorni dopo
+    # la data promessa senza aspettare il pacco, e 7 clienti su 10 rispondono prima
+    # di averlo (§16). Il
+    # numero-perno ora e' quello di chi il pacco l'ha ricevuto; l'attesa ha il
+    # suo riquadro accanto.
     riquadro("p1-c1", X(0), RIQ_Y, W(3), RIQ_H, 10, "% ordini in ritardo",
-             "Consegnati dopo la data promessa"),
+             "Consegnati dopo il giorno promesso"),
     riquadro("p1-c2", X(3), RIQ_Y, W(3), RIQ_H, 11, "% recensioni negative in orario",
              "Recensioni negative, consegne in orario"),
-    riquadro("p1-c3", X(6), RIQ_Y, W(3), RIQ_H, 12, "% recensioni negative in ritardo",
-             "Recensioni negative, consegne in ritardo", accento=True),
-    riquadro("p1-c4", X(9), RIQ_Y, W(3), RIQ_H, 13, "Fatturato in ritardo (EUR)",
-             "Fatturato che passa da ordini in ritardo"),
+    riquadro("p1-c3", X(6), RIQ_Y, W(3), RIQ_H, 12, "% negative in ritardo, dopo il pacco",
+             "Negative in ritardo, col pacco ricevuto", accento=True),
+    riquadro("p1-c4", X(9), RIQ_Y, W(3), RIQ_H, 13, "% recensioni in ritardo scritte prima del pacco",
+             "Ritardi recensiti prima del pacco"),
 
     didascalia("p1-d1", X(0), DID_Y, W(3), 14, "Base: 96.470 ordini consegnati."),
     didascalia("p1-d2", X(3), DID_Y, W(3), 15, "Base: 95.824 ordini anche recensiti."),
-    didascalia("p1-d3", X(6), DID_Y, W(3), 16, "Stessa base, solo gli ordini oltre la promessa."),
-    # il quarto riquadro e' l'unico che porta un valore assoluto: da solo non si
-    # sa se sia molto o poco, e la quota che serve a saperlo viene dal modello
-    didascalia_misura("p1-d4", X(9), DID_Y, W(3), 17, "% fatturato in ritardo",
-                      "del fatturato consegnato."),
+    didascalia("p1-d3", X(6), DID_Y, W(3), 16, "Solo chi ha risposto dopo la consegna: 1.905."),
+    # il quarto riquadro dice quante; quanto sono arrabbiate lo dice il modello
+    didascalia_misura("p1-d4", X(9), DID_Y, W(3), 17, "% negative prima del pacco",
+                      "di queste sono negative."),
 
+    # impilate: le due parti del rosso fanno la quota intera di negative della
+    # fascia, e si vede quanta ne arriva prima che il pacco ci sia
     barre("p1-dirupo", X(0), GRA_Y, W(8), FONDO - GRA_Y, 20,
           ("Ordini", "fascia_ritardo"),
           [("% negative (consegne in orario)", GRIGIO),
-           ("% negative (consegne in ritardo)", ROSSO)],
-          "Recensioni negative per fascia: in grigio le consegne in orario, "
-          "in rosso quelle oltre la promessa",
+           ("% negative (ritardo, dopo il pacco)", ROSSO),
+           ("% negative (ritardo, prima del pacco)", ROSSO_SCURO)],
+          "Recensioni negative per fascia. In ritardo: rosso col pacco ricevuto, "
+          "rosso scuro scritte prima di riceverlo",
           forma="fasce", dim_categoria=11,
           dettaglio="dettaglio-fascia"),
 
     scheda("p1-lettura", X(8), GRA_Y, W(4), P1_SCH_H, 21,
-           "Il salto sta nei primi giorni di ritardo", [
-               "Fra dieci giorni di anticipo e la consegna appena in orario le recensioni "
-               "negative passano dall'8,9% all'11,0%. Due punti su venti giorni di scarto.",
+           "Il danno arriva prima del pacco", [
+               "Fra dieci giorni di anticipo e la consegna nel giorno promesso le recensioni "
+               "negative passano dall'8,9% all'11,3%.",
                "",
-               ("Fra 3 e 7 giorni di ritardo si arriva al 61,3%: la maggioranza delle "
-                "recensioni e' negativa.", "rosso"),
+               ("Con 4-7 giorni di ritardo sono il 67,6%. Ma Olist chiede il voto due giorni dopo "
+                "la data promessa, pacco o no: sui ritardi 7 clienti su 10 rispondono senza "
+                "averlo, e l'81% di loro boccia.", "rosso"),
                "",
-               ("Perche' non c'e' un coefficiente di correlazione", "forte"),
-               "Calcolato su tutti gli ordini varrebbe -0,18, cioe' un legame debole. Il valore "
-               "e' schiacciato dal 92% di consegne in anticipo, che domina il conteggio. Per "
-               "questo la pagina mostra le fasce.",
+               ("Chi il pacco lo riceve", "forte"),
+               "Fra chi risponde dopo la consegna il ritardo porta le negative dal 9,2% al "
+               "19,4%: il doppio. Il resto e' il costo dell'attesa, ed e' li' che un avviso al "
+               "cliente avrebbe qualcosa da cambiare.",
            ], dim=11),
 
-    # il crollo del voto e' il numero che regge tutto il lavoro: stava scritto
-    # nei documenti e da nessuna parte nel cruscotto
-    riquadro("p1-voto1", X(8), VOTI_Y, MEZZA, FONDO - VOTI_Y, 22, "Voto medio in orario",
-             "Voto, consegne in orario", dim=30),
-    riquadro("p1-voto2", X(10), VOTI_Y, MEZZA, FONDO - VOTI_Y, 23, "Voto medio in ritardo",
-             "Voto, consegne in ritardo", dim=30),
+    # Qui c'erano i due riquadri del voto (4,29 e 2,27), tolti il 2/10: il voto
+    # in ritardo conta anche chi risponde senza avere il pacco. Il posto va al
+    # fatturato, la sotto-domanda 3 di DOMANDA.md: dice se la cosa merita un intervento.
+    riquadro("p1-fatt1", X(8), VOTI_Y, MEZZA, FONDO - VOTI_Y, 22, "Fatturato in ritardo (EUR)",
+             "Fatturato da ordini in ritardo", dim=30),
+    riquadro("p1-fatt2", X(10), VOTI_Y, MEZZA, FONDO - VOTI_Y, 23, "% fatturato in ritardo",
+             "Quota del fatturato consegnato", dim=30),
 ] + piede("p1",
           "Dati Olist (Kaggle, CC BY-NC-SA 4.0), scaricati e congelati il 23/08/2026. "
           "Ordini consegnati: 96.470 su 99.441. I voti si appoggiano ai 95.824 ordini anche "
@@ -758,7 +769,7 @@ pagina("la-domanda", "1. La domanda", intestazione(
           ", media dei cambi mensili BCE del periodo pesata per il fatturato: convertendo "
           "mese per mese il totale cambia dello 0,5%."),
     spegni=[("p1-dirupo", ["p1-c1-numero", "p1-c2-numero", "p1-c3-numero", "p1-c4-numero",
-                           "p1-d4-numero", "p1-voto1-numero", "p1-voto2-numero"])],
+                           "p1-d4-numero", "p1-fatt1-numero", "p1-fatt2-numero"])],
 )
 
 # ------------------------------------------------ 2. DI CHI E' IL RITARDO
@@ -773,7 +784,7 @@ SOG_Y = RIGA_B + KPI_H + GRONDA                      # 836
 
 pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
     "p2", "Il ritardo si forma quasi tutto dopo il venditore.",
-    "Sugli ordini in ritardo il venditore impiega 1,2 giorni in piu' del solito, la logistica 17. "
+    "Sugli ordini in ritardo il venditore impiega 1,3 giorni in piu' del solito, la logistica 19. "
     "La pagina scompone il tempo di consegna nelle due fasi che i dati registrano.",
     "DI CHI E' IL RITARDO", "PAGINA 2 DI 5") + filtri("p2", nota=(
         "I filtri valgono anche sulle altre pagine. Il clic su uno stato muove i due "
@@ -793,11 +804,11 @@ pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
                "Due intervalli registrati: dall'approvazione al corriere (venditore), e da "
                "li' alla consegna (logistica).",
                "",
-               ("In orario: 1,8 giorni il venditore, 6,9 la logistica.", "forte"),
-               ("In ritardo: 3,0 il venditore, 23,9 la logistica.", "rosso"),
+               ("In orario: 1,8 giorni il venditore, 7,0 la logistica.", "forte"),
+               ("In ritardo: 3,1 il venditore, 26,2 la logistica.", "rosso"),
                "",
-               "I conti tornano: 1,2 piu' 17,0 fanno 18,2; tolto il margine di 12,3 restano "
-               "5,9 attesi contro 5,8 misurati.",
+               "I conti tornano all'ingrosso: 1,3 piu' 19,2 fanno 20,5; tolto il margine di 13 "
+               "restano 7,5 attesi contro 7 misurati. Sono mediane: non si sommano alla pari.",
            ], dim=11),
 
     # orizzontale e ordinata: e' una classifica, e le sigle degli stati si
@@ -821,7 +832,7 @@ pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
                "Sotto i 30 ordini la percentuale e' rumore: 3 ordini, 100% di ritardo.",
                ("I venditori esclusi non sono a posto: sono non misurabili.", "forte"),
                "",
-               "1.390 venditori su 2.970 fanno almeno un ritardo; i venti peggiori il 24%.",
+               "1.274 venditori su 2.970 fanno almeno un ritardo; i venti peggiori il 25%.",
            ]),
 ] + piede("p2",
           "Il grafico per stato tiene solo gli stati con almeno 100 ordini consegnati. Le durate "
@@ -853,7 +864,7 @@ P3_SCH_Y = GRA_Y + P3_GRA_H + GRONDA                 # 760
 
 pagina("come-cambia", "3. Come cambia", intestazione(
     "p3", "Il ritardo e' piu' che raddoppiato in un anno.",
-    "Gennaio-agosto 2018 contro lo stesso periodo del 2017: dal 4,2% al 9,4% di consegne oltre "
+    "Gennaio-agosto 2018 contro lo stesso periodo del 2017: dal 3,5% al 7,7% di consegne oltre "
     "la promessa, e le recensioni negative dal 10,5% al 13,3%.",
     "COME CAMBIA", "PAGINA 3 DI 5") + filtri("p3", anno=False) + [
 
@@ -889,8 +900,8 @@ pagina("come-cambia", "3. Come cambia", intestazione(
 
     scheda("p3-lettura", X(8), P3_SCH_Y, W(4), FONDO - P3_SCH_Y, 22,
            "Sono picchi, non una deriva", [
-               "Nel 2017 sta sotto il 4%. Poi 14,3% a novembre e 21,4% a marzo 2018.",
-               "Giugno 2018 torna all'1,4%.",
+               "Nel 2017 sta intorno al 3%. Poi 12,4% a novembre e 19,0% a marzo 2018.",
+               "Giugno 2018 torna all'1,2%.",
                "",
                ("Si risolve con la capacita', non sospendendo venditori.", "rosso"),
                "",
@@ -1029,10 +1040,12 @@ LIMITI = [
      ["Da questi dati non si puo' sapere se un cliente con una stella ha smesso di comprare. "
       "Ci sono 96.096 persone per 99.441 ordini: il 97% compra una volta sola, e non c'e' un "
       "comportamento successivo da osservare."]),
-    ("«In ritardo» e' rispetto a una promessa",
-     ["Quando un ordine arriva in orario, arriva 12,3 giorni prima della data promessa "
-      "(mediana). Allargando la stima il ritardo sparirebbe dai numeri senza che nessuno "
-      "consegni prima, e questa analisi non se ne accorgerebbe."]),
+    ("Ritardo e voto dipendono dalla promessa",
+     ["Gli ordini in orario arrivano 13 giorni prima della data promessa (mediana): "
+      "allargando la stima il ritardo sparirebbe dai numeri.",
+      "",
+      ("E sui ritardi il voto si chiede due giorni dopo la promessa, pacco o no: 7 "
+       "recensioni su 10 sono scritte prima del pacco, e giudicano l'attesa.", "forte")]),
     ("Le fasi arrivano fin dove arrivano i timestamp",
      ["Quello che succede dentro il corriere non e' registrato. Su 1.388 ordini i timestamp "
       "sono incoerenti, con la spedizione prima dell'approvazione: quegli ordini sono esclusi "
