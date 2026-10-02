@@ -260,7 +260,7 @@ Aggiungi-Misura "% recensioni in ritardo scritte prima del pacco" `
 Aggiungi-Misura "% negative prima del pacco" `
     "CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() )" "0.0%" `
     "80,6%: chi recensisce mentre aspetta e' quasi sempre arrabbiato."
-Aggiungi-Misura "% negative in ritardo, dopo il pacco" `
+Aggiungi-Misura "% negative in ritardo dopo il pacco" `
     "CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = FALSE() )" "0.0%" `
     "19,4%: chi il pacco in ritardo lo ha ricevuto. Il doppio del 9,2% in orario."
 # le due parti del rosso sul grafico delle fasce: impilate fanno la quota intera

@@ -23,11 +23,11 @@
                       "Entity": "Misure"
                     }
                   },
-                  "Property": "% negative in ritardo, dopo il pacco"
+                  "Property": "% negative in ritardo dopo il pacco"
                 }
               },
-              "queryRef": "Misure.% negative in ritardo, dopo il pacco",
-              "nativeQueryRef": "% negative in ritardo, dopo il pacco"
+              "queryRef": "Misure.% negative in ritardo dopo il pacco",
+              "nativeQueryRef": "% negative in ritardo dopo il pacco"
             }
           ]
         }
