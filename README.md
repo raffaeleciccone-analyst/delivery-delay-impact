@@ -12,14 +12,15 @@ risponde a quella e a nient'altro.
 ## Cosa dicono i dati
 
 **Il danno arriva prima del pacco.** Il 6,8% degli ordini arriva dopo il giorno promesso.
-Su quegli ordini Olist non aspetta la consegna per chiedere il voto: manda il questionario
-due giorni dopo la data promessa, e **7 clienti su 10 rispondono prima di avere il pacco.
-L'81% di loro boccia.**
+Su quegli ordini il questionario non aspetta la consegna: nei dati parte due giorni dopo la
+data promessa, e **7 clienti su 10 rispondono prima di avere il pacco. L'81% di loro
+boccia.**
 
 **Chi il pacco lo riceve in ritardo boccia il doppio.** Fra chi risponde dopo la consegna,
 le recensioni negative passano dal 9,2% (in orario) al **19,4%**. Il confronto regge anche
 dentro la stessa fascia: chi riceve il pacco con 1-3 giorni di ritardo, che sono tre su
-quattro di questo gruppo, boccia nel **18,6%** dei casi; con 4-7 giorni nel 20,3%. È il
+quattro di questo gruppo, boccia nel **18,6%** dei casi; con 4-7 giorni nel 20,3%. E il
+divario resta uguale confrontando ordini dello stesso stato o dello stesso mese. È il
 danno della consegna; il resto è il danno dell'attesa, ed è lì che avvisare il cliente
 prima della data promessa avrebbe qualcosa da cambiare.
 
@@ -30,32 +31,21 @@ correlazione su tutti gli ordini varrebbe −0,18, cioè «legame debole»: è s
 92% di consegne in anticipo. Per questo nel cruscotto non c'è nessuna correlazione, ci
 sono le fasce.
 
-**Il ritardo non si forma dal venditore.** Spezzando il tempo di consegna nei due
-intervalli che i dati registrano: sugli ordini in ritardo il venditore impiega 1,3 giorni
-in più del solito, la logistica ne impiega 19 (mediane). E non esiste una manciata di
-colpevoli: 1.274 venditori su 2.970 producono almeno un ritardo, e i venti peggiori
-spiegano il 25% del totale.
+**Il ritardo si accumula nella fase di trasporto.** Spezzando il tempo di consegna nei due
+intervalli che i dati registrano: sugli ordini in ritardo la fase del venditore dura 1,3
+giorni in più del solito, quella dopo l'affidamento al corriere 19 (mediane). È una
+descrizione di dove si accumula il tempo, non una sentenza. E non c'è una manciata di
+venditori anomali: i venti con più ritardi ne fanno il 25%, ma gestiscono anche il 20%
+degli ordini, con un tasso di ritardo dell'8% contro il 6,7% di tutti.
 
 **Sta peggiorando, a picchi.** Gennaio-agosto 2018 contro lo stesso periodo 2017: dal 3,5%
 al 7,7% di consegne oltre la promessa. Ma per quasi tutto il 2017 il ritardo sta intorno al
 3%, poi novembre 2017 fa 12,4% e marzo 2018 fa 19,0%, e giugno 2018 torna all'1,2%.
 
-Messe insieme, le ultime due cambiano cosa si propone: un problema di capacità nei mesi di
-punta, non venditori da sospendere.
+Messe insieme, le ultime due suggeriscono un'ipotesi da verificare con chi gestisce le
+spedizioni: un problema di capacità nei mesi di punta, più che venditori da sospendere.
 
-### Corretto il 2 ottobre 2026
-
-Una revisione esterna ha trovato due errori nella prima versione, che diceva «le recensioni
-negative passano dal 9,2% al 54%»:
-
-1. **Il ritardo era calcolato fra due istanti**, ma la data promessa è un giorno a
-   mezzanotte: un pacco arrivato alle 14 del giorno promesso risultava in ritardo. Erano
-   1.292 ordini; contando per data la quota in ritardo scende dall'8,1% al 6,8%.
-2. **Il 54% mescolava due cose:** chi giudica la consegna e chi, senza pacco, giudica
-   l'attesa. Le due ora sono separate.
-
-Le correzioni stanno accanto ai numeri vecchi in `DATI-SPORCHI.md` (§4b e §16), non al
-loro posto.
+Le correzioni dopo la pubblicazione, con i numeri di prima, stanno in `CHANGELOG.md`.
 
 ---
 
@@ -171,7 +161,8 @@ Il lavoro è documentato mentre si faceva, non dopo:
 | File | Cosa contiene |
 |---|---|
 | `DOMANDA.md` | la domanda e le sei sotto-domande, scritte prima di aprire Power BI, poi verificate una per una sui dati |
-| `DATI-SPORCHI.md` | i problemi trovati esplorando i CSV, con il passaggio di Power Query che li tratta (§4b e §16 aggiunti il 2/10) |
+| `DATI-SPORCHI.md` | i problemi trovati esplorando i CSV, con il passaggio di Power Query che li tratta |
+| `CHANGELOG.md` | le correzioni dopo la pubblicazione: cosa diceva prima, perché era sbagliato, cosa dice adesso |
 | `RICONCILIAZIONE.md` | i numeri che il modello deve riprodurre, e il loro esito |
 
 Il criterio in `RICONCILIAZIONE.md`: se il cruscotto e i documenti dicono numeri diversi,
