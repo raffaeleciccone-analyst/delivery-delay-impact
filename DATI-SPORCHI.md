@@ -68,7 +68,7 @@ misure di durata per fase, che le dichiarano.
 ## 4. La data stimata e' larga, e questo cambia la lettura
 
 Non e' un difetto dei dati, e' una proprieta' da dichiarare: **quando un ordine arriva in
-orario, arriva 12,3 giorni prima della data promessa** (mediana). La stima di Olist e'
+orario, arriva 13 giorni prima della data promessa** (mediana, contando per data). La stima di Olist e'
 molto prudente.
 
 Quindi «in ritardo» qui significa *in ritardo rispetto a una promessa gia' generosa*, il
@@ -296,10 +296,10 @@ Passaggio: `RecensioniPerOrdine` tiene anche `prima_risposta` (il minimo di
 
 # Le tre ipotesi di `DOMANDA.md`, verificate
 
-## `[V]` Il legame ritardo -> recensione: **c'e', ed e' netto**
+Numeri del 2 ottobre 2026: ritardo contato per data (§4b), recensioni separate per
+momento (§16). Le versioni precedenti stanno in `CHANGELOG.md`.
 
-**Corretto il 2 ottobre 2026** (§4b e §16). Con il ritardo contato per data, e separando
-chi risponde prima di avere il pacco:
+## `[V]` Il legame ritardo -> recensione: **c'e', ed e' netto**
 
 | fascia | ordini recensiti | % 1-2 stelle | di cui scritte prima del pacco |
 |---|---:|---:|---:|
@@ -312,105 +312,66 @@ chi risponde prima di avere il pacco:
 | 16-30 gg | 851 | 82,1% | 81,7 punti |
 | oltre 30 gg | 329 | 67,8% | 66,6 punti |
 
-Il dirupo resta, ma da 4 giorni di ritardo in su e' fatto quasi solo di recensioni scritte
-mentre il pacco non c'e'. Chi il pacco lo riceve in ritardo boccia nel **19,4%** dei casi,
-il doppio del 9,2% in orario: e' questo il danno della consegna. Il resto e' il danno
-dell'attesa. La correlazione di Spearman non cambia (-0,176).
+Non e' una pendenza, e' un dirupo: fra dieci giorni di anticipo e la consegna nel giorno
+promesso non succede quasi niente, e da 4 giorni di ritardo in su il rosso e' fatto quasi
+solo di recensioni scritte mentre il pacco non c'e'. Per questo la correlazione di
+Spearman su tutti gli ordini vale solo -0,176: il 92% arriva in anticipo e schiaccia il
+coefficiente. Si mostrano le fasce.
 
-La tabella qui sotto e' quella del 23/08, contata per istanti e senza separare il momento
-della recensione. Resta per confronto.
+Chi il pacco lo riceve in ritardo boccia nel **19,4%** dei casi, contro il 9,2% in orario.
+Regge nei confronti equi:
+- dentro la stessa fascia di ritardo (§16): 18,6% con 1-3 giorni, 20,3% con 4-7;
+- a parita' di stato del cliente: 19,4% contro 9,3% degli ordini in orario dello stesso
+  stato (media pesata sui ritardi);
+- a parita' di mese d'acquisto: 19,4% contro 9,4%.
 
-Su 95.824 ordini consegnati e recensiti (media dei punteggi dove ce n'e' piu' d'una):
+E' un'associazione: Olist non ha assegnato i ritardi a caso, e resta possibile che chi
+ha un ritardo abbia anche altro che non va (§ «Cosa NON dice» nel cruscotto).
 
-| fascia | ordini | voto medio | % 1-2 stelle |
-|---|---:|---:|---:|
-| oltre 10 gg in anticipo | 56.905 | 4,32 | 8,9% |
-| 5-10 gg in anticipo | 22.442 | 4,28 | 9,1% |
-| 0-5 gg in anticipo | 8.816 | 4,15 | 11,0% |
-| **0-3 gg in ritardo** | 2.636 | **3,77** | **19,1%** |
-| 3-7 gg | 1.773 | **2,32** | **61,3%** |
-| 7-15 gg | 1.917 | 1,73 | 78,4% |
-| 15-30 gg | 992 | 1,62 | 81,6% |
-| oltre 30 gg | 343 | 2,02 | 68,5% |
-
-In orario: voto **4,29**, il 9,2% di recensioni negative. In ritardo: voto 2,57, il
-**54%** negative. Il ritardo moltiplica per quasi sei la quota di recensioni negative.
-
-Ma non e' una pendenza, e' un dirupo. Fra «10 giorni in anticipo» e «appena in orario»
-non succede quasi niente; tutto accade nei primi giorni oltre la promessa, e fra 3 e 7
-giorni la maggioranza delle recensioni e' gia' negativa. Per questo la correlazione di
-Spearman su tutti gli ordini vale solo -0,176: il 92% arriva in anticipo e schiaccia
-il coefficiente. Un cruscotto che mostrasse quel -0,18 direbbe il falso. Si mostrano
-le fasce.
-
-L'ultima riga si rialza (2,02 contro 1,62): 343 ordini, pochi, e chi aspetta piu' di un
-mese forse e' gia' stato rimborsato. Non e' un risultato, e' un avviso a non leggere la
+L'ultima fascia si abbassa (67,8% contro 82,1%): 329 ordini, pochi, e chi aspetta piu' di
+un mese forse e' gia' stato rimborsato. Non e' un risultato, e' un avviso a non leggere la
 coda.
 
-## `[V]` Il fatturato esposto: **R$ 1,35 milioni, l'8,8%**
+## `[V]` Il fatturato esposto: **R$ 1,15 milioni, il 7,5%**
 
-**Corretto il 2/10:** contando il ritardo per data sono R$ 1.150.892, il **7,5%** del
-fatturato consegnato, su 6,8% degli ordini. La conclusione sotto non cambia.
+Sulla base di tutti i 96.470 consegnati (R$ 15.418.395), gli ordini in ritardo pesano
+R$ 1.150.892, il **7,5%**, contro il 6,8% degli ordini: non sono sistematicamente piu'
+grandi o piu' piccoli degli altri. La base e' quella dei consegnati, non dei recensiti:
+un ordine costa e incassa che sia stato recensito o no.
 
-**Corretto il 23/08 costruendo il modello.** Il primo calcolo dava l'8,6%, ma era fatto
-sui soli ordini recensiti (R$ 15.289.974), la base era ereditata dall'analisi sulle
-recensioni, e per il fatturato non c'entra niente: un ordine costa e incassa che sia stato
-recensito o no.
+## `[V]` Dove si accumula il ritardo: **nella fase di trasporto**
 
-Sulla base giusta, tutti i 96.470 consegnati, R$ 15.418.395, la quota degli ordini
-in ritardo e' l'8,77%. Il modello riproduce anche il numero vecchio (8,58% sui
-recensiti): non era sbagliato, era su un'altra popolazione.
-
-L'8,1% degli ordini consegnati arriva in ritardo e pesa l'8,8% del fatturato: gli ordini
-in ritardo non sono sistematicamente piu' grandi o piu' piccoli degli altri.
-
-## `[V]` Di chi e' il ritardo: **della logistica, non dei venditori**
-
-**Corretto il 2/10**, contando per data: il venditore ci mette 1,3 giorni in piu' (mediana
-da 1,8 a 3,1), la logistica **19 in piu'** (da 7,0 a 26,2). 1.274 venditori su 2.970
-fanno almeno un ritardo, e i venti peggiori ne spiegano il 25%. La conclusione non cambia.
-
-Giorni mediani per fase:
+Giorni mediani per fase, sui 95.082 ordini a cronologia coerente (§3):
 
 | fase | ordini in orario | ordini in ritardo |
 |---|---:|---:|
-| approvazione -> corriere (**venditore**) | 1,7 | 3,0 |
-| corriere -> cliente (**logistica**) | 6,9 | **23,9** |
+| approvazione -> corriere (venditore) | 1,8 | 3,1 |
+| corriere -> cliente (trasporto) | 7,0 | **26,2** |
 
-Ricontrollato togliendo i 1.388 ordini a cronologia rotta (§3): 1,78 → 3,02 e
-6,93 → 23,92. Non cambia niente, il che era il punto del controllo.
+Sugli ordini in ritardo i giorni in piu' stanno quasi tutti nella fase di trasporto
+(+19,2 contro +1,3). E' una descrizione di dove si accumula il tempo, non un'attribuzione
+di colpa: la fase «trasporto» comprende tutto quello che succede dopo l'affidamento al
+corriere, e i dati non dicono perche'. Le mediane non si sommano: i due numeri si leggono
+uno accanto all'altro, non come pezzi di un conto.
 
-E l'aritmetica torna, che e' la verifica che conta: 1,2 giorni in piu' dal venditore piu'
-17,0 dalla logistica fanno **18,2 giorni** in piu'; il margine mediano di consegna in
-orario e' 12,3 giorni; 18,2 - 12,3 = 5,9 giorni di ritardo atteso, contro
-**5,8 misurati**. Le tre misure sono state calcolate separatamente e si incastrano.
+**I venditori, normalizzati per volume.** 1.274 venditori su 2.970 fanno almeno un
+ritardo. I venti con piu' ritardi ne producono il 24,6%, ma gestiscono anche il 20,5%
+degli ordini: il loro tasso di ritardo e' 8,0% contro il 6,7% di tutti. Sono grandi, non
+anomali. Sopra la soglia di 30 ordini il tasso mediano e' 5,5%, e il 90° percentile
+12,6%.
 
-Il venditore ci mette 1,3 giorni in piu'. La logistica ce ne mette **17 in piu'**. La
-seconda meta' del titolo, *«quali venditori li causano»*, ha una risposta scomoda:
-in larga parte non sono loro.
-
-Questo non toglie la domanda, la migliora. Ma cambia la tela: la pagina sui venditori non
-puo' essere una classifica dei cattivi. Deve mostrare quanto del ritardo e' attribuibile
-e quanto no, altrimenti il cruscotto propone di sospendere venditori per un problema di
-corrieri. Va scritto in cima alla pagina, non nel pannello dei limiti.
-
-E la concentrazione e' bassa: **1.390 venditori su 2.970** producono almeno un ritardo, e
-i venti peggiori spiegano solo il 24% dei ritardi. Non c'e' una manciata di colpevoli.
+Questo cambia la tela: la pagina sui venditori non puo' essere una classifica dei
+cattivi, altrimenti il cruscotto propone di sospendere venditori per un problema che si
+vede nella fase di trasporto.
 
 **La soglia scelta: 30 ordini consegnati.** Tiene 627 venditori, il 21,1% di loro, ma
-l'83,5% degli ordini. Sotto quella soglia le percentuali sono rumore. Il peggiore
-sopra soglia sta al 34,9% di ritardi su 43 ordini.
+l'83,5% degli ordini. Sotto quella soglia le percentuali sono rumore.
 
-La base e' «tutti i consegnati», non «i consegnati e recensiti». Sembra un dettaglio e
-non lo e': per sapere se un ordine e' arrivato tardi la recensione non serve, e usare la
-base sbagliata sposta il conteggio dei venditori da 2.970 a 2.965 e quello dei venditori
-con almeno un ritardo da 1.390 a 1.376. Ogni misura per venditore deve dichiarare su
-quale delle due basi gira, perche' le due convivono nello stesso cruscotto: le misure
-sulle recensioni non possono che stare sulla base recensita.
-
-E il conteggio va per ordine-venditore, non per ordine: le righe venditore-ordine sono
-**97.811** contro 96.470 ordini, per via dei 1.278 ordini multi-venditore (§13). Sommare
-i «ritardi per venditore» non da' il numero dei ritardi.
+La base e' «tutti i consegnati», non «i consegnati e recensiti»: per sapere se un ordine
+e' arrivato tardi la recensione non serve. E il conteggio va per ordine-venditore, non
+per ordine: le righe venditore-ordine sono **97.811** contro 96.470 ordini, per via dei
+1.278 ordini multi-venditore (§13). Sommare i «ritardi per venditore» non da' il numero
+dei ritardi.
 
 ---
 

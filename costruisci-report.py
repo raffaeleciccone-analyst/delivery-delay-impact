@@ -750,7 +750,7 @@ pagina("la-domanda", "1. La domanda", intestazione(
                "Fra dieci giorni di anticipo e la consegna nel giorno promesso le recensioni "
                "negative passano dall'8,9% all'11,3%.",
                "",
-               ("Con 4-7 giorni di ritardo sono il 67,6%. Ma Olist chiede il voto due giorni dopo "
+               ("Con 4-7 giorni di ritardo sono il 67,6%. Ma il questionario parte due giorni dopo "
                 "la data promessa, pacco o no: sui ritardi 7 clienti su 10 rispondono senza "
                 "averlo, e l'81% di loro boccia.", "rosso"),
                "",
@@ -813,8 +813,9 @@ pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
                ("In orario: 1,8 giorni il venditore, 7,0 la logistica.", "forte"),
                ("In ritardo: 3,1 il venditore, 26,2 la logistica.", "rosso"),
                "",
-               "I conti tornano all'ingrosso: 1,3 piu' 19,2 fanno 20,5; tolto il margine di 13 "
-               "restano 7,5 attesi contro 7 misurati. Sono mediane: non si sommano alla pari.",
+               "Sono mediane: si leggono una accanto all'altra, non si sommano. Dicono dove si "
+               "accumula il tempo, non di chi e' la colpa: i dati non dicono cosa succede dopo "
+               "l'affidamento al corriere.",
            ], dim=11),
 
     # orizzontale e ordinata: e' una classifica, e le sigle degli stati si
