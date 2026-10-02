@@ -272,6 +272,22 @@ mescolava quindi due cose diverse:
 | risposta **dopo** averlo ricevuto | 1.905 | **19,4%** |
 | in orario, per confronto | 89.443 | 9,2% |
 
+**Il confronto equo.** Chi risponde dopo la consegna ha avuto, per costruzione, ritardi
+brevi: tre su quattro stanno fra 1 e 3 giorni. Allora il 19,4% va guardato dentro la
+stessa fascia di ritardo, dove i due gruppi sono comparabili:
+
+| fascia di ritardo | dopo il pacco | % negative | prima del pacco | % negative |
+|---|---:|---:|---:|---:|
+| 1-3 giorni | 1.434 | **18,6%** | 418 | 78,7% |
+| 4-7 giorni | 395 | **20,3%** | 1.353 | 81,4% |
+| 8-15 giorni | 57 | 26,3% | 1.544 | 81,9% |
+
+Anche con 1-3 giorni di ritardo le negative col pacco in mano sono il doppio del 9,2% in
+orario. Sopra i 7 giorni i gruppi «dopo il pacco» sono troppo piccoli per dire altro.
+
+Un limite da dichiarare: sui 547 ordini con piu' di una recensione il voto e' una media
+(§5), mentre il momento e' quello della PRIMA risposta. Sono lo 0,6% degli ordini.
+
 Passaggio: `RecensioniPerOrdine` tiene anche `prima_risposta` (il minimo di
 `review_answer_timestamp`); `Ordini` ne ricava `recensione_prima_del_pacco` e
 `momento_recensione`, poi butta via l'istante.

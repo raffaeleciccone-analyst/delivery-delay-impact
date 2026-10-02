@@ -17,9 +17,11 @@ due giorni dopo la data promessa, e **7 clienti su 10 rispondono prima di avere 
 L'81% di loro boccia.**
 
 **Chi il pacco lo riceve in ritardo boccia il doppio.** Fra chi risponde dopo la consegna,
-le recensioni negative passano dal 9,2% (in orario) al **19,4%**. È il danno della
-consegna; il resto è il danno dell'attesa, ed è lì che avvisare il cliente prima della data
-promessa avrebbe qualcosa da cambiare.
+le recensioni negative passano dal 9,2% (in orario) al **19,4%**. Il confronto regge anche
+dentro la stessa fascia: chi riceve il pacco con 1-3 giorni di ritardo, che sono tre su
+quattro di questo gruppo, boccia nel **18,6%** dei casi; con 4-7 giorni nel 20,3%. È il
+danno della consegna; il resto è il danno dell'attesa, ed è lì che avvisare il cliente
+prima della data promessa avrebbe qualcosa da cambiare.
 
 **Il legame non è una pendenza, è un dirupo.** Fra dieci giorni di anticipo e la consegna
 nel giorno promesso le recensioni negative passano dall'8,9% all'11,3%. Fra 4 e 7 giorni
@@ -147,8 +149,8 @@ niente, e questa è la ragione per cui sono scritte tutte.
 I dati non sono nel repository: sono il dump pubblico
 [Brazilian E-Commerce di Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 su Kaggle, licenza CC BY-NC-SA 4.0, 164 MB. Vanno scaricati e scompattati in
-`dati_grezzi/csv/`; il percorso compare in un punto solo,
-`power-query/00-PercorsoDati.m`.
+`dati_grezzi/csv/`. Il percorso non va toccato: `costruisci-modello.ps1` lo prende dalla
+cartella in cui si trova il progetto, e lo scrive in `PercorsoDati`.
 
 ```
 powershell -ExecutionPolicy Bypass -File costruisci-modello.ps1

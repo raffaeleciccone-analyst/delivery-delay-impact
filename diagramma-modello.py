@@ -17,7 +17,8 @@ try:
 except ImportError:
     sys.exit("manca pymupdf: python -m pip install pymupdf")
 
-RADICE = r"C:\dev\_powerbi"
+# la cartella del progetto e' quella dello script: si clona dove si vuole
+RADICE = os.path.dirname(os.path.abspath(__file__))
 MODELLO = os.path.join(RADICE, "delivery-delay-impact.SemanticModel", "definition")
 FUORI = os.path.join(RADICE, "schermate")
 
