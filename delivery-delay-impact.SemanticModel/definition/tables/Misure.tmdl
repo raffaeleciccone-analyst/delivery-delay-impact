@@ -47,7 +47,7 @@ table Misure
 		formatString: 0.0%
 
 	/// 19,4%: chi il pacco in ritardo lo ha ricevuto. Il doppio del 9,2% in orario.
-	measure '% negative in ritardo, dopo il pacco' = CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = FALSE() )
+	measure '% negative in ritardo dopo il pacco' = CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = FALSE() )
 		formatString: 0.0%
 
 	/// Sul grafico: la parte di rosso scritta prima di avere il pacco.

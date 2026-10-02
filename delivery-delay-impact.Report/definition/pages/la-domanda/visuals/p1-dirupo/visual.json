@@ -224,6 +224,24 @@
               }
             }
           }
+        },
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Misure.% negative (ritardo, prima del pacco)"
+          }
         }
       ],
       "legend": [

@@ -343,6 +343,11 @@ def barre(nome, x, y, w, h, z, categoria, serie, titolo_, forma="colonne",
         ]
     else:
         obj["dataPoint"] = [{"properties": {"fill": _col(serie[0][1])}}]
+    # sul rosso scuro l'etichetta nera non si legge: per quelle serie va bianca
+    for misura, colore in serie:
+        if colore == ROSSO_SCURO:
+            obj["labels"].append({"properties": {"color": _col("#FFFFFF")},
+                                  "selector": {"metadata": "Misure." + misura}})
     query = {"queryState": {
         "Category": {"projections": [_campo(tab_cat, col_cat, misura=False)]},
         "Y": {"projections": [_campo("Misure", m) for m, _ in serie]},
@@ -715,7 +720,7 @@ pagina("la-domanda", "1. La domanda", intestazione(
              "Consegnati dopo il giorno promesso"),
     riquadro("p1-c2", X(3), RIQ_Y, W(3), RIQ_H, 11, "% recensioni negative in orario",
              "Recensioni negative, consegne in orario"),
-    riquadro("p1-c3", X(6), RIQ_Y, W(3), RIQ_H, 12, "% negative in ritardo, dopo il pacco",
+    riquadro("p1-c3", X(6), RIQ_Y, W(3), RIQ_H, 12, "% negative in ritardo dopo il pacco",
              "Negative in ritardo, col pacco ricevuto", accento=True),
     riquadro("p1-c4", X(9), RIQ_Y, W(3), RIQ_H, 13, "% recensioni in ritardo scritte prima del pacco",
              "Ritardi recensiti prima del pacco"),
