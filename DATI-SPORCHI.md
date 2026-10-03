@@ -313,7 +313,7 @@ momento (§16). Le versioni precedenti stanno in `CHANGELOG.md`.
 | oltre 30 gg | 329 | 67,8% | 66,6 punti |
 
 Non e' una pendenza, e' un dirupo: fra dieci giorni di anticipo e la consegna nel giorno
-promesso non succede quasi niente, e da 4 giorni di ritardo in su il rosso e' fatto quasi
+promesso non succede quasi niente, e da 4 giorni di ritardo in su la barra e' fatta quasi
 solo di recensioni scritte mentre il pacco non c'e'. Per questo la correlazione di
 Spearman su tutti gli ordini vale solo -0,176: il 92% arriva in anticipo e schiaccia il
 coefficiente. Si mostrano le fasce.

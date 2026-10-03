@@ -99,7 +99,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#52514E'"
+                      "Value": "'#4B5563'"
                     }
                   }
                 }
@@ -137,7 +137,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E4E2DC'"
+                      "Value": "'#E1E4E8'"
                     }
                   }
                 }
@@ -162,7 +162,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#67655F'"
+                      "Value": "'#5F6673'"
                     }
                   }
                 }
@@ -200,7 +200,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#1A1A19'"
+                      "Value": "'#1F2328'"
                     }
                   }
                 }
@@ -213,6 +213,24 @@
                 }
               }
             }
+          }
+        },
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Misure.% ritardo dello stato"
           }
         }
       ],
@@ -252,7 +270,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#52514E'"
+                      "Value": "'#4B5563'"
                     }
                   }
                 }
@@ -276,7 +294,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E34948'"
+                      "Value": "'#2F6DB5'"
                     }
                   }
                 }
@@ -333,7 +351,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E4E2DC'"
+                      "Value": "'#E1E4E8'"
                     }
                   }
                 }
@@ -470,7 +488,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#1A1A19'"
+                      "Value": "'#1F2328'"
                     }
                   }
                 }
