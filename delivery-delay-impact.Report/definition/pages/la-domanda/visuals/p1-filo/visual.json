@@ -23,7 +23,7 @@
                     "textStyle": {
                       "fontSize": "6pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
-                      "color": "#1A1A19"
+                      "color": "#1F2328"
                     }
                   }
                 ]
@@ -62,7 +62,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E34948'"
+                      "Value": "'#2F6DB5'"
                     }
                   }
                 }

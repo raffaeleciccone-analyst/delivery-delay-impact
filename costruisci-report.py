@@ -68,28 +68,34 @@ PIEDE = 1024
 RIENTRO_X, RIENTRO_S, RIENTRO_G = 20, 18, 16
 
 # =========================================================== I COLORI
-# Un accento e un contesto, piu' i grigi del testo. Il rosso segnala il problema
+# Un accento e un contesto, piu' i grigi del testo. Il blu dice dove guardare
 # e non compare per decorazione.
 #
+# Fino al 3/10/2026 l'accento era un rosso (#E34948) su una carta beige: faceva
+# piu' giornale che report aziendale. I neutri adesso sono freddi e l'accento e'
+# blu, il colore che chi legge report si aspetta per "qui".
+#
 # Validati con scripts/validate_palette.js del metodo dataviz, su carta bianca:
-#   #E34948 <-> #8A8880   CVD 8,4 (obiettivo 8)   visione normale 18,7   contrasto ok
-# Il grigio chiaro di prima (#B4B2AB) stava a 2,1:1 sulla carta, sotto la soglia
-# di 3:1: le barre "in orario" sparivano.
-ROSSO        = "#E34948"
-ROSSO_TENUE  = "#FBEBEA"   # il fondo del riquadro-perno
-ROSSO_SCURO  = "#8E1F1E"   # le recensioni scritte prima del pacco: stesso rosso, piu' cupo
-GRIGIO       = "#8A8880"   # il contesto nei grafici
-SFONDO       = "#EDECE8"   # un gradino piu' grigio: la carta bianca stacca di piu'
+#   #2F6DB5 <-> #8C929A   CVD 14,8   visione normale 17,2   contrasto ok
+#   #2F6DB5 <-> #1F4A80   CVD 23,4   visione normale 23,4   (le due parti della barra)
+# Il grigio di contesto non passa la soglia di croma, ed e' voluto: deve leggersi
+# grigio. Sta a 3,1:1 sulla carta, sopra la soglia di 3:1.
+ACCENTO          = "#2F6DB5"
+ACCENTO_TENUE    = "#E8F0FA"   # il fondo del riquadro-perno
+ACCENTO_SCURO    = "#1F4A80"   # le recensioni scritte prima del pacco: stesso blu, piu' cupo
+ACCENTO_SU_SCURO = "#8FB5E6"   # l'occhiello sulla testata: 6,9:1 sull'ardesia
+GRIGIO       = "#8C929A"   # il contesto nei grafici
+SFONDO       = "#F3F4F6"   # un gradino piu' grigio: la carta bianca stacca di piu'
 CARTA        = "#FFFFFF"
-BORDO        = "#E4E2DC"
-INCHIOSTRO   = "#1A1A19"
-INCHIOSTRO_2 = "#52514E"
-INCHIOSTRO_3 = "#67655F"   # piedi e didascalie: 4,9:1 sul fondo nuovo
+BORDO        = "#E1E4E8"
+INCHIOSTRO   = "#1F2328"
+INCHIOSTRO_2 = "#4B5563"
+INCHIOSTRO_3 = "#5F6673"   # piedi e didascalie: 5,2:1 sul fondo
 
-SCURO        = "#1A1A19"   # la testata
+SCURO        = "#1F2A37"   # la testata, ardesia
 SU_SCURO     = "#FFFFFF"
-SU_SCURO_2   = "#C9C7C0"
-SU_SCURO_3   = "#93918A"
+SU_SCURO_2   = "#CBD2DA"
+SU_SCURO_3   = "#9AA3AE"
 
 # Le parole in grazie, i numeri in bastoni. E' la coppia dei quotidiani, e serve
 # a togliere di dosso al file l'aria di Power BI appena installato.
@@ -205,7 +211,7 @@ def scheda(nome, x, y, w, h, z, titolo_, corpo, dim=10, sfondo=CARTA):
     Per lo stesso motivo il titolo e' il primo paragrafo e non il titolo del
     contenitore: cosi' rientra insieme al resto del testo.
 
-    corpo: stringa, oppure (stringa, stile) con stile in "forte" o "rosso"."""
+    corpo: stringa, oppure (stringa, stile) con stile in "forte" o "accento"."""
     par = [{"textRuns": [{"value": titolo_, "textStyle": {
         "fontSize": "14pt", "fontFamily": FONT_T, "color": INCHIOSTRO}}]},
         {"textRuns": [{"value": "", "textStyle": {"fontSize": "5pt"}}]}]
@@ -217,8 +223,8 @@ def scheda(nome, x, y, w, h, z, titolo_, corpo, dim=10, sfondo=CARTA):
         s = {"fontSize": str(dim) + "pt", "fontFamily": FONT, "color": INCHIOSTRO_2}
         if stile == "forte":
             s.update({"fontFamily": FONT_G, "fontWeight": "bold", "color": INCHIOSTRO})
-        elif stile == "rosso":
-            s.update({"fontFamily": FONT_G, "fontWeight": "bold", "color": ROSSO})
+        elif stile == "accento":
+            s.update({"fontFamily": FONT_G, "fontWeight": "bold", "color": ACCENTO})
         par.append({"textRuns": [{"value": t, "textStyle": s}]})
 
     carta = _contenitore(nome + "-carta", x, y, w, h, z, {
@@ -254,7 +260,7 @@ def riquadro(nome, x, y, w, h, z, misura, etichetta, accento=False, dim=34):
         "visualType": "textbox",
         "objects": {"general": [{"properties": {"paragraphs": [
             {"textRuns": [{"value": "", "textStyle": {"fontSize": "6pt"}}]}]}}]},
-        "visualContainerObjects": _riquadro(ROSSO_TENUE if accento else CARTA),
+        "visualContainerObjects": _riquadro(ACCENTO_TENUE if accento else CARTA),
         "drillFilterOtherVisuals": True,
     })
     eti = testo(nome + "-etichetta", x + RIENTRO_X, y + RIENTRO_S,
@@ -263,7 +269,7 @@ def riquadro(nome, x, y, w, h, z, misura, etichetta, accento=False, dim=34):
     cima_n = y + RIENTRO_S + ETICHETTA_H
     numero = _numero(nome + "-numero", x + 12, cima_n, w - 24,
                      y + h - RIENTRO_G - cima_n, z + 2, misura,
-                     dim + 6 if accento else dim, ROSSO if accento else INCHIOSTRO)
+                     dim + 6 if accento else dim, ACCENTO if accento else INCHIOSTRO)
     return [carta, eti, numero]
 
 
@@ -344,9 +350,9 @@ def barre(nome, x, y, w, h, z, categoria, serie, titolo_, forma="colonne",
         ]
     else:
         obj["dataPoint"] = [{"properties": {"fill": _col(serie[0][1])}}]
-    # sul rosso scuro l'etichetta nera non si legge: per quelle serie va bianca
+    # sul blu l'etichetta nera non si legge (4:1 sull'accento, 2,3:1 sullo scuro): va bianca
     for misura, colore in serie:
-        if colore == ROSSO_SCURO:
+        if colore in (ACCENTO, ACCENTO_SCURO):
             obj["labels"].append({"properties": {"color": _col("#FFFFFF")},
                                   "selector": {"metadata": "Misure." + misura}})
     query = {"queryState": {
@@ -518,13 +524,13 @@ def filtro(nome, x, y, w, h, z, tabella, colonna, etichetta, gruppo):
 
 
 def intestazione(prefisso, titolo_, sottotitolo, occhiello, pagina_di):
-    """La testata: una fascia scura chiusa sotto da un filo rosso. E' la cosa
+    """La testata: una fascia scura chiusa sotto da un filo blu. E' la cosa
     che si vede per prima e che tiene insieme le tre pagine."""
     return [
         banda(prefisso + "-banda", 0, 0, L, TESTA - 6, 1, SCURO),
-        banda(prefisso + "-filo", 0, TESTA - 6, L, 6, 2, ROSSO),
+        banda(prefisso + "-filo", 0, TESTA - 6, L, 6, 2, ACCENTO),
         testo(prefisso + "-testa", MARGINE, 24, W(9), 118, 4, [
-            (occhiello, 10, FONT_G, ROSSO),
+            (occhiello, 10, FONT_G, ACCENTO_SU_SCURO),
             (titolo_, 27, FONT_T, SU_SCURO),
             (sottotitolo, 11, FONT, SU_SCURO_2),
         ]),
@@ -676,7 +682,7 @@ DET_W = DET_L - 2 * DET_M
 DET_Y = 96
 
 pagina("dettaglio-fascia", "Dettaglio della fascia", [
-    _numero("det-fascia", DET_M, 14, DET_W, 60, 1, "fascia_ritardo", 14, ROSSO,
+    _numero("det-fascia", DET_M, 14, DET_W, 60, 1, "fascia_ritardo", 14, ACCENTO,
             tabella="Ordini", colonna=True),
     banda("det-filo", DET_M, 84, DET_W, 1, 2, BORDO),
 
@@ -733,15 +739,15 @@ pagina("la-domanda", "1. La domanda", intestazione(
     didascalia_misura("p1-d4", X(9), DID_Y, W(3), 17, "% negative prima del pacco",
                       "di queste sono negative."),
 
-    # impilate: le due parti del rosso fanno la quota intera di negative della
+    # impilate: le due parti del blu fanno la quota intera di negative della
     # fascia, e si vede quanta ne arriva prima che il pacco ci sia
     barre("p1-dirupo", X(0), GRA_Y, W(8), FONDO - GRA_Y, 20,
           ("Ordini", "fascia_ritardo"),
           [("% negative (consegne in orario)", GRIGIO),
-           ("% negative (ritardo, dopo il pacco)", ROSSO),
-           ("% negative (ritardo, prima del pacco)", ROSSO_SCURO)],
-          "Recensioni negative per fascia. In ritardo: rosso col pacco ricevuto, "
-          "rosso scuro scritte prima di riceverlo",
+           ("% negative (ritardo, dopo il pacco)", ACCENTO),
+           ("% negative (ritardo, prima del pacco)", ACCENTO_SCURO)],
+          "Recensioni negative per fascia. In ritardo: blu col pacco ricevuto, "
+          "blu scuro scritte prima di riceverlo",
           forma="fasce", dim_categoria=11,
           dettaglio="dettaglio-fascia"),
 
@@ -752,7 +758,7 @@ pagina("la-domanda", "1. La domanda", intestazione(
                "",
                ("Con 4-7 giorni di ritardo sono il 67,6%. Ma il questionario parte due giorni dopo "
                 "la data promessa, pacco o no: sui ritardi 7 clienti su 10 rispondono senza "
-                "averlo, e l'81% di loro boccia.", "rosso"),
+                "averlo, e l'81% di loro boccia.", "accento"),
                "",
                ("Chi il pacco lo riceve", "forte"),
                "Fra chi risponde dopo la consegna il ritardo porta le negative dal 9,2% al "
@@ -801,7 +807,7 @@ pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
     barre("p2-fasi", X(0), R1_Y, W(6), R1_H, 10,
           ("Ordini", "esito_consegna"),
           [("Fase venditore (mediana)", GRIGIO),
-           ("Fase logistica (mediana)", ROSSO)],
+           ("Fase logistica (mediana)", ACCENTO)],
           "Giorni mediani per fase della consegna",
           forma="fasce", legenda=True, dim_categoria=12, interno=12),
 
@@ -811,17 +817,16 @@ pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
                "li' alla consegna (logistica).",
                "",
                ("In orario: 1,8 giorni il venditore, 7,0 la logistica.", "forte"),
-               ("In ritardo: 3,1 il venditore, 26,2 la logistica.", "rosso"),
+               ("In ritardo: 3,1 il venditore, 26,2 la logistica.", "accento"),
                "",
-               "Sono mediane: si leggono una accanto all'altra, non si sommano. Dicono dove si "
-               "accumula il tempo, non di chi e' la colpa: i dati non dicono cosa succede dopo "
-               "l'affidamento al corriere.",
+               "Sono mediane, non si sommano. Dicono dove si accumula il tempo, non di chi "
+               "e' la colpa: dopo il corriere i dati tacciono.",
            ], dim=11),
 
     # orizzontale e ordinata: e' una classifica, e le sigle degli stati si
     # leggono diritte invece che ruotate di novanta gradi
     barre("p2-stati", X(0), R2_Y, W(8), FONDO - R2_Y, 12,
-          ("Venditori", "stato"), [("% ritardo dello stato", ROSSO)],
+          ("Venditori", "stato"), [("% ritardo dello stato", ACCENTO)],
           "Ritardo per stato del venditore: la geografia spiega piu' del singolo venditore",
           forma="classifica", ordina=("% ritardo dello stato", "Descending")),
 
@@ -891,7 +896,7 @@ pagina("come-cambia", "3. Come cambia", intestazione(
 
     barre("p3-tendenza", X(0), GRA_Y, W(8), FONDO - GRA_Y, 20,
           ("Calendario", "Etichetta mese"),
-          [("% ordini in ritardo (mese)", ROSSO),
+          [("% ordini in ritardo (mese)", ACCENTO),
            ("% ordini in ritardo (anno prec.)", GRIGIO)],
           "Consegne oltre la promessa, per mese d'acquisto",
           forma="linee", legenda=True, dim_categoria=10,
@@ -899,7 +904,7 @@ pagina("come-cambia", "3. Come cambia", intestazione(
 
     barre("p3-negative", X(8), GRA_Y, W(4), P3_GRA_H, 21,
           ("Calendario", "Etichetta mese"),
-          [("% recensioni negative (mese)", ROSSO),
+          [("% recensioni negative (mese)", ACCENTO),
            ("% recensioni negative (anno prec.)", GRIGIO)],
           "Recensioni negative, per mese",
           forma="linee", legenda=True, dim_categoria=9,
@@ -910,7 +915,7 @@ pagina("come-cambia", "3. Come cambia", intestazione(
                "Nel 2017 sta intorno al 3%. Poi 12,4% a novembre e 19,0% a marzo 2018.",
                "Giugno 2018 torna all'1,2%.",
                "",
-               ("Si risolve con la capacita', non sospendendo venditori.", "rosso"),
+               ("Si risolve con la capacita', non sospendendo venditori.", "accento"),
                "",
                ("Perche' la grigia comincia dal 2018", "forte"),
                "L'anno prima esiste solo dentro il periodo utile.",
@@ -974,14 +979,14 @@ pagina("dentro-un-mese", "4. Dentro un mese", intestazione(
     didascalia("p4-d4", X(9), M5_DID_Y, W(3), 17, "Somma delle righe d'ordine."),
 
     barre("p4-fasce", X(0), M5_GRA_Y, W(5), M5_H, 20,
-          ("Ordini", "fascia_ritardo"), [("Ordini consegnati", ROSSO)],
+          ("Ordini", "fascia_ritardo"), [("Ordini consegnati", ACCENTO)],
           "Quanto era lungo: ordini per fascia",
           forma="fasce", dim_categoria=11),
 
     barre("p4-fasi", X(5), M5_GRA_Y, W(4), M5_H, 21,
           ("Ordini", "esito_consegna"),
           [("Fase venditore (mediana)", GRIGIO),
-           ("Fase logistica (mediana)", ROSSO)],
+           ("Fase logistica (mediana)", ACCENTO)],
           "Da dove arrivava: giorni mediani per fase",
           forma="fasce", legenda=True, dim_categoria=12, interno=12),
 
@@ -1106,7 +1111,7 @@ pagina("cosa-non-dice", "5. Cosa NON dice", intestazione(
                "viaggio. Piu' otto consegnati senza data di consegna.",
                "",
                ("Un venditore che fa annullare un ordine invece di consegnarlo in ritardo, "
-                "qui risulta migliore.", "rosso"),
+                "qui risulta migliore.", "accento"),
                "",
                "I numeri non sono battuti a mano: vengono da una tabella del modello. Se i "
                "dati cambiano, cambiano anche loro.",

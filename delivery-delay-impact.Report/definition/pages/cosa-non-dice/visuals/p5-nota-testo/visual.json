@@ -23,7 +23,7 @@
                     "textStyle": {
                       "fontSize": "14pt",
                       "fontFamily": "Georgia, serif",
-                      "color": "#1A1A19"
+                      "color": "#1F2328"
                     }
                   }
                 ]
@@ -45,7 +45,7 @@
                     "textStyle": {
                       "fontSize": "10pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
-                      "color": "#52514E"
+                      "color": "#4B5563"
                     }
                   }
                 ]
@@ -67,7 +67,7 @@
                     "textStyle": {
                       "fontSize": "10pt",
                       "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
-                      "color": "#E34948",
+                      "color": "#2F6DB5",
                       "fontWeight": "bold"
                     }
                   }
@@ -90,7 +90,7 @@
                     "textStyle": {
                       "fontSize": "10pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
-                      "color": "#52514E"
+                      "color": "#4B5563"
                     }
                   }
                 ]

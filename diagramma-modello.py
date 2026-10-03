@@ -22,13 +22,16 @@ RADICE = os.path.dirname(os.path.abspath(__file__))
 MODELLO = os.path.join(RADICE, "delivery-delay-impact.SemanticModel", "definition")
 FUORI = os.path.join(RADICE, "schermate")
 
-# gli stessi del report
-ROSSO, GRIGIO = (0.890, 0.286, 0.282), (0.541, 0.533, 0.502)
-SFONDO, CARTA = (0.929, 0.925, 0.910), (1, 1, 1)
-BORDO = (0.894, 0.886, 0.863)
-INCHIOSTRO, INCHIOSTRO_2 = (0.102, 0.102, 0.098), (0.322, 0.318, 0.306)
-INCHIOSTRO_3 = (0.404, 0.396, 0.373)
-SCURO = (0.102, 0.102, 0.098)
+# gli stessi del report (costruisci-report.py), qui come terne 0-1 per pymupdf
+def _rgb(h):
+    return tuple(int(h[i:i + 2], 16) / 255 for i in (1, 3, 5))
+
+ACCENTO, GRIGIO = _rgb("#2F6DB5"), _rgb("#8C929A")
+SFONDO, CARTA = _rgb("#F3F4F6"), (1, 1, 1)
+BORDO = _rgb("#E1E4E8")
+INCHIOSTRO, INCHIOSTRO_2 = _rgb("#1F2328"), _rgb("#4B5563")
+INCHIOSTRO_3 = _rgb("#5F6673")
+SCURO, SU_SCURO_2 = _rgb("#1F2A37"), _rgb("#CBD2DA")
 
 L, A = 1600, 1000
 SCALA = 2.0
@@ -135,9 +138,9 @@ for nome, percorso in CARATTERI.items():
     pag.insert_font(fontname=nome, fontfile=percorso)
 
 pag.draw_rect(pymupdf.Rect(0, 0, L, A), color=None, fill=SFONDO)
-pag.draw_rect(pymupdf.Rect(0, 0, L, 6), color=None, fill=ROSSO)
+pag.draw_rect(pymupdf.Rect(0, 0, L, 6), color=None, fill=ACCENTO)
 
-scrivi(pag, "IL MODELLO", 100, 62, 11, "snb", ROSSO)
+scrivi(pag, "IL MODELLO", 100, 62, 11, "snb", ACCENTO)
 scrivi(pag, "Schema a stella: otto tabelle, sei relazioni", 100, 100, 27, "gr", INCHIOSTRO)
 
 # ------------------------------------------------------------- le relazioni
@@ -161,7 +164,7 @@ for (da, a), gruppo in coppie.items():
         pa = bordo_verso(ra, cb, scarto)
         pb = bordo_verso(rb, ca, scarto)
 
-        colore = ROSSO if not rel["attiva"] else GRIGIO
+        colore = ACCENTO if not rel["attiva"] else GRIGIO
         forma = pag.new_shape()
         forma.draw_line(pymupdf.Point(*pa), pymupdf.Point(*pb))
         forma.finish(color=colore, width=2,
@@ -197,9 +200,9 @@ for (da, a), gruppo in coppie.items():
             # seconda sotto la voleva dire farci passare in mezzo il tratteggio
             x1, y1 = scostata(48)
             x2, y2 = scostata(26)
-            scrivi(pag, rel["da_col"], x1, y1, 11, "sn", ROSSO, centro=True)
+            scrivi(pag, rel["da_col"], x1, y1, 11, "sn", ACCENTO, centro=True)
             scrivi(pag, "inattiva, si accende con USERELATIONSHIP",
-                   x2, y2, 11, "snb", ROSSO, centro=True)
+                   x2, y2, 11, "snb", ACCENTO, centro=True)
 
 # -------------------------------------------------------------- le tabelle
 for tab, (x, y) in POSTI.items():
@@ -211,7 +214,7 @@ for tab, (x, y) in POSTI.items():
 
     if fatto:
         etichetta, col_e = "FATTI", (1, 1, 1)
-        col_n, col_d = (1, 1, 1), (0.788, 0.780, 0.753)
+        col_n, col_d = (1, 1, 1), SU_SCURO_2
     elif not collegata:
         etichetta = ("Le misure stanno in una tabella dedicata" if tab == "Misure"
                      else "Conta gli otto stati anche quando l'analisi e' filtrata")

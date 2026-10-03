@@ -109,7 +109,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#52514E'"
+                      "Value": "'#4B5563'"
                     }
                   }
                 }
@@ -147,7 +147,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E4E2DC'"
+                      "Value": "'#E1E4E8'"
                     }
                   }
                 }
@@ -172,7 +172,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#67655F'"
+                      "Value": "'#5F6673'"
                     }
                   }
                 }
@@ -210,7 +210,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#1A1A19'"
+                      "Value": "'#1F2328'"
                     }
                   }
                 }
@@ -223,6 +223,24 @@
                 }
               }
             }
+          }
+        },
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Misure.% negative (ritardo, dopo il pacco)"
           }
         },
         {
@@ -280,7 +298,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#52514E'"
+                      "Value": "'#4B5563'"
                     }
                   }
                 }
@@ -304,7 +322,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#8A8880'"
+                      "Value": "'#8C929A'"
                     }
                   }
                 }
@@ -322,7 +340,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E34948'"
+                      "Value": "'#2F6DB5'"
                     }
                   }
                 }
@@ -340,7 +358,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#8E1F1E'"
+                      "Value": "'#1F4A80'"
                     }
                   }
                 }
@@ -400,7 +418,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E4E2DC'"
+                      "Value": "'#E1E4E8'"
                     }
                   }
                 }
@@ -507,7 +525,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Recensioni negative per fascia. In ritardo: rosso col pacco ricevuto, rosso scuro scritte prima di riceverlo'"
+                  "Value": "'Recensioni negative per fascia. In ritardo: blu col pacco ricevuto, blu scuro scritte prima di riceverlo'"
                 }
               }
             },
@@ -537,7 +555,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#1A1A19'"
+                      "Value": "'#1F2328'"
                     }
                   }
                 }
