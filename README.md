@@ -14,12 +14,12 @@ risponde a quella e a nient'altro.
 **Il danno arriva prima del pacco.** Il 6,8% degli ordini arriva dopo il giorno promesso.
 Su quegli ordini il questionario non aspetta la consegna: nei dati parte due giorni dopo la
 data promessa, e **7 clienti su 10 rispondono prima di avere il pacco. L'81% di loro
-boccia.**
+lascia una recensione negativa.**
 
-**Chi il pacco lo riceve in ritardo boccia il doppio.** Fra chi risponde dopo la consegna,
+**Chi il pacco lo riceve in ritardo dà il doppio di recensioni negative.** Fra chi risponde dopo la consegna,
 le recensioni negative passano dal 9,2% (in orario) al **19,4%**. Il confronto regge anche
 dentro la stessa fascia: chi riceve il pacco con 1-3 giorni di ritardo, che sono tre su
-quattro di questo gruppo, boccia nel **18,6%** dei casi; con 4-7 giorni nel 20,3%. E il
+quattro di questo gruppo, dà una recensione negativa nel **18,6%** dei casi; con 4-7 giorni nel 20,3%. E il
 divario resta uguale confrontando ordini dello stesso stato o dello stesso mese. È il
 danno della consegna; il resto è il danno dell'attesa, ed è lì che avvisare il cliente
 prima della data promessa avrebbe qualcosa da cambiare.
@@ -100,7 +100,7 @@ Le decisioni che sono costate qualcosa:
   sono non misurabili.
 - **Gli importi sono in euro**, convertiti dai reais alla media dei cambi mensili BCE del
   periodo pesata per il fatturato. Il tasso è una costante nel modello (3,95), con il
-  calcolo che la giustifica nel commento dello script. Convertire mese per mese sposterebbe il totale dello 0,02%; usare il cambio
+  calcolo che la giustifica nel commento dello script. Convertire mese per mese sposterebbe il totale dello 0,02% e il fatturato in ritardo dello 0,2%; usare il cambio
   di un anno solo lo sposterebbe del 9%.
 
 ---

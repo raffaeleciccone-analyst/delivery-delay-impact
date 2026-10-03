@@ -399,8 +399,9 @@ Aggiungi-Misura "% recensioni negative gen-ago 2017" `
 #
 # Un tasso unico è una semplificazione, e il suo prezzo è misurato: sul
 # fatturato consegnato sbaglia dello 0,02% rispetto alla conversione mensile, e
-# sul fatturato in ritardo dello 0,5%. Una tabella dei cambi mensili in cambio di
-# mezzo punto percentuale non vale la grana in più da tenere allineata.
+# sul fatturato in ritardo dello 0,24% (ricontato il 3/10/2026 col ritardo per data;
+# prima era 0,5%). Una tabella dei cambi mensili in cambio di due decimi di punto
+# non vale la grana in più da tenere allineata.
 # Sbagliato sarebbe prendere il cambio di UN anno: il 2017 medio (3,6054) gonfia
 # il totale del 9,6%, il 2018 medio (4,3085) lo sgonfia dell'8,3%. Il real si è
 # svalutato in mezzo ai dati, e i due anni non sono intercambiabili.
@@ -416,7 +417,7 @@ Aggiungi-Misura "Fatturato (EUR)" `
     "Lo stesso fatturato in euro. La conversione è una scelta, e il tasso è una misura visibile."
 Aggiungi-Misura "Fatturato in ritardo (EUR)" `
     "DIVIDE( [Fatturato in ritardo], [Cambio reais per euro] )" $euro `
-    "EUR 342.000 circa. È il numero che sta sul riquadro di pagina 1."
+    "EUR 291.365. È il numero che sta sul riquadro di pagina 1."
 
 # "Fatturato consegnato e recensito" non sta su nessuna pagina e nessun'altra
 # misura la cita: serve solo alle righe 10 e 11 di RICONCILIAZIONE.md, per poter

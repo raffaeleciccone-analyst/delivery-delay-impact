@@ -758,7 +758,7 @@ pagina("la-domanda", "1. La domanda", intestazione(
                "",
                ("Con 4-7 giorni di ritardo sono il 67,6%. Ma il questionario parte due giorni dopo "
                 "la data promessa, pacco o no: sui ritardi 7 clienti su 10 rispondono senza "
-                "averlo, e l'81% di loro boccia.", "accento"),
+                "averlo, e l'81% di loro lascia una recensione negativa.", "accento"),
                "",
                ("Chi il pacco lo riceve", "forte"),
                "Fra chi risponde dopo la consegna il ritardo porta le negative dal 9,2% al "
@@ -779,7 +779,7 @@ pagina("la-domanda", "1. La domanda", intestazione(
           "recensiti. Le due basi sono diverse e ogni misura dichiara la propria. Gli importi "
           "sono convertiti da reais a euro a " + costante("Cambio reais per euro") +
           ", media dei cambi mensili BCE del periodo pesata per il fatturato: convertendo "
-          "mese per mese il totale cambia dello 0,5%."),
+          "mese per mese il totale cambia dello 0,02%, il fatturato in ritardo dello 0,2%."),
     spegni=[("p1-dirupo", ["p1-c1-numero", "p1-c2-numero", "p1-c3-numero", "p1-c4-numero",
                            "p1-d4-numero", "p1-fatt1-numero", "p1-fatt2-numero"])],
 )
