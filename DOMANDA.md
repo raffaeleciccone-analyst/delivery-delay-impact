@@ -36,7 +36,7 @@ serve a una di queste, non entra nella tela.
    `[corretto il 2/10]` Il 54% mescolava due cose. Sui ritardi Olist manda il
    questionario due giorni dopo la data promessa senza aspettare il pacco, e il 70%
    risponde prima di averlo (80,6% negative). Chi risponde dopo averlo ricevuto
-   boccia nel 19,4% dei casi, il doppio del 9,2% in orario. Vedi `DATI-SPORCHI.md` §16.
+   dà una recensione negativa nel 19,4% dei casi, il doppio del 9,2% in orario. Vedi `DATI-SPORCHI.md` §16.
 3. Quanto fatturato passa da ordini consegnati in ritardo, l'ordine di grandezza
    che dice se la cosa merita un intervento. Prezzo più spedizione delle righe d'ordine.
 4. Quali venditori concentrano il ritardo, normalizzato per volume e con una soglia

@@ -17,7 +17,7 @@ negative passano dal 9,2% al 54,0%.»
    ritardi il questionario parte due giorni dopo la data promessa, e 7 clienti su 10
    rispondono prima di avere il pacco.
 
-**Adesso.** 6,8% di ordini in ritardo. Chi risponde dopo la consegna boccia nel 19,4% dei
+**Adesso.** 6,8% di ordini in ritardo. Chi risponde dopo la consegna dà una recensione negativa nel 19,4% dei
 casi contro il 9,2% in orario; chi risponde prima, nell'80,6%. Il confronto regge dentro
 la stessa fascia di ritardo, a parità di stato e a parità di mese (`DATI-SPORCHI.md`).
 
@@ -44,7 +44,7 @@ chi risponde prima di avere il pacco:
 | oltre 30 gg | 329 | 67,8% | 66,6 punti |
 
 Il dirupo resta, ma da 4 giorni di ritardo in su è fatto quasi solo di recensioni scritte
-mentre il pacco non c'è. Chi il pacco lo riceve in ritardo boccia nel **19,4%** dei casi,
+mentre il pacco non c'è. Chi il pacco lo riceve in ritardo dà una recensione negativa nel **19,4%** dei casi,
 il doppio del 9,2% in orario: è questo il danno della consegna. Il resto è il danno
 dell'attesa. La correlazione di Spearman non cambia (-0,176).
 

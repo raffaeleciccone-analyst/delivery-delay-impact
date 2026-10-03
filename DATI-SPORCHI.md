@@ -318,7 +318,7 @@ solo di recensioni scritte mentre il pacco non c'è. Per questo la correlazione 
 Spearman su tutti gli ordini vale solo -0,176: il 92% arriva in anticipo e schiaccia il
 coefficiente. Si mostrano le fasce.
 
-Chi il pacco lo riceve in ritardo boccia nel **19,4%** dei casi, contro il 9,2% in orario.
+Chi il pacco lo riceve in ritardo dà una recensione negativa nel **19,4%** dei casi, contro il 9,2% in orario.
 Regge nei confronti equi:
 - dentro la stessa fascia di ritardo (§16): 18,6% con 1-3 giorni, 20,3% con 4-7;
 - a parità di stato del cliente: 19,4% contro 9,3% degli ordini in orario dello stesso

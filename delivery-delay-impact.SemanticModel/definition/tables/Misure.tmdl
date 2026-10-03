@@ -167,7 +167,7 @@ table Misure
 	measure 'Fatturato (EUR)' = DIVIDE( [Fatturato], [Cambio reais per euro] )
 		formatString: "€" #,0
 
-	/// EUR 342.000 circa. È il numero che sta sul riquadro di pagina 1.
+	/// EUR 291.365. È il numero che sta sul riquadro di pagina 1.
 	measure 'Fatturato in ritardo (EUR)' = DIVIDE( [Fatturato in ritardo], [Cambio reais per euro] )
 		formatString: "€" #,0
 
