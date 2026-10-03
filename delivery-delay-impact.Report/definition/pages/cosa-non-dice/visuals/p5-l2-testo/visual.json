@@ -41,7 +41,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Da questi dati non si puo' sapere se un cliente con una stella ha smesso di comprare. Ci sono 96.096 persone per 99.441 ordini: il 97% compra una volta sola, e non c'e' un comportamento successivo da osservare.",
+                    "value": "Da questi dati non si può sapere se un cliente con una stella ha smesso di comprare. Ci sono 96.096 persone per 99.441 ordini: il 97% compra una volta sola, e non c'è un comportamento successivo da osservare.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

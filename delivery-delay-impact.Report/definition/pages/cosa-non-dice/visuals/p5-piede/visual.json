@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Ogni numero e' riconciliato fra il calcolo di esplorazione in Python e il modello Power BI. Dove i due non coincidevano e' stata corretta la documentazione, tenendo il valore misurato.",
+                    "value": "Ogni numero è riconciliato fra il calcolo di esplorazione in Python e il modello Power BI. Dove i due non coincidevano è stata corretta la documentazione, tenendo il valore misurato.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

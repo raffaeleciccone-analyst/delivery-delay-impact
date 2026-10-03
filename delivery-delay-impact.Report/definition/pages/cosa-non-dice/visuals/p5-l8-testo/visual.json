@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Il mese e' quello dell'acquisto",
+                    "value": "Il mese è quello dell'acquisto",
                     "textStyle": {
                       "fontSize": "14pt",
                       "fontFamily": "Georgia, serif",
@@ -41,7 +41,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "La pagina 3 aggancia gli ordini al calendario per data d'acquisto, che e' la relazione attiva del modello. Un ordine comprato a fine febbraio e consegnato in ritardo a marzo pesa su febbraio.",
+                    "value": "La pagina 3 aggancia gli ordini al calendario per data d'acquisto, che è la relazione attiva del modello. Un ordine comprato a fine febbraio e consegnato in ritardo a marzo pesa su febbraio.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
@@ -63,7 +63,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Il periodo utile e' gennaio 2017 - agosto 2018: il 2016 conta 329 ordini in tutto, novembre 2016 e' assente, e settembre-ottobre 2018 sono venti ordini di coda del dump.",
+                    "value": "Il periodo utile è gennaio 2017 - agosto 2018: il 2016 conta 329 ordini in tutto, novembre 2016 è assente, e settembre-ottobre 2018 sono venti ordini di coda del dump.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

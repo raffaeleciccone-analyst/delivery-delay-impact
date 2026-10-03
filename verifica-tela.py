@@ -10,7 +10,7 @@
 
 import io, json, os, re, sys
 
-# la cartella del progetto e' quella dello script: si clona dove si vuole
+# la cartella del progetto è quella dello script: si clona dove si vuole
 RADICE = os.path.dirname(os.path.abspath(__file__))
 PAGINE = os.path.join(RADICE, "delivery-delay-impact.Report", "definition", "pages")
 MODELLO = os.path.join(RADICE, "delivery-delay-impact.SemanticModel", "definition")
@@ -91,12 +91,12 @@ def riferimenti(o, misure, colonne):
 
 
 def altezza_stimata(visual, larghezza):
-    """Quanto e' alto, all'incirca, il testo di una casella.
+    """Quanto è alto, all'incirca, il testo di una casella.
 
-    E' una stima, non una misura: Power BI impagina con le metriche vere del
+    È una stima, non una misura: Power BI impagina con le metriche vere del
     carattere, che qui non ci sono. Serve solo ad accorgersi che una scheda sta
-    per traboccare, perche' Power BI il testo di troppo NON lo taglia: ci mette
-    una barra di scorrimento, che dentro un cruscotto e' peggio.
+    per traboccare, perché Power BI il testo di troppo NON lo taglia: ci mette
+    una barra di scorrimento, che dentro un cruscotto è peggio.
 
     Larghezza media del carattere: 0,54 em nei bastoni, 0,56 nelle grazie.
     Erano 0,50 e 0,52, ed erano ottimiste: sul file aperto il 26/08 le caselle
@@ -151,8 +151,8 @@ for pag, visuali in pagine.items():
             guasto(pag + "/" + v["name"], "esce dalla tela (%dx%d): x%d y%d %dx%d"
                    % (largo_pag, alto_pag, p["x"], p["y"], p["width"], p["height"]))
 
-    # 3. niente si sovrappone, tranne quello che deve: la testata e' a strati, e
-    #    ogni scheda e' una carta con il suo testo rientrato sopra
+    # 3. niente si sovrappone, tranne quello che deve: la testata è a strati, e
+    #    ogni scheda è una carta con il suo testo rientrato sopra
     corpo = [v for v in visuali if not v["name"].endswith(FUORI_GRIGLIA)
              and not v["name"].endswith(("-testa", "-pagina"))]
     for i, a in enumerate(corpo):
@@ -163,7 +163,7 @@ for pag, visuali in pagine.items():
                 guasto(pag, "si sovrappongono: %s e %s" % (a["name"], b["name"]))
 
     # 4. il corpo sta sulla griglia a dodici colonne. Quello che sta dentro una
-    #    carta (il testo delle schede, l'etichetta e il numero dei riquadri) e'
+    #    carta (il testo delle schede, l'etichetta e il numero dei riquadri) è
     #    rientrato apposta: sulla griglia ci sta la carta che lo contiene.
     for v in (corpo if tipo_pag != "Tooltip" else []):
         if v["name"].endswith(("-testo", "-etichetta", "-numero")):
@@ -177,7 +177,7 @@ for pag, visuali in pagine.items():
 
     # 5. il titolo di una visuale sta su una riga sola (stima)
     #    Un titolo che va a capo si prende una ventina di pixel di altezza, e
-    #    quelli mancano al contenuto: e' cosi' che e' ricomparsa due volte la
+    #    quelli mancano al contenuto: è così che è ricomparsa due volte la
     #    barra di scorrimento nella tabella di pagina 3.
     for v in visuali:
         try:
@@ -188,8 +188,8 @@ for pag, visuali in pagine.items():
         pt = float(t["fontSize"]["expr"]["Literal"]["Value"].rstrip("D"))
         largo = len(testo_t) * pt * 96.0 / 72.0 * 0.52
         utile = v["position"]["width"] - 40
-        # avvisa gia' all'85%: la stima e' approssimativa, e un titolo che va a
-        # capo si e' rivelato costoso due volte
+        # avvisa già all'85%: la stima è approssimativa, e un titolo che va a
+        # capo si è rivelato costoso due volte
         if largo > utile * 0.85:
             stretti.append("%-34s titolo stimato %d px su %d: rischia di andare a capo"
                            % (pag + "/" + v["name"], largo, utile))
@@ -208,12 +208,12 @@ for pag, visuali in pagine.items():
 
     # 7. il numero di un riquadro ci sta nella sua casella
     #    Due modi di sbagliare, tutti e due silenziosi.
-    #    Il primo: la casella e' piu' bassa del carattere e il numero perde la
+    #    Il primo: la casella è più bassa del carattere e il numero perde la
     #    pancia. Serve circa 1,4 volte il corpo.
     #    Il secondo, scoperto sul PDF del 26/08: sotto una certa taglia Power BI
     #    la scheda non la disegna proprio, e lascia la casella vuota. Due
     #    schede da 30x88 e 30x118 sono uscite bianche mentre quelle da 66x260
-    #    funzionavano. La soglia sta in mezzo: qui si pretendono 56x150, che e'
+    #    funzionavano. La soglia sta in mezzo: qui si pretendono 56x150, che è
     #    dal lato sicuro di tutte e due le misure.
     for v in visuali:
         if v["visual"]["visualType"] != "card":
@@ -231,14 +231,14 @@ for pag, visuali in pagine.items():
                    % (larg, h, serve))
 
 # 8. nessuna misura del modello gira a vuoto
-#    Una misura che non sta su nessun visuale e che nessun'altra misura cita e'
+#    Una misura che non sta su nessun visuale e che nessun'altra misura cita è
 #    una risposta promessa e mai data: chi apre il modello la trova nell'elenco
 #    dei campi e si chiede a cosa serva. Gli ingranaggi intermedi sono un'altra
-#    cosa e si riconoscono da soli, perche' qualcun altro li nomina; quelli che
+#    cosa e si riconoscono da soli, perché qualcun altro li nomina; quelli che
 #    servono solo ai controlli si marcano isHidden e si tolgono di mezzo.
 orfane = []
 for nome in sorted(misure_mod - misure_usate - misure_nascoste):
-    # citata da un'altra misura? allora e' un ingranaggio, non un'orfana
+    # citata da un'altra misura? allora è un ingranaggio, non un'orfana
     if ("[" + nome + "]") not in dax_mod:
         orfane.append(nome)
 if orfane:

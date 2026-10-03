@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Perche' la soglia sta a 30 ordini",
+                    "value": "Perché la soglia sta a 30 ordini",
                     "textStyle": {
                       "fontSize": "14pt",
                       "fontFamily": "Georgia, serif",
@@ -41,7 +41,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Sotto i 30 ordini la percentuale e' rumore: 3 ordini, 100% di ritardo.",
+                    "value": "Sotto i 30 ordini la percentuale è rumore: 3 ordini, 100% di ritardo.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

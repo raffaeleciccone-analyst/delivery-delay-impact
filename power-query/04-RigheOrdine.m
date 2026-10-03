@@ -10,7 +10,7 @@ let
     ),
     #"Intestazioni promosse" = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
 
-    // Il prezzo e' scritto 58.90 col punto: senza "en-US" diventa 5890 (§15).
+    // Il prezzo è scritto 58.90 col punto: senza "en-US" diventa 5890 (§15).
     #"Tipi dichiarati in en-US" = Table.TransformColumnTypes(
         #"Intestazioni promosse",
         {
@@ -25,7 +25,7 @@ let
         "en-US"
     ),
 
-    // Prezzo + spedizione: e' la definizione di fatturato usata in tutti i documenti.
+    // Prezzo + spedizione: è la definizione di fatturato usata in tutti i documenti.
     // 383 righe hanno spedizione a 0 (§12): spedizione gratis, non un dato mancante.
     #"Valore della riga" = Table.AddColumn(
         #"Tipi dichiarati in en-US",

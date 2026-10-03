@@ -56,7 +56,7 @@ table Prodotti
 				        "en-US"
 				    ),
 				
-				    // Il refuso e' nel file di partenza: "lenght" per "length". Si corregge qui.
+				    // Il refuso è nel file di partenza: "lenght" per "length". Si corregge qui.
 				    #"Correggi il refuso lenght" = Table.RenameColumns(
 				        #"Tipi dichiarati in en-US",
 				        {{"product_name_lenght", "product_name_length"}, {"product_description_lenght", "product_description_length"}}

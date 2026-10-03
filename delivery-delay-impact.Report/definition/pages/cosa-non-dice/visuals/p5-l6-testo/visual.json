@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "1.278 ordini hanno piu' di un venditore",
+                    "value": "1.278 ordini hanno più di un venditore",
                     "textStyle": {
                       "fontSize": "14pt",
                       "fontFamily": "Georgia, serif",
@@ -41,7 +41,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Il ritardo appartiene all'ordine, il venditore alla riga d'ordine. Attribuire il ritardo a tutti i venditori dell'ordine lo conta piu' volte: le coppie venditore-ordine sono 97.811 contro 96.470 ordini.",
+                    "value": "Il ritardo appartiene all'ordine, il venditore alla riga d'ordine. Attribuire il ritardo a tutti i venditori dell'ordine lo conta più volte: le coppie venditore-ordine sono 97.811 contro 96.470 ordini.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

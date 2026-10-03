@@ -1,9 +1,9 @@
 // Query: Clienti   -- dimensione, grana: un cliente-ordine
 //
-// ATTENZIONE (§6): customer_id NON e' la persona. Ci sono 99.441 customer_id
+// ATTENZIONE (§6): customer_id NON è la persona. Ci sono 99.441 customer_id
 // distinti, esattamente quanti gli ordini, contro 96.096 customer_unique_id.
-// La persona e' customer_unique_id, e solo il 3,1% compra piu' di una volta.
-// La chiave della relazione con Ordini e' customer_id.
+// La persona è customer_unique_id, e solo il 3,1% compra più di una volta.
+// La chiave della relazione con Ordini è customer_id.
 //
 // Righe attese: 99.441
 let
@@ -24,10 +24,10 @@ let
         "en-US"
     ),
 
-    // §8 - le citta' sono scritte in piu' modi: "sao paulo", "sao paulo - sp",
+    // §8 - le città sono scritte in più modi: "sao paulo", "sao paulo - sp",
     // "sao paulo / sao paulo". Si taglia dopo il primo separatore.
-    // Resta comunque vero che il raggruppamento affidabile e' lo STATO, non la citta'.
-    #"Normalizza le citta'" = Table.AddColumn(
+    // Resta comunque vero che il raggruppamento affidabile è lo STATO, non la città.
+    #"Normalizza le città" = Table.AddColumn(
         #"Tipi dichiarati in en-US",
         "citta",
         each Text.Proper(
@@ -40,7 +40,7 @@ let
         type text
     ),
     #"Tieni le colonne utili" = Table.SelectColumns(
-        #"Normalizza le citta'",
+        #"Normalizza le città",
         {"customer_id", "customer_unique_id", "customer_zip_code_prefix", "citta", "customer_state"}
     ),
     #"Rinomina in italiano" = Table.RenameColumns(
