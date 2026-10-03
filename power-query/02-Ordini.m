@@ -7,7 +7,7 @@ let
     Origine = OrdiniGrezzi,
 
     // §1 - solo i consegnati. Gli altri 2.963 non hanno una data di consegna
-    // perche' non sono mai arrivati. Quanti sono lo dice ControlloStatiOrdine.
+    // perché non sono mai arrivati. Quanti sono lo dice ControlloStatiOrdine.
     #"Tieni solo gli ordini consegnati" = Table.SelectRows(
         Origine, each [order_status] = "delivered"
     ),
@@ -18,8 +18,8 @@ let
         each [order_delivered_customer_date] <> null
     ),
 
-    // Il ritardo e' rispetto alla data PROMESSA, non a un tempo ragionevole (§4).
-    // Si confrontano due DATE, non due istanti: la promessa e' un giorno e nel file
+    // Il ritardo è rispetto alla data PROMESSA, non a un tempo ragionevole (§4).
+    // Si confrontano due DATE, non due istanti: la promessa è un giorno e nel file
     // sta alla mezzanotte, la consegna ha l'ora. Sottraendo gli istanti un pacco
     // arrivato alle 14 del giorno promesso risultava in ritardo di 0,6 giorni:
     // erano 1.292 ordini, e la quota in ritardo saliva dal 6,8% all'8,1% (§4b).
@@ -44,14 +44,14 @@ let
     ),
 
     // Le fasce servono a mostrare il DIRUPO (DATI-SPORCHI.md, ipotesi 1): il legame
-    // fra ritardo e recensione non e' una pendenza, e un indicatore riassuntivo
+    // fra ritardo e recensione non è una pendenza, e un indicatore riassuntivo
     // direbbe il falso. Mostrando le fasce si vede dove succede davvero.
     // I tagli sono gli stessi dell'analisi: -10, -5, 0, 3, 7, 15, 30 giorni. Con i giorni
-    // interi le etichette dicono gli estremi veri: "4-7" e' da 4 a 7 compresi.
+    // interi le etichette dicono gli estremi veri: "4-7" è da 4 a 7 compresi.
     #"Fascia di ritardo" = Table.AddColumn(
         #"Esito della consegna",
         "fascia_ritardo",
-        each if [giorni_ritardo] <= -10 then "10 gg o piu' in anticipo"
+        each if [giorni_ritardo] <= -10 then "10 gg o più in anticipo"
              else if [giorni_ritardo] <= -5 then "5-9 gg in anticipo"
              else if [giorni_ritardo] <= 0  then "0-4 gg in anticipo"
              else if [giorni_ritardo] <= 3  then "1-3 gg di ritardo"
@@ -61,7 +61,7 @@ let
              else "Oltre 30 gg di ritardo",
         type text
     ),
-    // l'ordine alfabetico non e' l'ordine giusto: serve una colonna per ordinarle
+    // l'ordine alfabetico non è l'ordine giusto: serve una colonna per ordinarle
     #"Ordine della fascia" = Table.AddColumn(
         #"Fascia di ritardo",
         "fascia_ordine",
@@ -105,7 +105,7 @@ let
     ),
 
     // Due colonne data (senza ora) per agganciare il Calendario.
-    // shipping_limit_date NON entra: e' una scadenza contrattuale, e arriva al 2020 (§12).
+    // shipping_limit_date NON entra: è una scadenza contrattuale, e arriva al 2020 (§12).
     #"Data di acquisto" = Table.AddColumn(
         #"Marca la cronologia incoerente",
         "data_acquisto",
@@ -119,8 +119,8 @@ let
         type date
     ),
 
-    // Il voto sta qui e non in una tabella a parte, perche' RecensioniPerOrdine
-    // ha gia' grana un-ordine (§5): tenerla separata aggiungerebbe una relazione
+    // Il voto sta qui e non in una tabella a parte, perché RecensioniPerOrdine
+    // ha già grana un-ordine (§5): tenerla separata aggiungerebbe una relazione
     // uno-a-uno senza guadagnarci niente.
     #"Aggancia il voto della recensione" = Table.NestedJoin(
         #"Data di consegna", {"order_id"},
@@ -141,9 +141,9 @@ let
     ),
 
     // §16 - Olist manda il questionario il giorno dopo la consegna, ma se il pacco
-    // e' in ritardo non lo aspetta: lo manda due giorni dopo la data promessa (4.460
+    // è in ritardo non lo aspetta: lo manda due giorni dopo la data promessa (4.460
     // ritardi su 6.409 recensioni). Chi aspetta riceve la domanda mentre il pacco non
-    // c'e', e risponde lo stesso: sui ritardi succede 7 volte su 10. Quelle
+    // c'è, e risponde lo stesso: sui ritardi succede 7 volte su 10. Quelle
     // recensioni giudicano l'attesa, non la consegna, e vanno contate a parte.
     // Si confronta la PRIMA risposta con l'istante di consegna.
     #"Recensione prima del pacco" = Table.AddColumn(

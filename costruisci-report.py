@@ -9,7 +9,7 @@
 
 import io, json, os, re, shutil
 
-# la cartella del progetto e' quella dello script: si clona dove si vuole
+# la cartella del progetto è quella dello script: si clona dove si vuole
 RADICE = os.path.dirname(os.path.abspath(__file__))
 REPORT = os.path.join(RADICE, "delivery-delay-impact.Report", "definition")
 PAGINE = os.path.join(REPORT, "pages")
@@ -23,14 +23,14 @@ S_PAGS = _S + "pagesMetadata/1.1.0/schema.json"
 
 
 def costante(misura):
-    """Legge dal TMDL il valore di una misura che e' un numero fisso.
+    """Legge dal TMDL il valore di una misura che è un numero fisso.
 
     Serve per il tasso di cambio nel piede di pagina 1. La strada ovvia sarebbe
     una scheda numerica come quelle dei riquadri, ma una scheda di 30 pixel
     Power BI non la disegna: mostra la casella vuota, e sul PDF del 26/08 il
-    numero non c'era. Cosi' invece il valore entra nel testo quando si genera la
+    numero non c'era. Così invece il valore entra nel testo quando si genera la
     pagina: se qualcuno cambia la misura, il piede cambia alla prossima
-    generazione, e non c'e' nessun numero scritto a mano che possa mentire."""
+    generazione, e non c'è nessun numero scritto a mano che possa mentire."""
     tmdl = os.path.join(RADICE, "delivery-delay-impact.SemanticModel", "definition",
                         "tables", "Misure.tmdl")
     testo = io.open(tmdl, encoding="utf-8").read()
@@ -62,30 +62,30 @@ CIMA  = 180     # dove comincia il contenuto
 FONDO = 1000    # dove finisce
 PIEDE = 1024
 
-# Il margine interno delle schede. Power BI non ne da' nessuno alle caselle di
+# Il margine interno delle schede. Power BI non ne dà nessuno alle caselle di
 # testo: il testo tocca il bordo del riquadro. L'unico modo di farlo respirare
-# e' separare il contenitore dal contenuto, che e' quello che fa scheda().
+# è separare il contenitore dal contenuto, che è quello che fa scheda().
 RIENTRO_X, RIENTRO_S, RIENTRO_G = 20, 18, 16
 
 # =========================================================== I COLORI
-# Un accento e un contesto, piu' i grigi del testo. Il blu dice dove guardare
+# Un accento e un contesto, più i grigi del testo. Il blu dice dove guardare
 # e non compare per decorazione.
 #
 # Fino al 3/10/2026 l'accento era un rosso (#E34948) su una carta beige: faceva
-# piu' giornale che report aziendale. I neutri adesso sono freddi e l'accento e'
+# più giornale che report aziendale. I neutri adesso sono freddi e l'accento è
 # blu, il colore che chi legge report si aspetta per "qui".
 #
 # Validati con scripts/validate_palette.js del metodo dataviz, su carta bianca:
 #   #2F6DB5 <-> #8C929A   CVD 14,8   visione normale 17,2   contrasto ok
 #   #2F6DB5 <-> #1F4A80   CVD 23,4   visione normale 23,4   (le due parti della barra)
-# Il grigio di contesto non passa la soglia di croma, ed e' voluto: deve leggersi
+# Il grigio di contesto non passa la soglia di croma, ed è voluto: deve leggersi
 # grigio. Sta a 3,1:1 sulla carta, sopra la soglia di 3:1.
 ACCENTO          = "#2F6DB5"
 ACCENTO_TENUE    = "#E8F0FA"   # il fondo del riquadro-perno
-ACCENTO_SCURO    = "#1F4A80"   # le recensioni scritte prima del pacco: stesso blu, piu' cupo
+ACCENTO_SCURO    = "#1F4A80"   # le recensioni scritte prima del pacco: stesso blu, più cupo
 ACCENTO_SU_SCURO = "#8FB5E6"   # l'occhiello sulla testata: 6,9:1 sull'ardesia
 GRIGIO       = "#8C929A"   # il contesto nei grafici
-SFONDO       = "#F3F4F6"   # un gradino piu' grigio: la carta bianca stacca di piu'
+SFONDO       = "#F3F4F6"   # un gradino più grigio: la carta bianca stacca di più
 CARTA        = "#FFFFFF"
 BORDO        = "#E1E4E8"
 INCHIOSTRO   = "#1F2328"
@@ -97,7 +97,7 @@ SU_SCURO     = "#FFFFFF"
 SU_SCURO_2   = "#CBD2DA"
 SU_SCURO_3   = "#9AA3AE"
 
-# Le parole in grazie, i numeri in bastoni. E' la coppia dei quotidiani, e serve
+# Le parole in grazie, i numeri in bastoni. È la coppia dei quotidiani, e serve
 # a togliere di dosso al file l'aria di Power BI appena installato.
 FONT_T = "Georgia, serif"
 FONT   = "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif"
@@ -128,7 +128,7 @@ def _campo(tabella, nome, misura=True):
 
 
 def _riquadro(sfondo=CARTA, ombra=True):
-    """Carta, bordo tenue, niente barra di intestazione. L'ombra e' appena
+    """Carta, bordo tenue, niente barra di intestazione. L'ombra è appena
     percepibile: stacca dal fondo senza decorare."""
     o = {
         "background": [{"properties": {"show": _lit("true"), "color": _col(sfondo),
@@ -205,11 +205,11 @@ def banda(nome, x, y, w, h, z, colore):
 
 def scheda(nome, x, y, w, h, z, titolo_, corpo, dim=10, sfondo=CARTA):
     """Due visuali invece di una: la carta (fondo, bordo, ombra) e il testo
-    dentro, rientrato di RIENTRO_X. E' l'unico modo di dare un margine interno
+    dentro, rientrato di RIENTRO_X. È l'unico modo di dare un margine interno
     a una casella di testo in Power BI, che altrimenti scrive fino al bordo.
 
-    Per lo stesso motivo il titolo e' il primo paragrafo e non il titolo del
-    contenitore: cosi' rientra insieme al resto del testo.
+    Per lo stesso motivo il titolo è il primo paragrafo e non il titolo del
+    contenitore: così rientra insieme al resto del testo.
 
     corpo: stringa, oppure (stringa, stile) con stile in "forte" o "accento"."""
     par = [{"textRuns": [{"value": titolo_, "textStyle": {
@@ -274,7 +274,7 @@ def riquadro(nome, x, y, w, h, z, misura, etichetta, accento=False, dim=34):
 
 
 def didascalia(nome, x, y, w, z, testo_):
-    """Sotto ogni riquadro, la base su cui e' calcolato quel numero. Centrata
+    """Sotto ogni riquadro, la base su cui è calcolato quel numero. Centrata
     come l'etichetta e il numero, sulla stessa mezzeria."""
     return testo(nome, x + 4, y, w - 8, 32, z, [(testo_, 9, FONT, INCHIOSTRO_3)],
                  allinea="center")
@@ -282,9 +282,9 @@ def didascalia(nome, x, y, w, z, testo_):
 
 def _assi(dim_categoria=11, interno=None, etichette=True, asse_valori=False):
     """etichette: il numero scritto sopra ogni punto. Vanno bene su otto fasce,
-    non su venti mesi per due serie: li' si sovrappongono e si legge il grafico
+    non su venti mesi per due serie: lì si sovrappongono e si legge il grafico
     peggio che senza. Quando si spengono, serve l'asse dei valori al loro posto,
-    altrimenti la scala non e' scritta da nessuna parte."""
+    altrimenti la scala non è scritta da nessuna parte."""
     asse_cat = {
         "showAxisTitle": _lit("false"), "fontSize": _lit(str(dim_categoria) + "D"),
         "fontFamily": _txt(FONT), "labelColor": _col(INCHIOSTRO_2),
@@ -306,7 +306,7 @@ def _assi(dim_categoria=11, interno=None, etichette=True, asse_valori=False):
         "labels": [{"properties": {
             "show": _lit("true" if etichette else "false"), "fontSize": _lit("11D"),
             "fontFamily": _txt(FONT_G), "color": _col(INCHIOSTRO),
-            # 1 = nessuna unita'. Senza, l'ultima fascia di pagina 5 scriveva
+            # 1 = nessuna unità. Senza, l'ultima fascia di pagina 5 scriveva
             # "0K" su 360 ordini: un arrotondamento che cancella il dato.
             "labelDisplayUnits": _lit("1D"),
         }}],
@@ -326,7 +326,7 @@ def barre(nome, x, y, w, h, z, categoria, serie, titolo_, forma="colonne",
            "classifica" barre orizzontali ordinate, con le etichette diritte;
            "linee"      una grandezza nel tempo. Le colonne affiancate direbbero
                         la stessa cosa, ma su venti mesi diventano quaranta
-                        stecchi e il profilo dell'anno non si vede piu'.
+                        stecchi e il profilo dell'anno non si vede più.
     """
     tipo = {"colonne": "columnChart", "fasce": "barChart",
             "classifica": "clusteredBarChart", "linee": "lineChart"}[forma]
@@ -368,7 +368,7 @@ def barre(nome, x, y, w, h, z, categoria, serie, titolo_, forma="colonne",
     vco = dict(_riquadro(), **_titolo(titolo_))
     if dettaglio:
         # il riquadro di dettaglio si apre sul punto sotto il mouse, con il
-        # filtro di quel punto gia' addosso: e' l'unico modo di far rispondere
+        # filtro di quel punto già addosso: è l'unico modo di far rispondere
         # ai dati un grafico che non ha nessun altro visuale da filtrare
         vco["visualTooltip"] = [{"properties": {
             "show": _lit("true"), "type": _txt("Canvas"), "section": _txt(dettaglio),
@@ -423,7 +423,7 @@ def tabella(nome, x, y, w, h, z, colonne, titolo_, ordina=None, larghezze=None):
 
 
 def _numero(nome, x, y, w, h, z, misura, dim, colore, tabella="Misure", colonna=False):
-    """Il numero da solo, senza fondo: e' un pezzo di un'altra composizione.
+    """Il numero da solo, senza fondo: è un pezzo di un'altra composizione.
     Lo usano i riquadri e le didascalie che citano una misura."""
     return _contenitore(nome, x, y, w, h, z, {
         "visualType": "card",
@@ -434,7 +434,7 @@ def _numero(nome, x, y, w, h, z, misura, dim, colore, tabella="Misure", colonna=
                 "fontSize": _lit(str(dim) + "D"),
                 "fontFamily": _txt(FONT_G),
                 "color": _col(colore),
-                # 1 = nessuna unita'. Senza, sceglie lui e arrotonda a "3K".
+                # 1 = nessuna unità. Senza, sceglie lui e arrotonda a "3K".
                 "labelDisplayUnits": _lit("1D"),
             }}],
             "categoryLabels": [{"properties": {"show": _lit("false")}}],
@@ -451,7 +451,7 @@ def _numero(nome, x, y, w, h, z, misura, dim, colore, tabella="Misure", colonna=
 
 def didascalia_misura(nome, x, y, w, z, misura, testo_, largo_n=150, largo_t=190,
                       alto=60):
-    """Una didascalia in cui il numero non e' battuto a mano: scende dal modello
+    """Una didascalia in cui il numero non è battuto a mano: scende dal modello
     come quello del riquadro sopra. Serve dove la cifra grande da sola non basta:
     un valore assoluto senza la sua quota non si sa se sia molto o poco.
 
@@ -471,7 +471,7 @@ def didascalia_misura(nome, x, y, w, z, misura, testo_, largo_n=150, largo_t=190
 
 def riga_valore(nome, x, y, w, z, etichetta, misura, largo_n=180, dim=14, alto=60):
     """Una riga del riquadro di dettaglio: la voce a sinistra, il numero a destra.
-    Due visuali, perche' la voce e' testo e il numero deve scendere dal modello.
+    Due visuali, perché la voce è testo e il numero deve scendere dal modello.
 
     Le righe sono alte 60 e la scheda larga 180 per la stessa ragione della
     didascalia: sotto quella taglia Power BI la scheda numerica la lascia vuota."""
@@ -484,17 +484,17 @@ def riga_valore(nome, x, y, w, z, etichetta, misura, largo_n=180, dim=14, alto=6
 
 
 def filtro(nome, x, y, w, h, z, tabella, colonna, etichetta, gruppo):
-    """Un filtro a discesa. Il gruppo di sincronizzazione fa si' che la scelta
+    """Un filtro a discesa. Il gruppo di sincronizzazione fa sì che la scelta
     fatta su una pagina valga anche sulle altre che portano lo stesso gruppo:
-    senza, si torna indietro di una pagina e il filtro e' sparito.
+    senza, si torna indietro di una pagina e il filtro è sparito.
 
-    Quali colonne si possono mettere qui non e' libero. Il filtro deve arrivare
+    Quali colonne si possono mettere qui non è libero. Il filtro deve arrivare
     a tutte le misure della pagina, e i filtri scendono dal lato "uno" al lato
     "molti": Calendario e Clienti stanno sopra Ordini, che sta sopra RigheOrdine,
     quindi arrivano dappertutto. Venditori e Prodotti stanno sopra RigheOrdine ma
     NON sopra Ordini: un filtro sul venditore lascerebbe ferme le misure che
     scendono dagli ordini, e la pagina mostrerebbe due popolazioni diverse
-    fingendo che siano la stessa. Per questo qui non c'e'."""
+    fingendo che siano la stessa. Per questo qui non c'è."""
     return _contenitore(nome, x, y, w, h, z, {
         "visualType": "slicer",
         "query": {"queryState": {"Values": {
@@ -503,7 +503,7 @@ def filtro(nome, x, y, w, h, z, tabella, colonna, etichetta, gruppo):
         "objects": {
             "data": [{"properties": {"mode": _txt("Dropdown")}}],
             # l'intestazione del filtro scriverebbe il nome grezzo della colonna
-            # ("stato"): l'etichetta e' il titolo del contenitore
+            # ("stato"): l'etichetta è il titolo del contenitore
             "header": [{"properties": {"show": _lit("false")}}],
             "items": [{"properties": {
                 "fontColor": _col(INCHIOSTRO), "fontSize": _lit("11D"),
@@ -524,7 +524,7 @@ def filtro(nome, x, y, w, h, z, tabella, colonna, etichetta, gruppo):
 
 
 def intestazione(prefisso, titolo_, sottotitolo, occhiello, pagina_di):
-    """La testata: una fascia scura chiusa sotto da un filo blu. E' la cosa
+    """La testata: una fascia scura chiusa sotto da un filo blu. È la cosa
     che si vede per prima e che tiene insieme le tre pagine."""
     return [
         banda(prefisso + "-banda", 0, 0, L, TESTA - 6, 1, SCURO),
@@ -569,7 +569,7 @@ def pagina(nome, titolo_, visuali, spegni=(), tipo=None,
     """spegni: coppie (sorgente, [bersagli]) per cui il clic sulla sorgente NON
     deve filtrare il bersaglio.
 
-    Serve piu' di quanto sembri. Power BI incrocia i filtri fra visuali per
+    Serve più di quanto sembri. Power BI incrocia i filtri fra visuali per
     impostazione predefinita: senza queste righe, chi clicca una fascia del
     grafico cambia i numeri dei riquadri in alto, mentre il testo scritto
     accanto resta quello di prima, e la pagina si contraddice da sola al primo
@@ -604,8 +604,8 @@ def pagina(nome, titolo_, visuali, spegni=(), tipo=None,
         corpo["visibility"] = "HiddenInViewMode"
     if campo_ingresso:
         # Il campo da cui si entra: Power BI ci deposita il valore del punto su
-        # cui e' stato premuto il tasto destro. Il filtro sta sulla pagina, non
-        # su una visuale, cosi' ci cascano dentro tutti i visuali insieme.
+        # cui è stato premuto il tasto destro. Il filtro sta sulla pagina, non
+        # su una visuale, così ci cascano dentro tutti i visuali insieme.
         tab_i, col_i = campo_ingresso
         espressione = {"Column": {"Expression": {"SourceRef": {"Entity": tab_i}},
                                   "Property": col_i}}
@@ -636,7 +636,7 @@ os.makedirs(PAGINE)
 # --------------------------------------------------------- I FILTRI
 # Una fascia sola, sotto la testata e sopra il contenuto, uguale su tutte le
 # pagine che ne hanno una. Sta sul fondo chiaro e non dentro la testata scura
-# perche' un menu a discesa bianco su nero si legge male e va riverniciato tutto
+# perché un menu a discesa bianco su nero si legge male e va riverniciato tutto
 # a mano: il posto giusto costa ottanta pixel di grafico e non costa nessun
 # rischio.
 FILTRI_Y, FILTRI_H = CIMA, 78
@@ -649,7 +649,7 @@ NOTA_FILTRI = ("I filtri valgono anche sulle altre pagine. I riquadri in alto no
 
 
 def filtri(prefisso, anno=True, nota=NOTA_FILTRI):
-    """La fascia dei filtri. L'anno non c'e' sulla pagina della tendenza: li' i
+    """La fascia dei filtri. L'anno non c'è sulla pagina della tendenza: lì i
     riquadri sono un confronto fra due anni fissi, e un filtro sull'anno che non
     li tocca sarebbe un comando che sembra fare qualcosa e non fa niente."""
     v = []
@@ -672,10 +672,10 @@ def filtri(prefisso, anno=True, nota=NOTA_FILTRI):
 # Serve a rispondere alla domanda «e allora cosa faccio, ci clicco sopra?».
 # Sul grafico delle fasce un clic non ha dove andare: gli unici altri visuali
 # della pagina sono i riquadri, che sono la cornice fissa e non si devono
-# muovere. Il riquadro di dettaglio da' al puntatore un posto dove andare senza
+# muovere. Il riquadro di dettaglio dà al puntatore un posto dove andare senza
 # spostare niente di quello che sta scritto intorno.
 #
-# Le quattro voci scendono tutte da Ordini o da RigheOrdine, cioe' da dove
+# Le quattro voci scendono tutte da Ordini o da RigheOrdine, cioè da dove
 # arriva il filtro della fascia: nessuna resta ferma fingendo di aver risposto.
 DET_L, DET_A, DET_M, DET_RIGA = 380, 424, 16, 66
 DET_W = DET_L - 2 * DET_M
@@ -721,7 +721,7 @@ pagina("la-domanda", "1. La domanda", intestazione(
     # Mescolava due cose: sui ritardi Olist manda il questionario due giorni dopo
     # la data promessa senza aspettare il pacco, e 7 clienti su 10 rispondono prima
     # di averlo (§16). Il
-    # numero-perno ora e' quello di chi il pacco l'ha ricevuto; l'attesa ha il
+    # numero-perno ora è quello di chi il pacco l'ha ricevuto; l'attesa ha il
     # suo riquadro accanto.
     riquadro("p1-c1", X(0), RIQ_Y, W(3), RIQ_H, 10, "% ordini in ritardo",
              "Consegnati dopo il giorno promesso"),
@@ -762,7 +762,7 @@ pagina("la-domanda", "1. La domanda", intestazione(
                "",
                ("Chi il pacco lo riceve", "forte"),
                "Fra chi risponde dopo la consegna il ritardo porta le negative dal 9,2% al "
-               "19,4%: il doppio. Il resto e' il costo dell'attesa, ed e' li' che un avviso al "
+               "19,4%: il doppio. Il resto è il costo dell'attesa, ed è lì che un avviso al "
                "cliente avrebbe qualcosa da cambiare.",
            ], dim=11),
 
@@ -784,7 +784,7 @@ pagina("la-domanda", "1. La domanda", intestazione(
                            "p1-d4-numero", "p1-fatt1-numero", "p1-fatt2-numero"])],
 )
 
-# ------------------------------------------------ 2. DI CHI E' IL RITARDO
+# ------------------------------------------------ 2. DI CHI È IL RITARDO
 # Il grafico delle fasi ha due sole barre: in 396 pixel stavano in mezzo a un
 # riquadro mezzo vuoto. Scende a 224, e i pixel liberati vanno al grafico degli
 # stati, che di righe ne ha quattordici.
@@ -794,11 +794,11 @@ KPI_H = 140
 RIGA_B = R2_Y + KPI_H + GRONDA                       # 672
 SOG_Y = RIGA_B + KPI_H + GRONDA                      # 836
 
-pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
+pagina("di-chi-e-il-ritardo", "2. Di chi è il ritardo", intestazione(
     "p2", "Il ritardo si forma quasi tutto dopo il venditore.",
-    "Sugli ordini in ritardo il venditore impiega 1,3 giorni in piu' del solito, la logistica 19. "
+    "Sugli ordini in ritardo il venditore impiega 1,3 giorni in più del solito, la logistica 19. "
     "La pagina scompone il tempo di consegna nelle due fasi che i dati registrano.",
-    "DI CHI E' IL RITARDO", "PAGINA 2 DI 5") + filtri("p2", nota=(
+    "DI CHI È IL RITARDO", "PAGINA 2 DI 5") + filtri("p2", nota=(
         "I filtri valgono anche sulle altre pagine. Il clic su uno stato muove i due "
         "riquadri sui venditori; le mediane restano ferme, il filtro non le raggiunge.")) + [
 
@@ -814,20 +814,20 @@ pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
     scheda("p2-lettura", X(6), R1_Y, W(6), R1_H, 11,
            "Come si forma il ritardo", [
                "Due intervalli registrati: dall'approvazione al corriere (venditore), e da "
-               "li' alla consegna (logistica).",
+               "lì alla consegna (logistica).",
                "",
                ("In orario: 1,8 giorni il venditore, 7,0 la logistica.", "forte"),
                ("In ritardo: 3,1 il venditore, 26,2 la logistica.", "accento"),
                "",
                "Sono mediane, non si sommano. Dicono dove si accumula il tempo, non di chi "
-               "e' la colpa: dopo il corriere i dati tacciono.",
+               "è la colpa: dopo il corriere i dati tacciono.",
            ], dim=11),
 
-    # orizzontale e ordinata: e' una classifica, e le sigle degli stati si
+    # orizzontale e ordinata: è una classifica, e le sigle degli stati si
     # leggono diritte invece che ruotate di novanta gradi
     barre("p2-stati", X(0), R2_Y, W(8), FONDO - R2_Y, 12,
           ("Venditori", "stato"), [("% ritardo dello stato", ACCENTO)],
-          "Ritardo per stato del venditore: la geografia spiega piu' del singolo venditore",
+          "Ritardo per stato del venditore: la geografia spiega più del singolo venditore",
           forma="classifica", ordina=("% ritardo dello stato", "Descending")),
 
     riquadro("p2-c1", X(8), R2_Y, MEZZA, KPI_H, 13, "Venditori misurati",
@@ -840,8 +840,8 @@ pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
              "Anticipo mediano, in giorni", dim=30),
 
     scheda("p2-soglia", X(8), SOG_Y, W(4), FONDO - SOG_Y, 17,
-           "Perche' la soglia sta a 30 ordini", [
-               "Sotto i 30 ordini la percentuale e' rumore: 3 ordini, 100% di ritardo.",
+           "Perché la soglia sta a 30 ordini", [
+               "Sotto i 30 ordini la percentuale è rumore: 3 ordini, 100% di ritardo.",
                ("I venditori esclusi non sono a posto: sono non misurabili.", "forte"),
                "",
                "1.274 venditori su 2.970 fanno almeno un ritardo; i venti peggiori il 25%.",
@@ -849,8 +849,8 @@ pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
 ] + piede("p2",
           "Il grafico per stato tiene solo gli stati con almeno 100 ordini consegnati. Le durate "
           "per fase escludono 1.388 ordini con timestamp incoerenti, contati a parte. Il ritardo "
-          "per stato si appoggia alle righe d'ordine, perche' il filtro dello stato del venditore "
-          "non risale fino alla tabella degli ordini: per lo stesso motivo il filtro in alto e' "
+          "per stato si appoggia alle righe d'ordine, perché il filtro dello stato del venditore "
+          "non risale fino alla tabella degli ordini: per lo stesso motivo il filtro in alto è "
           "sullo stato del cliente, che invece ci arriva."),
     spegni=[
         ("p2-fasi", ["p2-c1-numero", "p2-c2-numero", "p2-c3-numero", "p2-c4-numero",
@@ -869,13 +869,13 @@ pagina("di-chi-e-il-ritardo", "2. Di chi e' il ritardo", intestazione(
 # ------------------------------------------------------- 3. COME CAMBIA
 # La pagina che mancava. Le prime due dicono quanto costa il ritardo e da dove
 # viene, tutte e due su tutto il periodo insieme: nessuna delle due risponde
-# alla prima domanda che fa chi deve decidere, cioe' se la cosa sta migliorando
-# o peggiorando. Il calendario per rispondere c'era gia'.
+# alla prima domanda che fa chi deve decidere, cioè se la cosa sta migliorando
+# o peggiorando. Il calendario per rispondere c'era già.
 P3_GRA_H = 236                                       # 500 .. 736
 P3_SCH_Y = GRA_Y + P3_GRA_H + GRONDA                 # 760
 
 pagina("come-cambia", "3. Come cambia", intestazione(
-    "p3", "Il ritardo e' piu' che raddoppiato in un anno.",
+    "p3", "Il ritardo è più che raddoppiato in un anno.",
     "Gennaio-agosto 2018 contro lo stesso periodo del 2017: dal 3,5% al 7,7% di consegne oltre "
     "la promessa, e le recensioni negative dal 10,5% al 13,3%.",
     "COME CAMBIA", "PAGINA 3 DI 5") + filtri("p3", anno=False) + [
@@ -890,7 +890,7 @@ pagina("come-cambia", "3. Come cambia", intestazione(
              "Stesso periodo dell'anno prima"),
 
     didascalia("p3-d1", X(0), DID_Y, W(3), 14, "52.777 ordini consegnati."),
-    didascalia("p3-d2", X(3), DID_Y, W(3), 15, "21.997: il marketplace e' cresciuto."),
+    didascalia("p3-d2", X(3), DID_Y, W(3), 15, "21.997: il marketplace è cresciuto."),
     didascalia("p3-d3", X(6), DID_Y, W(3), 16, "Base: i soli ordini anche recensiti."),
     didascalia("p3-d4", X(9), DID_Y, W(3), 17, "Stessa base, stessa finestra."),
 
@@ -915,17 +915,17 @@ pagina("come-cambia", "3. Come cambia", intestazione(
                "Nel 2017 sta intorno al 3%. Poi 12,4% a novembre e 19,0% a marzo 2018.",
                "Giugno 2018 torna all'1,2%.",
                "",
-               ("Si risolve con la capacita', non sospendendo venditori.", "accento"),
+               ("Si risolve con la capacità, non sospendendo venditori.", "accento"),
                "",
-               ("Perche' la grigia comincia dal 2018", "forte"),
+               ("Perché la grigia comincia dal 2018", "forte"),
                "L'anno prima esiste solo dentro il periodo utile.",
            ], dim=11),
 ] + piede("p3",
-          "Il mese e' quello dell'acquisto: la relazione attiva fra Ordini e Calendario e' su "
+          "Il mese è quello dell'acquisto: la relazione attiva fra Ordini e Calendario è su "
           "data_acquisto. La serie vive su gennaio 2017 - agosto 2018, e fuori da quella "
           "finestra le misure restano vuote e il mese non compare sull'asse. I quattro riquadri "
           "sono un confronto fra due finestre fisse: il filtro sullo stato li tocca, un filtro "
-          "sull'anno no, ed e' il motivo per cui su questa pagina non c'e'."),
+          "sull'anno no, ed è il motivo per cui su questa pagina non c'è."),
     spegni=[
         ("p3-tendenza", ["p3-c1-numero", "p3-c2-numero", "p3-c3-numero", "p3-c4-numero",
                          "p3-negative"]),
@@ -936,22 +936,22 @@ pagina("come-cambia", "3. Come cambia", intestazione(
 
 # ------------------------------------------------------- 4. DENTRO UN MESE
 # La pagina 3 dice che marzo 2018 fa il 21,4% e giugno l'1,4%, e a quel punto la
-# domanda successiva e' sempre la stessa: e allora cosa e' successo a marzo?
+# domanda successiva è sempre la stessa: e allora cosa è successo a marzo?
 # Fino a ieri non c'era modo di chiederlo.
 #
 # Ci si arriva col tasto destro su un mese della pagina 3 (drillthrough): Power
 # BI deposita il mese scelto nel filtro d'ingresso, che sta sulla pagina e non su
-# una visuale, cosi' ci cascano dentro tutti i visuali insieme.
+# una visuale, così ci cascano dentro tutti i visuali insieme.
 #
-# La pagina NON e' nascosta, ed e' una scelta. Una pagina di drillthrough
+# La pagina NON è nascosta, ed è una scelta. Una pagina di drillthrough
 # nascosta ha un solo modo di uscire, il pulsante Indietro, che Power BI mette
-# da se' solo quando la pagina la costruisci nell'interfaccia, scrivendo il
-# JSON non c'e', e chi entra resta chiuso dentro. Lasciandola visibile si esce
-# dalla linguetta, e aperta da li' mostra tutto il periodo: e' una lettura che
+# da sé solo quando la pagina la costruisci nell'interfaccia, scrivendo il
+# JSON non c'è, e chi entra resta chiuso dentro. Lasciandola visibile si esce
+# dalla linguetta, e aperta da lì mostra tutto il periodo: è una lettura che
 # ha senso lo stesso.
 #
 # Le due misure per fase sono le stesse di pagina 2, ristrette al mese: sono
-# quelle che rispondono davvero, perche' dicono se quel mese e' stato il
+# quelle che rispondono davvero, perché dicono se quel mese è stato il
 # venditore o la logistica.
 M5_RIQ_H = 168                                       # 180 .. 348
 M5_DID_Y = CIMA + M5_RIQ_H + 6                       # 354
@@ -998,13 +998,13 @@ pagina("dentro-un-mese", "4. Dentro un mese", intestazione(
                "Quello accanto dice da quale delle due fasi arrivava il tempo, con le stesse "
                "due misure della pagina 2 ristrette al mese.",
                "",
-               ("Se in un mese cattivo si allunga solo la fase logistica, quel mese non e' un "
+               ("Se in un mese cattivo si allunga solo la fase logistica, quel mese non è un "
                 "problema di venditori.", "forte"),
                "",
                "Restano fuori gli ordini a cronologia incoerente, come in pagina 2.",
            ], dim=11),
 ] + piede("p4",
-          "Il mese e' quello dell'acquisto. I quattro riquadri e il grafico delle fasce "
+          "Il mese è quello dell'acquisto. I quattro riquadri e il grafico delle fasce "
           "girano sui consegnati, le recensioni negative sui soli recensiti, e le due "
           "mediane per fase escludono gli ordini con timestamp incoerenti. Senza un mese "
           "selezionato la pagina mostra tutto il periodo."),
@@ -1022,19 +1022,19 @@ pagina("dentro-un-mese", "4. Dentro un mese", intestazione(
 # ----------------------------------------------------- 5. COSA NON DICE
 # Le schede dei limiti si stringono da 252 a 216 per lasciare 340 pixel alla
 # tabella: con 268 mostrava sei degli otto stati e le ultime due righe si
-# raggiungevano solo scorrendo. Una tabella che scorre dentro un cruscotto e'
+# raggiungevano solo scorrendo. Una tabella che scorre dentro un cruscotto è
 # una tabella che nessuno legge fino in fondo.
 # La tabella degli otto stati scorreva anche a 320 pixel: le righe di tableEx
-# sono piu' alte di quanto stimassi. Invece di stringere ancora le schede, la
+# sono più alte di quanto stimassi. Invece di stringere ancora le schede, la
 # tabella passa nella colonna di destra e prende l'altezza di due file, 512
 # pixel. Le schede dei limiti diventano tre per fila invece di quattro, e le
 # ultime due scendono nella fascia in basso accanto alla nota.
 # Misurato sul file aperto: la tabella riempie 320 pixel e ne aveva 512, quindi
-# ne restavano quasi duecento vuoti sotto l'ultima riga. Adesso la pagina e' una
-# griglia 3x3 di schede a sinistra (otto limiti piu' la nota) e una colonna a
+# ne restavano quasi duecento vuoti sotto l'ultima riga. Adesso la pagina è una
+# griglia 3x3 di schede a sinistra (otto limiti più la nota) e una colonna a
 # destra con la tabella e i due riquadri.
 # Questa pagina non ha la fascia dei filtri: i suoi numeri sono il verbale di
-# cosa entra e cosa esce dall'analisi, e un verbale filtrato non e' un verbale.
+# cosa entra e cosa esce dall'analisi, e un verbale filtrato non è un verbale.
 FILE_Y = [CIMA, 454, 728]                           # 180, 454, 728
 FILE_H = [250, 250, FONDO - 728]                    # 250, 250, 272
 TAB_H  = 376                                        # titolo, intestazione e otto righe
@@ -1043,14 +1043,14 @@ P5_KPI_H = (FONDO - P5_KPI_Y - GRONDA) // 2         # 214
 
 LIMITI = [
     ("Correlazione e causa",
-     ["Un coefficiente su tutti gli ordini varrebbe -0,18, cioe' un legame debole: il valore "
-      "e' schiacciato dal 92% di consegne in anticipo. Per questo la pagina 1 mostra le fasce.",
+     ["Un coefficiente su tutti gli ordini varrebbe -0,18, cioè un legame debole: il valore "
+      "è schiacciato dal 92% di consegne in anticipo. Per questo la pagina 1 mostra le fasce.",
       "",
       "Ritardo e recensione bassa possono anche avere la stessa origine: un venditore lento "
-      "puo' essere anche scadente."]),
+      "può essere anche scadente."]),
     ("La recensione non misura il danno economico",
-     ["Da questi dati non si puo' sapere se un cliente con una stella ha smesso di comprare. "
-      "Ci sono 96.096 persone per 99.441 ordini: il 97% compra una volta sola, e non c'e' un "
+     ["Da questi dati non si può sapere se un cliente con una stella ha smesso di comprare. "
+      "Ci sono 96.096 persone per 99.441 ordini: il 97% compra una volta sola, e non c'è un "
       "comportamento successivo da osservare."]),
     ("Ritardo e voto dipendono dalla promessa",
      ["Gli ordini in orario arrivano 13 giorni prima della data promessa (mediana): "
@@ -1059,7 +1059,7 @@ LIMITI = [
       ("E sui ritardi il voto si chiede due giorni dopo la promessa, pacco o no: 7 "
        "recensioni su 10 sono scritte prima del pacco, e giudicano l'attesa.", "forte")]),
     ("Le fasi arrivano fin dove arrivano i timestamp",
-     ["Quello che succede dentro il corriere non e' registrato. Su 1.388 ordini i timestamp "
+     ["Quello che succede dentro il corriere non è registrato. Su 1.388 ordini i timestamp "
       "sono incoerenti, con la spedizione prima dell'approvazione: quegli ordini sono esclusi "
       "dalle misure per fase e contati a parte."]),
     ("Nel report convivono due basi di calcolo",
@@ -1067,22 +1067,22 @@ LIMITI = [
       "Ogni misura dichiara la propria base.",
       "",
       ("Confonderle produce numeri plausibili e sbagliati.", "forte")]),
-    ("1.278 ordini hanno piu' di un venditore",
+    ("1.278 ordini hanno più di un venditore",
      ["Il ritardo appartiene all'ordine, il venditore alla riga d'ordine. Attribuire il ritardo "
-      "a tutti i venditori dell'ordine lo conta piu' volte: le coppie venditore-ordine sono "
+      "a tutti i venditori dell'ordine lo conta più volte: le coppie venditore-ordine sono "
       "97.811 contro 96.470 ordini."]),
     ("Manca il costo dell'intervento",
      ["L'analisi dice quanto fatturato passa dagli ordini in ritardo, non quanto costerebbe "
       "ridurli.",
       "",
-      ("Senza quel dato non si puo' scegliere se e quanto investire.", "forte")]),
-    ("Il mese e' quello dell'acquisto",
-     ["La pagina 3 aggancia gli ordini al calendario per data d'acquisto, che e' la relazione "
+      ("Senza quel dato non si può scegliere se e quanto investire.", "forte")]),
+    ("Il mese è quello dell'acquisto",
+     ["La pagina 3 aggancia gli ordini al calendario per data d'acquisto, che è la relazione "
       "attiva del modello. Un ordine comprato a fine febbraio e consegnato in ritardo a marzo "
       "pesa su febbraio.",
       "",
-      "Il periodo utile e' gennaio 2017 - agosto 2018: il 2016 conta 329 ordini in tutto, "
-      "novembre 2016 e' assente, e settembre-ottobre 2018 sono venti ordini di coda del dump."]),
+      "Il periodo utile è gennaio 2017 - agosto 2018: il 2016 conta 329 ordini in tutto, "
+      "novembre 2016 è assente, e settembre-ottobre 2018 sono venti ordini di coda del dump."]),
 ]
 
 POSTI = [(X(3 * (i % 3)), FILE_Y[i // 3], FILE_H[i // 3]) for i in range(9)]
@@ -1094,8 +1094,8 @@ schede_limiti = [
 
 pagina("cosa-non-dice", "5. Cosa NON dice", intestazione(
     "p5", "Cosa questa analisi NON dice",
-    "Ogni numero di questa pagina e' misurato sugli stessi dati dell'analisi. I limiti stanno "
-    "qui perche' condizionano il modo in cui si leggono le prime quattro pagine.",
+    "Ogni numero di questa pagina è misurato sugli stessi dati dell'analisi. I limiti stanno "
+    "qui perché condizionano il modo in cui si leggono le prime quattro pagine.",
     "I LIMITI", "PAGINA 5 DI 5") + schede_limiti + [
 
     tabella("p5-esclusi", X(9), CIMA, W(3), TAB_H, 30,
@@ -1108,7 +1108,7 @@ pagina("cosa-non-dice", "5. Cosa NON dice", intestazione(
     scheda("p5-nota", POSTI[8][0], POSTI[8][1], W(3), POSTI[8][2], 31,
            "Come leggere la tabella", [
                "2.963 ordini non sono mai arrivati: annullati, non disponibili o ancora in "
-               "viaggio. Piu' otto consegnati senza data di consegna.",
+               "viaggio. Più otto consegnati senza data di consegna.",
                "",
                ("Un venditore che fa annullare un ordine invece di consegnarlo in ritardo, "
                 "qui risulta migliore.", "accento"),
@@ -1122,8 +1122,8 @@ pagina("cosa-non-dice", "5. Cosa NON dice", intestazione(
     riquadro("p5-c2", X(9), FONDO - P5_KPI_H, W(3), P5_KPI_H, 33, "Coppie venditore-ordine",
              "Contro 96.470 ordini", dim=30),
 ] + piede("p5",
-          "Ogni numero e' riconciliato fra il calcolo di esplorazione in Python e il modello "
-          "Power BI. Dove i due non coincidevano e' stata corretta la documentazione, tenendo "
+          "Ogni numero è riconciliato fra il calcolo di esplorazione in Python e il modello "
+          "Power BI. Dove i due non coincidevano è stata corretta la documentazione, tenendo "
           "il valore misurato."),
     spegni=[("p5-esclusi", ["p5-c1-numero", "p5-c2-numero"])],
 )

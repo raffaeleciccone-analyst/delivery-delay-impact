@@ -48,17 +48,17 @@ table Calendario
 		source =
 				// Query: Calendario   -- dimensione data, CREATA, non derivata
 				//
-				// E' la trappola numero uno di una tabella data, e in questi dati e' viva: novembre 2016
+				// È la trappola numero uno di una tabella data, e in questi dati è viva: novembre 2016
 				// non ha nessun ordine (§11). Una tabella data derivata da una colonna dei fatti
 				// salterebbe quel mese, e la time intelligence sbaglierebbe in silenzio.
 				// Qui i giorni sono generati uno per uno dal 1 gennaio 2016 al 31 dicembre 2018:
-				// i buchi restano visibili come zeri, che e' il loro mestiere.
+				// i buchi restano visibili come zeri, che è il loro mestiere.
 				//
 				// Va poi marcata in Power BI come "tabella data" (Modellazione -> Contrassegna
 				// come tabella data, colonna Data): senza quella marcatura le funzioni di
 				// intelligenza temporale non hanno garanzie.
 				//
-				// Righe attese: 1.096 (2016 e' bisestile)
+				// Righe attese: 1.096 (2016 è bisestile)
 				let
 				    Inizio = #date(2016, 1, 1),
 				    Fine = #date(2018, 12, 31),
@@ -78,7 +78,7 @@ table Calendario
 				        #"Anno-mese", "Trimestre", each "T" & Text.From(Date.QuarterOfYear([Data])), type text
 				    ),
 				
-				    // Il periodo utile e' gennaio 2017 - agosto 2018 (§11): il 2016 sono 329 ordini
+				    // Il periodo utile è gennaio 2017 - agosto 2018 (§11): il 2016 sono 329 ordini
 				    // in tutto e settembre-ottobre 2018 sono venti ordini di coda del dump.
 				    #"Marca il periodo utile" = Table.AddColumn(
 				        #"Trimestre",
@@ -87,7 +87,7 @@ table Calendario
 				        type logical
 				    ),
 				
-				    // Il confronto anno su anno esiste solo su gennaio-agosto: e' l'unico
+				    // Il confronto anno su anno esiste solo su gennaio-agosto: è l'unico
 				    // intervallo presente in tutti e due gli anni pieni.
 				    #"Marca i mesi confrontabili" = Table.AddColumn(
 				        #"Marca il periodo utile",
@@ -96,9 +96,9 @@ table Calendario
 				        type logical
 				    ),
 				
-				    // L'etichetta che finisce sull'asse dei grafici. "Anno-mese" e' "2017-01":
-				    // ordina bene e non si legge, nessuno pensa in yyyy-MM. Questa e' "gen 17",
-				    // e resta unica su tutto il periodo, che e' la condizione perche' Power BI
+				    // L'etichetta che finisce sull'asse dei grafici. "Anno-mese" è "2017-01":
+				    // ordina bene e non si legge, nessuno pensa in yyyy-MM. Questa è "gen 17",
+				    // e resta unica su tutto il periodo, che è la condizione perché Power BI
 				    // possa ordinarla per "Anno-mese" invece che alfabeticamente: "feb" da solo
 				    // comparirebbe due volte e i due febbrai finirebbero nella stessa categoria.
 				    #"Etichetta del mese" = Table.AddColumn(

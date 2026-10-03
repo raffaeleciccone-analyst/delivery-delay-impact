@@ -1,6 +1,6 @@
 // Query: ControlloStatiOrdine   -- 8 righe, serve al pannello «cosa NON dice»
 //
-// Buttare via 2.963 ordini senza dire quanti e' il modo silenzioso di far mentire
+// Buttare via 2.963 ordini senza dire quanti è il modo silenzioso di far mentire
 // un'analisi. Questa tabella li conta, e il pannello dei limiti legge DA QUI
 // invece di avere il numero battuto a mano in una casella di testo.
 // Se un giorno i dati cambiano, il pannello si aggiorna da solo.

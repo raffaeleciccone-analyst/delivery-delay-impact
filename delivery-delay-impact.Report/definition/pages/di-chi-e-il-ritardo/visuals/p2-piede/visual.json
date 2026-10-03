@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Il grafico per stato tiene solo gli stati con almeno 100 ordini consegnati. Le durate per fase escludono 1.388 ordini con timestamp incoerenti, contati a parte. Il ritardo per stato si appoggia alle righe d'ordine, perche' il filtro dello stato del venditore non risale fino alla tabella degli ordini: per lo stesso motivo il filtro in alto e' sullo stato del cliente, che invece ci arriva.",
+                    "value": "Il grafico per stato tiene solo gli stati con almeno 100 ordini consegnati. Le durate per fase escludono 1.388 ordini con timestamp incoerenti, contati a parte. Il ritardo per stato si appoggia alle righe d'ordine, perché il filtro dello stato del venditore non risale fino alla tabella degli ordini: per lo stesso motivo il filtro in alto è sullo stato del cliente, che invece ci arriva.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

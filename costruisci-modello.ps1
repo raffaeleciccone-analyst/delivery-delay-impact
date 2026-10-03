@@ -2,7 +2,7 @@
 #
 # Non tocca i dati: legge le query M da power-query\*.m e monta tabelle,
 # relazioni e misure con le API di Power BI. Alla fine rilegge quello che ha
-# scritto, cosi' un errore di formato si vede qui e non aprendo il file.
+# scritto, così un errore di formato si vede qui e non aprendo il file.
 #
 # Uso:  powershell -ExecutionPolicy Bypass -File costruisci-modello.ps1
 
@@ -11,7 +11,7 @@ $ErrorActionPreference = "Stop"
 $bin = "C:\Program Files\Microsoft Power BI Desktop\bin"
 Add-Type -Path "$bin\Microsoft.PowerBI.Tabular.dll"
 
-# la cartella del progetto e' quella dello script: si clona dove si vuole
+# la cartella del progetto è quella dello script: si clona dove si vuole
 $radice   = $PSScriptRoot
 $pq       = Join-Path $radice "power-query"
 $cartella = Join-Path $radice "delivery-delay-impact.SemanticModel"
@@ -82,8 +82,8 @@ function Aggiungi-Tabella($nome, $file, $colonne, $descrizione) {
         $col.SourceColumn = $c[0]
         $col.DataType = (Tipo $c[1])
         if ($c.Count -ge 3 -and $c[2]) { $col.Description = $c[2] }
-        # il quarto elemento e' il nome da mostrare, quando quello della
-        # sorgente non e' presentabile; il quinto il formato del numero
+        # il quarto elemento è il nome da mostrare, quando quello della
+        # sorgente non è presentabile; il quinto il formato del numero
         if ($c.Count -ge 4 -and $c[3]) { $col.Name = $c[3] }
         if ($c.Count -ge 5 -and $c[4]) { $col.FormatString = $c[4] }
         $t.Columns.Add($col)
@@ -104,14 +104,14 @@ $null = Aggiungi-Tabella "Ordini" "02-Ordini.m" @(
     @("giorni_ritardo", "Int64", "giorni fra la data promessa e la data di consegna; positivo = in ritardo"),
     @("in_ritardo", "Boolean"),
     @("esito_consegna", "String", "in orario / in ritardo, in parole invece che Vero-Falso"),
-    @("fascia_ritardo", "String", "serve a mostrare il dirupo: il legame non e' una pendenza"),
+    @("fascia_ritardo", "String", "serve a mostrare il dirupo: il legame non è una pendenza"),
     @("fascia_ordine", "Int64", "ordina le fasce; l'ordine alfabetico sarebbe sbagliato"),
     @("giorni_fase_venditore", "Double", "approvazione -> affidamento al corriere"),
     @("giorni_fase_logistica", "Double", "affidamento al corriere -> consegna"),
     @("cronologia_ok", "Boolean", "falso su 1.388 ordini con timestamp incoerenti: escono dalle misure di durata"),
     @("data_acquisto", "DateTime"),
     @("data_consegna", "DateTime"),
-    @("voto", "Double", "media dei punteggi quando l'ordine ha piu' di una recensione"),
+    @("voto", "Double", "media dei punteggi quando l'ordine ha più di una recensione"),
     @("recensioni_sull_ordine", "Int64"),
     @("voto_negativo", "Boolean", "voto <= 2"),
     @("recensito", "Boolean", "distingue le due basi: 96.470 consegnati, 95.824 recensiti"),
@@ -130,20 +130,20 @@ $null = Aggiungi-Tabella "RigheOrdine" "04-RigheOrdine.m" @(
     @("valore_riga", "Double", "price + freight_value")
 ) "Una riga d'ordine. Qui sta il fatturato."
 
-# I nomi della sorgente finiscono sotto gli occhi di chi legge, perche' questa
+# I nomi della sorgente finiscono sotto gli occhi di chi legge, perché questa
 # tabella si mostra tal quale: "order_status" e un 96478 senza punto delle
-# migliaia dicono che il file non e' stato finito.
+# migliaia dicono che il file non è stato finito.
 $null = Aggiungi-Tabella "ControlloStatiOrdine" "03-ControlloStatiOrdine.m" @(
     @("order_status", "String", $null, "Stato dell'ordine"),
     @("ordini", "Int64", $null, "Ordini", "#,0"),
     @("nell_analisi", "Boolean")
-) "Conta gli ordini esclusi per stato. NON collegata di proposito: deve mostrare sempre tutti gli 8 stati, anche quando l'analisi e' filtrata."
+) "Conta gli ordini esclusi per stato. NON collegata di proposito: deve mostrare sempre tutti gli 8 stati, anche quando l'analisi è filtrata."
 
 $null = Aggiungi-Tabella "Clienti" "06-Clienti.m" @(
     @("customer_id", "String", "chiave: una per ordine"),
     @("customer_unique_id", "String", "la persona: 96.096 contro 99.441 ordini"),
     @("cap", "Int64"),
-    @("citta", "String", "normalizzata; per raggruppare e' piu' affidabile lo stato"),
+    @("citta", "String", "normalizzata; per raggruppare è più affidabile lo stato"),
     @("stato", "String")
 ) "Dimensione cliente."
 
@@ -230,7 +230,7 @@ function Aggiungi-Misura($nome, $dax, $formato, $descrizione) {
 Aggiungi-Misura "Ordini consegnati" "COUNTROWS( Ordini )" "#,0" `
     "Base dei tempi e dei venditori: 96.470."
 Aggiungi-Misura "Ordini recensiti" "CALCULATE( [Ordini consegnati], Ordini[recensito] = TRUE() )" "#,0" `
-    "Base dei voti: 95.824. Non e' la stessa dei tempi."
+    "Base dei voti: 95.824. Non è la stessa dei tempi."
 Aggiungi-Misura "Ordini in ritardo" "CALCULATE( [Ordini consegnati], Ordini[in_ritardo] = TRUE() )" "#,0" $null
 Aggiungi-Misura "% ordini in ritardo" "DIVIDE( [Ordini in ritardo], [Ordini consegnati] )" "0.0%" $null
 
@@ -244,18 +244,18 @@ Aggiungi-Misura "Margine di consegna (mediana)" `
 Aggiungi-Misura "Voto medio" "AVERAGE( Ordini[voto] )" "0.00" $null
 Aggiungi-Misura "% recensioni negative" `
     "DIVIDE( CALCULATE( [Ordini consegnati], Ordini[voto_negativo] = TRUE() ), [Ordini recensiti] )" "0.0%" `
-    "Negativa = 1 o 2 stelle. La soglia e' una scelta."
+    "Negativa = 1 o 2 stelle. La soglia è una scelta."
 
 Aggiungi-Misura "% recensioni negative in orario" `
     "CALCULATE( [% recensioni negative], Ordini[in_ritardo] = FALSE() )" "0.0%" `
     "9,2%. Serve accanto a quella in ritardo: da sola non dice niente."
 # Qui stava "% recensioni negative in ritardo" (54%, poi 62,4% contando per data),
 # tolta il 2/10: mescolava chi giudica la consegna e chi giudica l'attesa (§16).
-# Al suo posto le tre misure sul momento della recensione, piu' sotto.
+# Al suo posto le tre misure sul momento della recensione, più sotto.
 
 Aggiungi-Misura "% negative (consegne in orario)" `
     "IF( SELECTEDVALUE( Ordini[fascia_ordine] ) <= 3, [% recensioni negative] )" "0.0%" `
-    "La stessa misura, ristretta alle fasce prima della data promessa: sul grafico e' il contesto grigio."
+    "La stessa misura, ristretta alle fasce prima della data promessa: sul grafico è il contesto grigio."
 # --- il momento della recensione (§16) -------------------------------------
 # Sui ritardi Olist non aspetta il pacco: manda il questionario due giorni dopo la
 # data promessa, e 7 clienti su 10 rispondono prima di averlo. Il 62% di negative in ritardo mescola due
@@ -265,12 +265,12 @@ Aggiungi-Misura "% recensioni in ritardo scritte prima del pacco" `
     "70,1%: 4.476 recensioni su 6.381 ordini in ritardo e recensiti."
 Aggiungi-Misura "% negative prima del pacco" `
     "CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() )" "0.0%" `
-    "80,6%: chi recensisce mentre aspetta e' quasi sempre arrabbiato."
+    "80,6%: chi recensisce mentre aspetta è quasi sempre arrabbiato."
 Aggiungi-Misura "% negative in ritardo dopo il pacco" `
     "CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = FALSE() )" "0.0%" `
     "19,4%: chi il pacco in ritardo lo ha ricevuto. Il doppio del 9,2% in orario."
 # le due parti del rosso sul grafico delle fasce: impilate fanno la quota intera
-# di negative della fascia, quindi il denominatore e' [Ordini recensiti] di tutta la fascia
+# di negative della fascia, quindi il denominatore è [Ordini recensiti] di tutta la fascia
 Aggiungi-Misura "% negative (ritardo, prima del pacco)" `
     "IF( SELECTEDVALUE( Ordini[fascia_ordine] ) >= 4, DIVIDE( CALCULATE( [Ordini consegnati], Ordini[voto_negativo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() ), [Ordini recensiti] ) )" "0.0%" `
     "Sul grafico: la parte di rosso scritta prima di avere il pacco."
@@ -307,45 +307,45 @@ Aggiungi-Misura "% ritardo del venditore" `
 # Qui stava "% ritardo del venditore (sopra soglia)", tolta il 26/08.
 # Era scritta per la classifica dei venditori di pagina 2, e quella pagina ha
 # smesso di essere una classifica quando i dati hanno detto che i venditori non
-# sono il problema. La misura e' rimasta a girare a vuoto per tre giorni: nessun
+# sono il problema. La misura è rimasta a girare a vuoto per tre giorni: nessun
 # visuale la usava, e un modello che espone una misura che nessuno usa promette
-# una risposta che non da'.
-# La soglia dei 30 ordini NON e' sparita con lei: vive in "Venditori sopra
+# una risposta che non dà.
+# La soglia dei 30 ordini NON è sparita con lei: vive in "Venditori sopra
 # soglia" (il riquadro da 627) e nella soglia dei 100 ordini di "% ritardo dello
-# stato". La disciplina e' applicata dove serve, non dichiarata e basta.
+# stato". La disciplina è applicata dove serve, non dichiarata e basta.
 Aggiungi-Misura "Venditori sopra soglia" `
     "SUMX( VALUES( Venditori[seller_id] ), IF( [Ordini del venditore] >= 30, 1, 0 ) )" "#,0" `
     "627 venditori: il 21% di quelli misurati, ma l'83,5% degli ordini."
 
 Aggiungi-Misura "% ritardo dello stato" `
     "IF( [Ordini del venditore] >= 100, [% ritardo del venditore] )" "0.0%" `
-    "Ritardo per stato del venditore. Sotto i 100 ordini consegnati resta vuota: stessa disciplina della soglia sui venditori. NB: si appoggia alle righe d'ordine, perche' il filtro dello stato non risale fino agli ordini."
+    "Ritardo per stato del venditore. Sotto i 100 ordini consegnati resta vuota: stessa disciplina della soglia sui venditori. NB: si appoggia alle righe d'ordine, perché il filtro dello stato non risale fino agli ordini."
 
 Aggiungi-Misura "Coppie venditore-ordine" `
     "CALCULATE( COUNTROWS( SUMMARIZE( RigheOrdine, RigheOrdine[order_id], RigheOrdine[seller_id] ) ), Ordini )" "#,0" `
-    "97.811 contro 96.470 ordini: 1.278 ordini hanno piu' di un venditore."
+    "97.811 contro 96.470 ordini: 1.278 ordini hanno più di un venditore."
 
 Aggiungi-Misura "Ordini esclusi dall'analisi" `
     "CALCULATE( SUM( ControlloStatiOrdine[ordini] ), ControlloStatiOrdine[nell_analisi] = FALSE() )" "#,0" `
-    "2.963. Sta nel pannello dei limiti e non e' battuto a mano."
+    "2.963. Sta nel pannello dei limiti e non è battuto a mano."
 
 # --- qui stavano "Voto medio in orario" e "Voto medio in ritardo" (4,29 e 2,27),
 #     tolte il 2/10: il voto in ritardo conta anche chi risponde senza avere il
-#     pacco. Il loro posto in pagina 1 va al fatturato, che e' la sotto-domanda 3.
+#     pacco. Il loro posto in pagina 1 va al fatturato, che è la sotto-domanda 3.
 
 # --- la serie nel tempo (pagina 3).
 #
 # Le due misure "(mese)" restano vuote fuori dal periodo utile, e un mese in cui
-# tutte le misure sono vuote sparisce dall'asse: e' il modo di non mostrare
+# tutte le misure sono vuote sparisce dall'asse: è il modo di non mostrare
 # l'1,1% di 265 ordini di ottobre 2016 come se fosse un mese come gli altri.
 #
-# Le due "(anno prec.)" funzionano SOLO perche' Calendario e' contrassegnata come
-# tabella data (dataCategory Time). E' quella marcatura a far togliere a
+# Le due "(anno prec.)" funzionano SOLO perché Calendario è contrassegnata come
+# tabella data (dataCategory Time). È quella marcatura a far togliere a
 # SAMEPERIODLASTYEAR il filtro di Anno-mese che arriva dall'asse del grafico, e a
 # sostituirlo con le date spostate di un anno. Senza, i due filtri si
 # intersecherebbero e la serie sarebbe vuota dappertutto.
 # Il secondo filtro tiene fuori il 2016: sui mesi del 2017 la serie dell'anno
-# prima resta vuota di proposito, perche' il 2016 non e' un anno confrontabile.
+# prima resta vuota di proposito, perché il 2016 non è un anno confrontabile.
 Aggiungi-Misura "% ordini in ritardo (mese)" `
     "IF( SELECTEDVALUE( Calendario[periodo_utile] ) = TRUE(), [% ordini in ritardo] )" "0.0%" `
     "La serie mensile vive solo su gennaio 2017 - agosto 2018."
@@ -358,7 +358,7 @@ IF(
         Calendario[periodo_utile] = TRUE()
     )
 )
-'@ "0.0%" "Lo stesso mese dell'anno prima. Sui mesi del 2017 resta vuota: il 2016 non e' confrontabile."
+'@ "0.0%" "Lo stesso mese dell'anno prima. Sui mesi del 2017 resta vuota: il 2016 non è confrontabile."
 
 Aggiungi-Misura "% recensioni negative (mese)" `
     "IF( SELECTEDVALUE( Calendario[periodo_utile] ) = TRUE(), [% recensioni negative] )" "0.0%" `
@@ -376,11 +376,11 @@ IF(
 
 # --- i quattro riquadri di pagina 3: due finestre fisse, gennaio-agosto, che
 #     sono gli unici mesi presenti in tutti e due gli anni pieni.
-#     Non risentono di un filtro sull'anno, ed e' il motivo per cui su quella
-#     pagina il filtro dell'anno non c'e'.
+#     Non risentono di un filtro sull'anno, ed è il motivo per cui su quella
+#     pagina il filtro dell'anno non c'è.
 Aggiungi-Misura "% ordini in ritardo gen-ago 2018" `
     "CALCULATE( [% ordini in ritardo], Calendario[Anno] = 2018, Calendario[confrontabile] = TRUE() )" "0.0%" `
-    "7,7%. Piu' del doppio dello stesso periodo dell'anno prima."
+    "7,7%. Più del doppio dello stesso periodo dell'anno prima."
 Aggiungi-Misura "% ordini in ritardo gen-ago 2017" `
     "CALCULATE( [% ordini in ritardo], Calendario[Anno] = 2017, Calendario[confrontabile] = TRUE() )" "0.0%" `
     "3,5%. La finestra di confronto."
@@ -393,16 +393,16 @@ Aggiungi-Misura "% recensioni negative gen-ago 2017" `
 
 # --- la valuta: reais convertiti in euro a un tasso unico, dichiarato
 #
-# Il tasso e' la media dei cambi mensili BCE del periodo, pesata per il fatturato
+# Il tasso è la media dei cambi mensili BCE del periodo, pesata per il fatturato
 # di ogni mese: 15.418.395 R$ diviso i 3.902.588 EUR che si ottengono convertendo
 # mese per mese fanno 3,9508.
 #
-# Un tasso unico e' una semplificazione, e il suo prezzo e' misurato: sul
+# Un tasso unico è una semplificazione, e il suo prezzo è misurato: sul
 # fatturato consegnato sbaglia dello 0,02% rispetto alla conversione mensile, e
 # sul fatturato in ritardo dello 0,5%. Una tabella dei cambi mensili in cambio di
-# mezzo punto percentuale non vale la grana in piu' da tenere allineata.
+# mezzo punto percentuale non vale la grana in più da tenere allineata.
 # Sbagliato sarebbe prendere il cambio di UN anno: il 2017 medio (3,6054) gonfia
-# il totale del 9,6%, il 2018 medio (4,3085) lo sgonfia dell'8,3%. Il real si e'
+# il totale del 9,6%, il 2018 medio (4,3085) lo sgonfia dell'8,3%. Il real si è
 # svalutato in mezzo ai dati, e i due anni non sono intercambiabili.
 #
 # Fonte: BCE, tassi di riferimento mensili BRL/EUR, serie EXR.M.BRL.EUR.SP00.A,
@@ -413,23 +413,23 @@ Aggiungi-Misura "Cambio reais per euro" "3.95" "0.00" `
     "Media dei cambi mensili BCE 2016-2018 pesata per il fatturato. Il tasso sta qui e in un posto solo."
 Aggiungi-Misura "Fatturato (EUR)" `
     "DIVIDE( [Fatturato], [Cambio reais per euro] )" $euro `
-    "Lo stesso fatturato in euro. La conversione e' una scelta, e il tasso e' una misura visibile."
+    "Lo stesso fatturato in euro. La conversione è una scelta, e il tasso è una misura visibile."
 Aggiungi-Misura "Fatturato in ritardo (EUR)" `
     "DIVIDE( [Fatturato in ritardo], [Cambio reais per euro] )" $euro `
-    "EUR 342.000 circa. E' il numero che sta sul riquadro di pagina 1."
+    "EUR 342.000 circa. È il numero che sta sul riquadro di pagina 1."
 
 # "Fatturato consegnato e recensito" non sta su nessuna pagina e nessun'altra
 # misura la cita: serve solo alle righe 10 e 11 di RICONCILIAZIONE.md, per poter
-# rifare quel controllo. E' un attrezzo, non un campo del cruscotto, e come tale
+# rifare quel controllo. È un attrezzo, non un campo del cruscotto, e come tale
 # si nasconde: chi apre l'elenco dei campi non deve chiedersi a cosa serva.
 $mod.Tables["Misure"].Measures["Fatturato consegnato e recensito"].IsHidden = $true
 
 # ------------------------------------------------------------------ si scrive
 #
-# Si riscrive SOLO la cartella definition\, il modello, che e' roba nostra.
+# Si riscrive SOLO la cartella definition\, il modello, che è roba nostra.
 # Tutto il resto del progetto (.platform, definition.pbism, .pbi\, il report)
-# lo scrive Power BI col Salva con nome, ed e' roba sua: sovrascriverlo a mano
-# significa indovinare schemi e versioni, che e' gia' costato un pomeriggio.
+# lo scrive Power BI col Salva con nome, ed è roba sua: sovrascriverlo a mano
+# significa indovinare schemi e versioni, che è già costato un pomeriggio.
 $def = Join-Path $cartella "definition"
 
 if (-not (Test-Path (Join-Path $cartella "definition.pbism"))) {

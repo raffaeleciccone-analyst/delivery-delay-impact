@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # Disegna lo schema a stella leggendolo dal modello, non ricopiandolo.
 #
-# La quarta schermata della consegna e' l'unica che non esce dall'export in PDF.
-# La strada ovvia e' fotografare la vista Modello di Power BI; questa e' meglio
+# La quarta schermata della consegna è l'unica che non esce dall'export in PDF.
+# La strada ovvia è fotografare la vista Modello di Power BI; questa è meglio
 # per due motivi. Il disegno esce dal TMDL, quindi se il modello cambia il
-# diagramma cambia con lui invece di restare una vecchia fotografia. E puo'
+# diagramma cambia con lui invece di restare una vecchia fotografia. E può
 # dire quello che la vista Modello non dice: quali tabelle sono fatti, quali
-# dimensioni, e perche' una relazione e' tratteggiata.
+# dimensioni, e perché una relazione è tratteggiata.
 #
 # Uso:  python diagramma-modello.py
 
@@ -17,7 +17,7 @@ try:
 except ImportError:
     sys.exit("manca pymupdf: python -m pip install pymupdf")
 
-# la cartella del progetto e' quella dello script: si clona dove si vuole
+# la cartella del progetto è quella dello script: si clona dove si vuole
 RADICE = os.path.dirname(os.path.abspath(__file__))
 MODELLO = os.path.join(RADICE, "delivery-delay-impact.SemanticModel", "definition")
 FUORI = os.path.join(RADICE, "schermate")
@@ -44,7 +44,7 @@ CARATTERI = {
 }
 
 # I due fatti in colonna al centro, le loro dimensioni a fianco: Clienti e
-# Calendario stanno con Ordini, Venditori e Prodotti con RigheOrdine. Cosi'
+# Calendario stanno con Ordini, Venditori e Prodotti con RigheOrdine. Così
 # nessuna linea ne incrocia un'altra. In fondo, sotto un righello, le due
 # tabelle senza relazioni.
 POSTI = {
@@ -99,8 +99,8 @@ def bordo_verso(r, altro, scarto=(0.0, 0.0)):
 
     `scarto` sposta il centro da cui si parte: serve quando due relazioni
     collegano le stesse due tabelle e le loro linee finirebbero una sopra
-    l'altra. Il punto resta comunque sul bordo, perche' si taglia il bordo a
-    partire dal centro spostato invece di spostare il punto gia' tagliato."""
+    l'altra. Il punto resta comunque sul bordo, perché si taglia il bordo a
+    partire dal centro spostato invece di spostare il punto già tagliato."""
     cx = (r.x0 + r.x1) / 2 + scarto[0]
     cy = (r.y0 + r.y1) / 2 + scarto[1]
     dx, dy = altro[0] - cx, altro[1] - cy
@@ -147,7 +147,7 @@ scrivi(pag, "Schema a stella: otto tabelle, sei relazioni", 100, 100, 27, "gr", 
 # Quando due relazioni collegano le stesse due tabelle (Ordini e Calendario,
 # per la seconda data) le loro linee si sovrapporrebbero. Si scostano di
 # quarantadue pixel per parte, perpendicolarmente alla linea, e le etichette
-# non stanno tutte a meta': scorrono lungo la linea, se no si accavallano.
+# non stanno tutte a metà: scorrono lungo la linea, se no si accavallano.
 coppie = {}
 for rel in relazioni:
     coppie.setdefault((rel["da_tab"], rel["a_tab"]), []).append(rel)
@@ -182,7 +182,7 @@ for (da, a), gruppo in coppie.items():
         scrivi(pag, "1", ux, uy + 5, 13, "snb", colore, centro=True)
 
         # l'etichetta si scosta perpendicolarmente alla linea, se no la linea
-        # le passa dentro: sopra non basta, perche' una diagonale risale
+        # le passa dentro: sopra non basta, perché una diagonale risale
         f = 0.5 if len(gruppo) == 1 else 0.32 + 0.36 * i
         mx = pa[0] + (pb[0] - pa[0]) * f
         my = pa[1] + (pb[1] - pa[1]) * f
@@ -217,7 +217,7 @@ for tab, (x, y) in POSTI.items():
         col_n, col_d = (1, 1, 1), SU_SCURO_2
     elif not collegata:
         etichetta = ("Le misure stanno in una tabella dedicata" if tab == "Misure"
-                     else "Conta gli otto stati anche quando l'analisi e' filtrata")
+                     else "Conta gli otto stati anche quando l'analisi è filtrata")
         col_e, col_n, col_d = INCHIOSTRO_3, INCHIOSTRO, INCHIOSTRO_2
     else:
         etichetta, col_e = "DIMENSIONE", GRIGIO
@@ -240,7 +240,7 @@ scrivi(pag, "SENZA RELAZIONI, DI PROPOSITO", 100, FONDO_Y + 30, 9, "snb", INCHIO
 scrivi(pag, "Disegnato leggendo delivery-delay-impact.SemanticModel con "
             "diagramma-modello.py: se il modello cambia, cambia anche questo disegno.",
        100, A - 58, 11, "sn", INCHIOSTRO_3)
-scrivi(pag, "La tabella data e' creata a parte, non derivata dai fatti. La seconda data "
+scrivi(pag, "La tabella data è creata a parte, non derivata dai fatti. La seconda data "
             "(data_consegna) resta inattiva e si accende in DAX con USERELATIONSHIP.",
        100, A - 34, 11, "sn", INCHIOSTRO_3)
 

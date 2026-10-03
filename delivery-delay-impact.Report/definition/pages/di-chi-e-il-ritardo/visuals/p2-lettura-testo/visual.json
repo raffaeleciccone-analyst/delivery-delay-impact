@@ -41,7 +41,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Due intervalli registrati: dall'approvazione al corriere (venditore), e da li' alla consegna (logistica).",
+                    "value": "Due intervalli registrati: dall'approvazione al corriere (venditore), e da lì alla consegna (logistica).",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
@@ -99,7 +99,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Sono mediane, non si sommano. Dicono dove si accumula il tempo, non di chi e' la colpa: dopo il corriere i dati tacciono.",
+                    "value": "Sono mediane, non si sommano. Dicono dove si accumula il tempo, non di chi è la colpa: dopo il corriere i dati tacciono.",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

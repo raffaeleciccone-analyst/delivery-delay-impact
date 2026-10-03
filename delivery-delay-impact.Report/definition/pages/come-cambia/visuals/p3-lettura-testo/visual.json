@@ -75,7 +75,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Si risolve con la capacita', non sospendendo venditori.",
+                    "value": "Si risolve con la capacità, non sospendendo venditori.",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
@@ -98,7 +98,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Perche' la grigia comincia dal 2018",
+                    "value": "Perché la grigia comincia dal 2018",
                     "textStyle": {
                       "fontSize": "11pt",
                       "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",

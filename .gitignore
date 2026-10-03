@@ -1,11 +1,11 @@
 # I dati grezzi non entrano nel repository.
 # Sono 164 MB, e soprattutto sono di Kaggle con licenza CC BY-NC-SA 4.0:
 # ridistribuirli qui sarebbe una scelta che non tocca a me. Il README dice come
-# scaricarli, e power-query/00-PercorsoDati.m e' l'unico punto in cui il
+# scaricarli, e power-query/00-PercorsoDati.m è l'unico punto in cui il
 # percorso locale compare.
 dati_grezzi/
 
-# Il .pbix e' un duplicato binario del progetto .pbip, che e' la sorgente vera:
+# Il .pbix è un duplicato binario del progetto .pbip, che è la sorgente vera:
 # 26 MB che invecchiano da soli e che in un diff non dicono niente.
 *.pbix
 SUPERATO-*
@@ -14,20 +14,20 @@ SUPERATO-*
 **/.pbi/localSettings.json
 **/.pbi/cache.abf
 
-# Le schermate della versione precedente, tenute solo finche' non si rifanno
+# Le schermate della versione precedente, tenute solo finché non si rifanno
 schermate/superate/
 
 __pycache__/
 *.pyc
 
-# La bozza di mail alla segreteria: nome, indirizzo e istituto. E' roba mia,
-# non del progetto, e un repository puo' sempre diventare pubblico.
+# La bozza di mail alla segreteria: nome, indirizzo e istituto. È roba mia,
+# non del progetto, e un repository può sempre diventare pubblico.
 mail-its.md
 
-# Il piano di lavoro personale: quale progetto fare prima e perche', tempi,
-# altri progetti in corso, come pubblicare. E' roba mia, non dell'analisi.
+# Il piano di lavoro personale: quale progetto fare prima e perché, tempi,
+# altri progetti in corso, come pubblicare. È roba mia, non dell'analisi.
 HANDOFF.md
 
 # Il diario di lavoro: appunti di sessione, giro per giro. Serve a me per
-# ricordare cosa ho gia' provato, non a chi legge il progetto.
+# ricordare cosa ho già provato, non a chi legge il progetto.
 STATO.md

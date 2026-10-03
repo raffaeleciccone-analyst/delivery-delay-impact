@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Il mese e' quello dell'acquisto: la relazione attiva fra Ordini e Calendario e' su data_acquisto. La serie vive su gennaio 2017 - agosto 2018, e fuori da quella finestra le misure restano vuote e il mese non compare sull'asse. I quattro riquadri sono un confronto fra due finestre fisse: il filtro sullo stato li tocca, un filtro sull'anno no, ed e' il motivo per cui su questa pagina non c'e'.",
+                    "value": "Il mese è quello dell'acquisto: la relazione attiva fra Ordini e Calendario è su data_acquisto. La serie vive su gennaio 2017 - agosto 2018, e fuori da quella finestra le misure restano vuote e il mese non compare sull'asse. I quattro riquadri sono un confronto fra due finestre fisse: il filtro sullo stato li tocca, un filtro sull'anno no, ed è il motivo per cui su questa pagina non c'è.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",

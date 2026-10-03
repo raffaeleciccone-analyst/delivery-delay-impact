@@ -11,7 +11,7 @@ let
     ),
     #"Intestazioni promosse" = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
 
-    // "en-US" non e' un vezzo: senza, il punto decimale dei prezzi e le date
+    // "en-US" non è un vezzo: senza, il punto decimale dei prezzi e le date
     // vengono lette con le impostazioni italiane e sbagliano in silenzio.
     // Vedi DATI-SPORCHI.md §15.
     #"Tipi dichiarati in en-US" = Table.TransformColumnTypes(

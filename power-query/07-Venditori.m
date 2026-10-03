@@ -3,7 +3,7 @@
 // Righe attese: 3.095
 // Di questi, 2.970 hanno almeno un ordine consegnato e 627 stanno sopra la
 // soglia dichiarata di 30 ordini (vedi DATI-SPORCHI.md, sotto-domanda 4).
-// La soglia NON si applica qui: si applica nelle misure, cosi' resta visibile
+// La soglia NON si applica qui: si applica nelle misure, così resta visibile
 // quanti venditori taglia fuori.
 let
     Origine = Csv.Document(
@@ -23,7 +23,7 @@ let
     ),
 
     // §8 - stessa normalizzazione dei clienti: "sp / sp", "lages - sc", ecc.
-    #"Normalizza le citta'" = Table.AddColumn(
+    #"Normalizza le città" = Table.AddColumn(
         #"Tipi dichiarati in en-US",
         "citta",
         each Text.Proper(
@@ -36,7 +36,7 @@ let
         type text
     ),
     #"Tieni le colonne utili" = Table.SelectColumns(
-        #"Normalizza le citta'", {"seller_id", "seller_zip_code_prefix", "citta", "seller_state"}
+        #"Normalizza le città", {"seller_id", "seller_zip_code_prefix", "citta", "seller_state"}
     ),
     #"Rinomina in italiano" = Table.RenameColumns(
         #"Tieni le colonne utili",

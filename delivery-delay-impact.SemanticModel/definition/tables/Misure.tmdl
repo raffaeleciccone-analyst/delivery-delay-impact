@@ -5,7 +5,7 @@ table Misure
 	measure 'Ordini consegnati' = COUNTROWS( Ordini )
 		formatString: #,0
 
-	/// Base dei voti: 95.824. Non e' la stessa dei tempi.
+	/// Base dei voti: 95.824. Non è la stessa dei tempi.
 	measure 'Ordini recensiti' = CALCULATE( [Ordini consegnati], Ordini[recensito] = TRUE() )
 		formatString: #,0
 
@@ -26,7 +26,7 @@ table Misure
 	measure 'Voto medio' = AVERAGE( Ordini[voto] )
 		formatString: 0.00
 
-	/// Negativa = 1 o 2 stelle. La soglia e' una scelta.
+	/// Negativa = 1 o 2 stelle. La soglia è una scelta.
 	measure '% recensioni negative' = DIVIDE( CALCULATE( [Ordini consegnati], Ordini[voto_negativo] = TRUE() ), [Ordini recensiti] )
 		formatString: 0.0%
 
@@ -34,7 +34,7 @@ table Misure
 	measure '% recensioni negative in orario' = CALCULATE( [% recensioni negative], Ordini[in_ritardo] = FALSE() )
 		formatString: 0.0%
 
-	/// La stessa misura, ristretta alle fasce prima della data promessa: sul grafico e' il contesto grigio.
+	/// La stessa misura, ristretta alle fasce prima della data promessa: sul grafico è il contesto grigio.
 	measure '% negative (consegne in orario)' = IF( SELECTEDVALUE( Ordini[fascia_ordine] ) <= 3, [% recensioni negative] )
 		formatString: 0.0%
 
@@ -42,7 +42,7 @@ table Misure
 	measure '% recensioni in ritardo scritte prima del pacco' = DIVIDE( CALCULATE( [Ordini recensiti], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() ), CALCULATE( [Ordini recensiti], Ordini[in_ritardo] = TRUE() ) )
 		formatString: 0.0%
 
-	/// 80,6%: chi recensisce mentre aspetta e' quasi sempre arrabbiato.
+	/// 80,6%: chi recensisce mentre aspetta è quasi sempre arrabbiato.
 	measure '% negative prima del pacco' = CALCULATE( [% recensioni negative], Ordini[in_ritardo] = TRUE(), Ordini[recensione_prima_del_pacco] = TRUE() )
 		formatString: 0.0%
 
@@ -99,15 +99,15 @@ table Misure
 	measure 'Venditori sopra soglia' = SUMX( VALUES( Venditori[seller_id] ), IF( [Ordini del venditore] >= 30, 1, 0 ) )
 		formatString: #,0
 
-	/// Ritardo per stato del venditore. Sotto i 100 ordini consegnati resta vuota: stessa disciplina della soglia sui venditori. NB: si appoggia alle righe d'ordine, perche' il filtro dello stato non risale fino agli ordini.
+	/// Ritardo per stato del venditore. Sotto i 100 ordini consegnati resta vuota: stessa disciplina della soglia sui venditori. NB: si appoggia alle righe d'ordine, perché il filtro dello stato non risale fino agli ordini.
 	measure '% ritardo dello stato' = IF( [Ordini del venditore] >= 100, [% ritardo del venditore] )
 		formatString: 0.0%
 
-	/// 97.811 contro 96.470 ordini: 1.278 ordini hanno piu' di un venditore.
+	/// 97.811 contro 96.470 ordini: 1.278 ordini hanno più di un venditore.
 	measure 'Coppie venditore-ordine' = CALCULATE( COUNTROWS( SUMMARIZE( RigheOrdine, RigheOrdine[order_id], RigheOrdine[seller_id] ) ), Ordini )
 		formatString: #,0
 
-	/// 2.963. Sta nel pannello dei limiti e non e' battuto a mano.
+	/// 2.963. Sta nel pannello dei limiti e non è battuto a mano.
 	measure 'Ordini esclusi dall''analisi' = CALCULATE( SUM( ControlloStatiOrdine[ordini] ), ControlloStatiOrdine[nell_analisi] = FALSE() )
 		formatString: #,0
 
@@ -115,7 +115,7 @@ table Misure
 	measure '% ordini in ritardo (mese)' = IF( SELECTEDVALUE( Calendario[periodo_utile] ) = TRUE(), [% ordini in ritardo] )
 		formatString: 0.0%
 
-	/// Lo stesso mese dell'anno prima. Sui mesi del 2017 resta vuota: il 2016 non e' confrontabile.
+	/// Lo stesso mese dell'anno prima. Sui mesi del 2017 resta vuota: il 2016 non è confrontabile.
 	measure '% ordini in ritardo (anno prec.)' =
 			IF(
 			    SELECTEDVALUE( Calendario[periodo_utile] ) = TRUE(),
@@ -143,7 +143,7 @@ table Misure
 			)
 		formatString: 0.0%
 
-	/// 7,7%. Piu' del doppio dello stesso periodo dell'anno prima.
+	/// 7,7%. Più del doppio dello stesso periodo dell'anno prima.
 	measure '% ordini in ritardo gen-ago 2018' = CALCULATE( [% ordini in ritardo], Calendario[Anno] = 2018, Calendario[confrontabile] = TRUE() )
 		formatString: 0.0%
 
@@ -163,11 +163,11 @@ table Misure
 	measure 'Cambio reais per euro' = 3.95
 		formatString: 0.00
 
-	/// Lo stesso fatturato in euro. La conversione e' una scelta, e il tasso e' una misura visibile.
+	/// Lo stesso fatturato in euro. La conversione è una scelta, e il tasso è una misura visibile.
 	measure 'Fatturato (EUR)' = DIVIDE( [Fatturato], [Cambio reais per euro] )
 		formatString: "€" #,0
 
-	/// EUR 342.000 circa. E' il numero che sta sul riquadro di pagina 1.
+	/// EUR 342.000 circa. È il numero che sta sul riquadro di pagina 1.
 	measure 'Fatturato in ritardo (EUR)' = DIVIDE( [Fatturato in ritardo], [Cambio reais per euro] )
 		formatString: "€" #,0
 

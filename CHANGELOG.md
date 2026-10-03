@@ -1,6 +1,6 @@
 # Correzioni dopo la pubblicazione
 
-Ogni correzione dice cosa si leggeva prima, perche' era sbagliato e cosa si legge adesso.
+Ogni correzione dice cosa si leggeva prima, perché era sbagliato e cosa si legge adesso.
 I numeri vecchi stanno qui, non nei documenti di lavoro.
 
 ---
@@ -10,8 +10,8 @@ I numeri vecchi stanno qui, non nei documenti di lavoro.
 **Prima.** «L'8,1% degli ordini arriva dopo la data promessa. Su quelli le recensioni
 negative passano dal 9,2% al 54,0%.»
 
-**Perche' era sbagliato.** L'ha trovato una revisione esterna, in due punti:
-1. il ritardo era calcolato fra due istanti, ma la data promessa e' un giorno a
+**Perché era sbagliato.** L'ha trovato una revisione esterna, in due punti:
+1. il ritardo era calcolato fra due istanti, ma la data promessa è un giorno a
    mezzanotte: 1.292 ordini consegnati nel giorno promesso risultavano in ritardo;
 2. il 54% mescolava chi giudica la consegna e chi, senza pacco, giudica l'attesa: sui
    ritardi il questionario parte due giorni dopo la data promessa, e 7 clienti su 10
@@ -19,7 +19,7 @@ negative passano dal 9,2% al 54,0%.»
 
 **Adesso.** 6,8% di ordini in ritardo. Chi risponde dopo la consegna boccia nel 19,4% dei
 casi contro il 9,2% in orario; chi risponde prima, nell'80,6%. Il confronto regge dentro
-la stessa fascia di ritardo, a parita' di stato e a parita' di mese (`DATI-SPORCHI.md`).
+la stessa fascia di ritardo, a parità di stato e a parità di mese (`DATI-SPORCHI.md`).
 
 **Nello stesso giro:** misure sul momento della recensione (40 in tutto), pagina 1 rifatta,
 i venditori normalizzati per volume, la fase «logistica» descritta come trasporto e non come
@@ -27,14 +27,14 @@ colpa, gli script senza percorsi scritti a mano.
 
 ### Le tre ipotesi verificate, come erano scritte il 23 agosto (con le note del 2 ottobre)
 
-## `[V]` Il legame ritardo -> recensione: **c'e', ed e' netto**
+## `[V]` Il legame ritardo -> recensione: **c'è, ed è netto**
 
 **Corretto il 2 ottobre 2026** (§4b e §16). Con il ritardo contato per data, e separando
 chi risponde prima di avere il pacco:
 
 | fascia | ordini recensiti | % 1-2 stelle | di cui scritte prima del pacco |
 |---|---:|---:|---:|
-| 10 gg o piu' in anticipo | 61.523 | 8,9% | 0% |
+| 10 gg o più in anticipo | 61.523 | 8,9% | 0% |
 | 5-9 gg in anticipo | 20.032 | 9,6% | 0% |
 | 0-4 gg in anticipo | 7.888 | 11,3% | 0,1 punti |
 | **1-3 gg di ritardo** | 1.852 | **32,2%** | 17,8 punti |
@@ -43,15 +43,15 @@ chi risponde prima di avere il pacco:
 | 16-30 gg | 851 | 82,1% | 81,7 punti |
 | oltre 30 gg | 329 | 67,8% | 66,6 punti |
 
-Il dirupo resta, ma da 4 giorni di ritardo in su e' fatto quasi solo di recensioni scritte
-mentre il pacco non c'e'. Chi il pacco lo riceve in ritardo boccia nel **19,4%** dei casi,
-il doppio del 9,2% in orario: e' questo il danno della consegna. Il resto e' il danno
+Il dirupo resta, ma da 4 giorni di ritardo in su è fatto quasi solo di recensioni scritte
+mentre il pacco non c'è. Chi il pacco lo riceve in ritardo boccia nel **19,4%** dei casi,
+il doppio del 9,2% in orario: è questo il danno della consegna. Il resto è il danno
 dell'attesa. La correlazione di Spearman non cambia (-0,176).
 
-La tabella qui sotto e' quella del 23/08, contata per istanti e senza separare il momento
+La tabella qui sotto è quella del 23/08, contata per istanti e senza separare il momento
 della recensione. Resta per confronto.
 
-Su 95.824 ordini consegnati e recensiti (media dei punteggi dove ce n'e' piu' d'una):
+Su 95.824 ordini consegnati e recensiti (media dei punteggi dove ce n'è più d'una):
 
 | fascia | ordini | voto medio | % 1-2 stelle |
 |---|---:|---:|---:|
@@ -67,15 +67,15 @@ Su 95.824 ordini consegnati e recensiti (media dei punteggi dove ce n'e' piu' d'
 In orario: voto **4,29**, il 9,2% di recensioni negative. In ritardo: voto 2,57, il
 **54%** negative. Il ritardo moltiplica per quasi sei la quota di recensioni negative.
 
-Ma non e' una pendenza, e' un dirupo. Fra «10 giorni in anticipo» e «appena in orario»
+Ma non è una pendenza, è un dirupo. Fra «10 giorni in anticipo» e «appena in orario»
 non succede quasi niente; tutto accade nei primi giorni oltre la promessa, e fra 3 e 7
-giorni la maggioranza delle recensioni e' gia' negativa. Per questo la correlazione di
+giorni la maggioranza delle recensioni è già negativa. Per questo la correlazione di
 Spearman su tutti gli ordini vale solo -0,176: il 92% arriva in anticipo e schiaccia
 il coefficiente. Un cruscotto che mostrasse quel -0,18 direbbe il falso. Si mostrano
 le fasce.
 
-L'ultima riga si rialza (2,02 contro 1,62): 343 ordini, pochi, e chi aspetta piu' di un
-mese forse e' gia' stato rimborsato. Non e' un risultato, e' un avviso a non leggere la
+L'ultima riga si rialza (2,02 contro 1,62): 343 ordini, pochi, e chi aspetta più di un
+mese forse è già stato rimborsato. Non è un risultato, è un avviso a non leggere la
 coda.
 
 #### `[V]` Il fatturato esposto: **R$ 1,35 milioni, l'8,8%**
@@ -89,16 +89,16 @@ recensioni, e per il fatturato non c'entra niente: un ordine costa e incassa che
 recensito o no.
 
 Sulla base giusta, tutti i 96.470 consegnati, R$ 15.418.395, la quota degli ordini
-in ritardo e' l'8,77%. Il modello riproduce anche il numero vecchio (8,58% sui
+in ritardo è l'8,77%. Il modello riproduce anche il numero vecchio (8,58% sui
 recensiti): non era sbagliato, era su un'altra popolazione.
 
 L'8,1% degli ordini consegnati arriva in ritardo e pesa l'8,8% del fatturato: gli ordini
-in ritardo non sono sistematicamente piu' grandi o piu' piccoli degli altri.
+in ritardo non sono sistematicamente più grandi o più piccoli degli altri.
 
-#### `[V]` Di chi e' il ritardo: **della logistica, non dei venditori**
+#### `[V]` Di chi è il ritardo: **della logistica, non dei venditori**
 
-**Corretto il 2/10**, contando per data: il venditore ci mette 1,3 giorni in piu' (mediana
-da 1,8 a 3,1), la logistica **19 in piu'** (da 7,0 a 26,2). 1.274 venditori su 2.970
+**Corretto il 2/10**, contando per data: il venditore ci mette 1,3 giorni in più (mediana
+da 1,8 a 3,1), la logistica **19 in più** (da 7,0 a 26,2). 1.274 venditori su 2.970
 fanno almeno un ritardo, e i venti peggiori ne spiegano il 25%. La conclusione non cambia.
 
 Giorni mediani per fase:
@@ -111,44 +111,44 @@ Giorni mediani per fase:
 Ricontrollato togliendo i 1.388 ordini a cronologia rotta (§3): 1,78 → 3,02 e
 6,93 → 23,92. Non cambia niente, il che era il punto del controllo.
 
-E l'aritmetica torna, che e' la verifica che conta: 1,2 giorni in piu' dal venditore piu'
-17,0 dalla logistica fanno **18,2 giorni** in piu'; il margine mediano di consegna in
-orario e' 12,3 giorni; 18,2 - 12,3 = 5,9 giorni di ritardo atteso, contro
+E l'aritmetica torna, che è la verifica che conta: 1,2 giorni in più dal venditore più
+17,0 dalla logistica fanno **18,2 giorni** in più; il margine mediano di consegna in
+orario è 12,3 giorni; 18,2 - 12,3 = 5,9 giorni di ritardo atteso, contro
 **5,8 misurati**. Le tre misure sono state calcolate separatamente e si incastrano.
 
-Il venditore ci mette 1,3 giorni in piu'. La logistica ce ne mette **17 in piu'**. La
-seconda meta' del titolo, *«quali venditori li causano»*, ha una risposta scomoda:
+Il venditore ci mette 1,3 giorni in più. La logistica ce ne mette **17 in più**. La
+seconda metà del titolo, *«quali venditori li causano»*, ha una risposta scomoda:
 in larga parte non sono loro.
 
 Questo non toglie la domanda, la migliora. Ma cambia la tela: la pagina sui venditori non
-puo' essere una classifica dei cattivi. Deve mostrare quanto del ritardo e' attribuibile
+può essere una classifica dei cattivi. Deve mostrare quanto del ritardo è attribuibile
 e quanto no, altrimenti il cruscotto propone di sospendere venditori per un problema di
 corrieri. Va scritto in cima alla pagina, non nel pannello dei limiti.
 
-E la concentrazione e' bassa: **1.390 venditori su 2.970** producono almeno un ritardo, e
-i venti peggiori spiegano solo il 24% dei ritardi. Non c'e' una manciata di colpevoli.
+E la concentrazione è bassa: **1.390 venditori su 2.970** producono almeno un ritardo, e
+i venti peggiori spiegano solo il 24% dei ritardi. Non c'è una manciata di colpevoli.
 
 **La soglia scelta: 30 ordini consegnati.** Tiene 627 venditori, il 21,1% di loro, ma
 l'83,5% degli ordini. Sotto quella soglia le percentuali sono rumore. Il peggiore
 sopra soglia sta al 34,9% di ritardi su 43 ordini.
 
-La base e' «tutti i consegnati», non «i consegnati e recensiti». Sembra un dettaglio e
-non lo e': per sapere se un ordine e' arrivato tardi la recensione non serve, e usare la
+La base è «tutti i consegnati», non «i consegnati e recensiti». Sembra un dettaglio e
+non lo è: per sapere se un ordine è arrivato tardi la recensione non serve, e usare la
 base sbagliata sposta il conteggio dei venditori da 2.970 a 2.965 e quello dei venditori
 con almeno un ritardo da 1.390 a 1.376. Ogni misura per venditore deve dichiarare su
-quale delle due basi gira, perche' le due convivono nello stesso cruscotto: le misure
+quale delle due basi gira, perché le due convivono nello stesso cruscotto: le misure
 sulle recensioni non possono che stare sulla base recensita.
 
 E il conteggio va per ordine-venditore, non per ordine: le righe venditore-ordine sono
 **97.811** contro 96.470 ordini, per via dei 1.278 ordini multi-venditore (§13). Sommare
-i «ritardi per venditore» non da' il numero dei ritardi.
+i «ritardi per venditore» non dà il numero dei ritardi.
 
 ### La riconciliazione del 23 agosto, prima delle correzioni
 
 ## TUTTI SPUNTATI, 23/08, sul modello costruito
 
-Il modello e' stato scritto in un'istanza di Power BI Desktop e interrogato con le sue
-misure DAX (non con formule scritte a parte). Ogni riga qui sotto e' il risultato di una
+Il modello è stato scritto in un'istanza di Power BI Desktop e interrogato con le sue
+misure DAX (non con formule scritte a parte). Ogni riga qui sotto è il risultato di una
 misura del modello, letto dal motore.
 
 | # | Misura | Atteso | Ottenuto |
@@ -169,8 +169,8 @@ misura del modello, letto dal motore.
 | 17 | Ordini esclusi dal cruscotto | 2.963 | **2.963** |
 
 Nessuna divergenza. L'unico scarto, l'8,77% contro l'8,6%, non era un errore ma una
-base diversa, ed e' stato corretto in `DATI-SPORCHI.md`: per il fatturato la popolazione
-giusta e' tutti i consegnati, non i soli recensiti.
+base diversa, ed è stato corretto in `DATI-SPORCHI.md`: per il fatturato la popolazione
+giusta è tutti i consegnati, non i soli recensiti.
 
 Restano da spuntare quando ci saranno i visuali: 18 (geolocalizzazione, se si fa), 19 e 20
 (il calendario continuo e novembre 2016 a zero sull'asse).
@@ -195,7 +195,7 @@ a capo dentro i commenti, §15 punto decimale) sono superate: se una delle due f
 scattata, questi numeri sarebbero diversi.
 
 Trovato nello stesso controllo: Power BI aveva creato nove tabelle data automatiche
-nascoste (`LocalDateTable_...`, una per colonna data, piu' un modello). E' la funzione
+nascoste (`LocalDateTable_...`, una per colonna data, più un modello). È la funzione
 «Data/ora automatica», e va spenta, va in conflitto con la tabella `Calendario` creata a
 mano e gonfia il file. Si toglie da Opzioni -> Caricamento dati, sia per il file corrente
 sia nelle impostazioni globali.
@@ -225,9 +225,9 @@ sia nelle impostazioni globali.
 | 19 | Mesi nel calendario fra il primo e l'ultimo ordine | nessun buco, **nov 2016 compreso** | |
 | 20 | Ordini di novembre 2016 | 0, e il mese si vede lo stesso | il controllo della time intelligence |
 
-La 19 e la 20 insieme sono il controllo che vale piu' di tutti: se novembre 2016 sparisce
+La 19 e la 20 insieme sono il controllo che vale più di tutti: se novembre 2016 sparisce
 dall'asse invece di comparire a zero, la tabella data non sta funzionando da tabella data,
-e ogni confronto anno su anno del cruscotto e' sbagliato senza dirlo.
+e ogni confronto anno su anno del cruscotto è sbagliato senza dirlo.
 
 ### Il riquadro del README sulla correzione
 

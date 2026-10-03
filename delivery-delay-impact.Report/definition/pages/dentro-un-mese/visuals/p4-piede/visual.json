@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Il mese e' quello dell'acquisto. I quattro riquadri e il grafico delle fasce girano sui consegnati, le recensioni negative sui soli recensiti, e le due mediane per fase escludono gli ordini con timestamp incoerenti. Senza un mese selezionato la pagina mostra tutto il periodo.",
+                    "value": "Il mese è quello dell'acquisto. I quattro riquadri e il grafico delle fasce girano sui consegnati, le recensioni negative sui soli recensiti, e le due mediane per fase escludono gli ordini con timestamp incoerenti. Senza un mese selezionato la pagina mostra tutto il periodo.",
                     "textStyle": {
                       "fontSize": "9pt",
                       "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
