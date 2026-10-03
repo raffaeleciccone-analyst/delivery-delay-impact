@@ -49,6 +49,12 @@ Le correzioni dopo la pubblicazione, con i numeri di prima, stanno in `CHANGELOG
 
 ---
 
+## Cosa ho deciso io
+
+La domanda: nei dati c'erano tantissime recensioni negative e volevo capire da dove venissero. Quando una revisione fatta con l'IA ha trovato due errori, ho capito il problema e ho deciso di rifare il conto per data. Il modello e le pagine Power BI li generano script scritti con l'IA: io li ho guidati e ho controllato i risultati.
+
+---
+
 ## Le pagine
 
 ![La domanda](schermate/01-la-domanda.png)
