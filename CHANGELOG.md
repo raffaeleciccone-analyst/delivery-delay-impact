@@ -10,7 +10,7 @@ I numeri vecchi stanno qui, non nei documenti di lavoro.
 **Prima.** «L'8,1% degli ordini arriva dopo la data promessa. Su quelli le recensioni
 negative passano dal 9,2% al 54,0%.»
 
-**Perché era sbagliato.** L'ha trovato una revisione fatta con l'IA, in due punti:
+**Perché era sbagliato.** L'ha trovato una revisione che ho chiesto all'IA, in due punti:
 1. il ritardo era calcolato fra due istanti, ma la data promessa è un giorno a
    mezzanotte: 1.292 ordini consegnati nel giorno promesso risultavano in ritardo;
 2. il 54% mescolava chi giudica la consegna e chi, senza pacco, giudica l'attesa: sui
@@ -231,7 +231,7 @@ e ogni confronto anno su anno del cruscotto è sbagliato senza dirlo.
 
 ### Il riquadro del README sulla correzione
 
-Una revisione fatta con l'IA ha trovato due errori nella prima versione, che diceva «le recensioni
+Una revisione che ho chiesto all'IA ha trovato due errori nella prima versione, che diceva «le recensioni
 negative passano dal 9,2% al 54%»:
 
 1. **Il ritardo era calcolato fra due istanti**, ma la data promessa è un giorno a

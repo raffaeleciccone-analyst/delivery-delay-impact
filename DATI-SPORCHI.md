@@ -79,7 +79,7 @@ assume che la stima sia una previsione, e non lo è.
 
 ## 4b. La promessa è un giorno, la consegna un istante
 
-Trovato il 2 ottobre 2026, in una revisione del progetto fatta con l'IA. `order_estimated_delivery_date`
+Trovato il 2 ottobre 2026, in una revisione del progetto che ho chiesto all'IA. `order_estimated_delivery_date`
 sta sempre alla mezzanotte: è un giorno, non un'ora. `order_delivered_customer_date` ha
 l'ora. Sottraendo i due istanti, un pacco consegnato alle 14 del giorno promesso risultava
 in ritardo di 0,6 giorni.
