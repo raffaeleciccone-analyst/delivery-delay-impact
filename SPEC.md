@@ -103,8 +103,12 @@ riprodotto tutti i numeri, ma su questi punti ha dovuto scegliere da solo.)*
   "Prima del pacco" = la prima risposta è precedente all'istante di consegna.
 - R4. **Fasce di ritardo:** giorni interi, estremi compresi come dicono le etichette (−10 o meno; −9..−5;
   −4..0; 1..3; 4..7; 8..15; 16..30; oltre 30).
-- R5. **Distanza:** se anche un solo venditore dell'ordine non ha coordinate, la distanza dell'ordine è
-  vuota (4 ordini su 96.470 sono in questo caso).
+- R5. **Distanza:** se il cliente o anche un solo venditore dell'ordine non ha coordinate, la distanza
+  dell'ordine è vuota. In tutto sono 481 ordini; di questi, 4 hanno più venditori e solo alcuni senza
+  coordinate (è il caso che la regola decide).
+- R5b. **Coordinate:** il CAP è il prefisso a 5 cifre **come numero intero**, come nel file (1000, non
+  "01000"). Le righe duplicate del file di geolocalizzazione **restano** prima della mediana: un CAP rilevato
+  più volte nello stesso punto pesa di più. Confini del Brasile estremi compresi.
 - R6. **CAP senza coordinate (C17):** contati sui prefissi distinti di tutta l'anagrafica clienti e
   venditori, non solo degli ordini consegnati.
 - R7. **Centri per C15:** San Paolo −23,5505 / −46,6333; Rio de Janeiro −22,9068 / −43,1729.
