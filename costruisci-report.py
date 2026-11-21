@@ -464,7 +464,9 @@ def didascalia_misura(nome, x, y, w, z, misura, testo_, largo_n=150, largo_t=190
     sinistra = x + (w - (largo_n + 6 + largo_t)) // 2
     return [
         _numero(nome + "-numero", sinistra, y, largo_n, alto, z, misura, 20, INCHIOSTRO),
-        testo(nome + "-testo", sinistra + largo_n + 6, y + (alto - 28) // 2,
+        # la casella di testo allinea in alto: per metterla alla stessa altezza del
+        # numero (centrato nella sua scheda) si parte da meta' scheda meno mezza riga
+        testo(nome + "-testo", sinistra + largo_n + 6, y + alto // 2 - 8,
               largo_t, 28, z + 1, [(testo_, 10, FONT, INCHIOSTRO_2)]),
     ]
 
@@ -732,9 +734,11 @@ pagina("la-domanda", "1. La domanda", intestazione(
     riquadro("p1-c4", X(9), RIQ_Y, W(3), RIQ_H, 13, "% recensioni in ritardo scritte prima del pacco",
              "Ritardi recensiti prima del pacco"),
 
-    didascalia("p1-d1", X(0), DID_Y, W(3), 14, "Base: 96.470 ordini consegnati."),
-    didascalia("p1-d2", X(3), DID_Y, W(3), 15, "Base: 95.824 ordini anche recensiti."),
-    didascalia("p1-d3", X(6), DID_Y, W(3), 16, "Solo chi ha risposto dopo la consegna: 1.905."),
+    # le tre didascalie scendono a meta' della quarta, che e' alta 60 perche'
+    # contiene una scheda numerica: cosi' stanno tutte e quattro sulla stessa riga
+    didascalia("p1-d1", X(0), DID_Y + 22, W(3), 14, "Base: 96.470 ordini consegnati."),
+    didascalia("p1-d2", X(3), DID_Y + 22, W(3), 15, "Base: 95.824 ordini anche recensiti."),
+    didascalia("p1-d3", X(6), DID_Y + 22, W(3), 16, "Solo chi ha risposto dopo la consegna: 1.905."),
     # il quarto riquadro dice quante; quanto sono arrabbiate lo dice il modello
     didascalia_misura("p1-d4", X(9), DID_Y, W(3), 17, "% negative prima del pacco",
                       "di queste sono negative."),
