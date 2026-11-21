@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p2-lettura-carta",
   "position": {
-    "x": 972,
+    "x": 1280,
     "y": 282,
     "z": 11,
     "height": 202,
-    "width": 900,
+    "width": 592,
     "tabOrder": 11
   },
   "visual": {

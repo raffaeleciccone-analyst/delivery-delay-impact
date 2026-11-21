@@ -808,28 +808,32 @@ pagina("di-chi-e-il-ritardo", "2. Di chi è il ritardo", intestazione(
 
     # impilate: le due fasi sono i pezzi di una sola durata, e impilandole si
     # legge anche il totale
-    barre("p2-fasi", X(0), R1_Y, W(6), R1_H, 10,
+    barre("p2-fasi", X(0), R1_Y, W(4), R1_H, 10,
           ("Ordini", "esito_consegna"),
           [("Fase venditore (mediana)", GRIGIO),
            ("Fase logistica (mediana)", ACCENTO)],
-          "Giorni mediani per fase della consegna",
+          "Giorni mediani per fase",
           forma="fasce", legenda=True, dim_categoria=12, interno=12),
 
-    scheda("p2-lettura", X(6), R1_Y, W(6), R1_H, 11,
+    # F10 di SPEC.md: la terza parte della scomposizione, la geografia. La fascia
+    # "Distanza non calcolabile" esce dal grafico perché la misura lì è vuota;
+    # quanti ordini sono lo dice la riga sotto la scheda della soglia (C17).
+    barre("p2-distanza", X(4), R1_Y, W(4), R1_H, 18,
+          ("Ordini", "fascia_distanza"), [("% in ritardo per distanza", ACCENTO)],
+          "% in ritardo per distanza venditore-cliente",
+          forma="colonne", dim_categoria=10),
+
+    scheda("p2-lettura", X(8), R1_Y, W(4), R1_H, 11,
            "Come si forma il ritardo", [
-               "Due intervalli registrati: dall'approvazione al corriere (venditore), e da "
-               "lì alla consegna (logistica).",
-               "",
                ("In orario: 1,8 giorni il venditore, 7,0 la logistica.", "forte"),
                ("In ritardo: 3,1 il venditore, 26,2 la logistica.", "accento"),
-               "",
-               "Sono mediane, non si sommano. Dicono dove si accumula il tempo, non di chi "
-               "è la colpa: dopo il corriere i dati tacciono.",
+               "Sono mediane, non si sommano.",
+               ("Più lontano, più ritardo: 4,5% sotto i 100 km, 12,0% oltre i 2.000.", "forte"),
            ], dim=11),
 
     # orizzontale e ordinata: è una classifica, e le sigle degli stati si
     # leggono diritte invece che ruotate di novanta gradi
-    barre("p2-stati", X(0), R2_Y, W(8), FONDO - R2_Y, 12,
+    barre("p2-stati", X(0), R2_Y, W(8), FONDO - R2_Y - 60 - GRONDA, 12,
           ("Venditori", "stato"), [("% ritardo dello stato", ACCENTO)],
           "Ritardo per stato del venditore: la geografia spiega più del singolo venditore",
           forma="classifica", ordina=("% ritardo dello stato", "Descending")),
@@ -850,6 +854,10 @@ pagina("di-chi-e-il-ritardo", "2. Di chi è il ritardo", intestazione(
                "",
                "1.274 venditori su 2.970 fanno almeno un ritardo; i venti peggiori il 25%.",
            ]),
+    # C17: chi resta fuori dal grafico della distanza si conta, non si nasconde
+    didascalia_misura("p2-senzadist", X(0), FONDO - 60, W(8), 19, "Ordini senza distanza",
+                      "ordini esclusi dal grafico della distanza: il loro CAP non ha coordinate.",
+                      largo_t=600),
 ] + piede("p2",
           "Il grafico per stato tiene solo gli stati con almeno 100 ordini consegnati. Le durate "
           "per fase escludono 1.388 ordini con timestamp incoerenti, contati a parte. Il ritardo "
@@ -858,7 +866,10 @@ pagina("di-chi-e-il-ritardo", "2. Di chi è il ritardo", intestazione(
           "sullo stato del cliente, che invece ci arriva."),
     spegni=[
         ("p2-fasi", ["p2-c1-numero", "p2-c2-numero", "p2-c3-numero", "p2-c4-numero",
-                     "p2-stati"]),
+                     "p2-stati", "p2-distanza", "p2-senzadist-numero"]),
+        # il clic su una fascia di distanza non deve muovere la cornice della pagina
+        ("p2-distanza", ["p2-c1-numero", "p2-c2-numero", "p2-c3-numero", "p2-c4-numero",
+                         "p2-senzadist-numero"]),
         # il clic su uno stato filtra le righe d'ordine ma non gli ordini: sul
         # grafico delle fasi non cambierebbe niente, e un grafico che non
         # risponde sembra un grafico che dice "nessuna differenza"

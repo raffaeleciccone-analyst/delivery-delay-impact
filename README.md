@@ -27,6 +27,10 @@ consegnati tra settembre 2016 e ottobre 2018.
 - **Il ritardo si accumula nel trasporto, non dal venditore.** Sugli ordini in ritardo la
   fase del venditore dura 1,3 giorni in più del solito, quella del corriere 19 (mediane).
   I 20 venditori con più ritardi hanno un tasso dell'8%, vicino al 6,7% generale.
+- **Anche la distanza conta, ma non spiega tutto.** Fra venditore e cliente a meno di
+  100 km arriva in ritardo il 4,5% degli ordini; oltre i 2.000 km il 12,0%. La distanza è
+  in linea d'aria fra i centri dei CAP; 481 ordini restano fuori perché il CAP non ha
+  coordinate.
 - **Il problema cresce a picchi.** Per quasi tutto il 2017 i ritardi sono intorno al 3%,
   poi novembre 2017 arriva al 12,4% e marzo 2018 al 19,0%.
 
@@ -60,7 +64,7 @@ Versione PDF: [`schermate/delivery-delay-impact.pdf`](schermate/delivery-delay-i
 ![Il modello](schermate/06-modello.svg)
 
 Schema a stella: due tabelle dei fatti (ordine e riga d'ordine), quattro dimensioni, una
-tabella delle misure (40 misure DAX).
+tabella delle misure (42 misure DAX).
 
 Le scelte principali:
 
@@ -71,6 +75,8 @@ Le scelte principali:
   una media; l'effetto sul voto medio è di 0,0005.
 - **Calendario costruito a parte**, non ricavato dagli ordini: novembre 2016 non ha
   ordini e un calendario ricavato salterebbe quel mese.
+- **Distanza calcolata in Power Query:** un punto per CAP (mediana delle coordinate, dopo
+  aver tolto i punti fuori dal Brasile) e, per gli ordini con più venditori, il più lontano.
 - **Soglie minime:** venditori sotto i 30 ordini e stati sotto i 100 esclusi dai confronti.
 - **Importi in euro**, convertiti dai reais con la media dei cambi mensili BCE (3,95).
 
@@ -90,6 +96,13 @@ e generati da script.
 | `costruisci-report.py` | crea le pagine del report |
 | `verifica-tela.py` | otto controlli automatici: campi esistenti, niente sovrapposizioni, testo che entra nelle caselle |
 | `diagramma-modello.py` | disegna il diagramma del modello |
+| `leggi-misure.ps1` | legge i valori delle misure dal Power BI aperto, per confrontarli con quelli attesi |
+| `tests/` | un test per ogni criterio di [`SPEC.md`](SPEC.md): numeri, distanza, report, README |
+
+Cosa deve fare il report e come si controlla è scritto in [`SPEC.md`](SPEC.md) (requisiti e
+criteri) e [`PIANO.md`](PIANO.md) (come è costruito). I numeri si ricontrollano due volte:
+rifacendo i passaggi di Power Query in Python a partire dai CSV, e leggendoli dentro Power BI
+con il report aperto.
 
 Ho usato un assistente IA per scrivere gli script. La domanda, le scelte sul modello e la
 verifica dei numeri sono mie, e sono spiegate in [`DOMANDA.md`](DOMANDA.md) e nei
@@ -106,6 +119,13 @@ commenti del codice.
    python verifica-tela.py
    ```
 3. Aprire `delivery-delay-impact.pbip` con Power BI Desktop e aggiornare i dati.
+4. Controllare tutto:
+   ```
+   pip install -r requirements-test.txt
+   python -m pytest tests -v
+   ```
+   Senza i CSV i test sui numeri si saltano; senza Power BI aperto si salta il confronto
+   con il motore.
 
 ---
 

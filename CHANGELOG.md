@@ -5,6 +5,18 @@ I numeri vecchi stanno qui, non nei documenti di lavoro.
 
 ---
 
+## 21 novembre 2026: requisiti scritti, test automatici e la distanza
+
+- Il progetto ha ora [`SPEC.md`](SPEC.md) (cosa deve fare, con 21 criteri controllabili) e
+  [`PIANO.md`](PIANO.md). Ogni criterio ha un test in `tests/`: i numeri di
+  `RICONCILIAZIONE.md`, che prima si spuntavano a mano dal PDF, ora si ricontrollano da soli,
+  dai CSV e dentro Power BI aperto (`leggi-misure.ps1`).
+- **Nuovo: la distanza venditore-cliente**, la terza parte della scomposizione prevista in
+  `DOMANDA.md` e mai costruita. Pagina 2, grafico "% in ritardo per distanza": dal 4,5% sotto
+  i 100 km al 12,0% oltre i 2.000.
+- **Corretto:** `DATI-SPORCHI.md` §9 diceva "278 CAP di clienti senza coordinate". Erano 278
+  clienti; i CAP sono 158 (279 clienti, contando anche un CAP che ha solo punti fuori dal Brasile).
+
 ## 2 ottobre 2026: il ritardo per data, e le recensioni scritte prima del pacco
 
 **Prima.** «L'8,1% degli ordini arriva dopo la data promessa. Su quelli le recensioni

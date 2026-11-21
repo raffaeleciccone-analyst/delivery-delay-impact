@@ -82,6 +82,41 @@
       "type": "NoFilter"
     },
     {
+      "source": "p2-fasi",
+      "target": "p2-distanza",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p2-fasi",
+      "target": "p2-senzadist-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p2-distanza",
+      "target": "p2-c1-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p2-distanza",
+      "target": "p2-c2-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p2-distanza",
+      "target": "p2-c3-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p2-distanza",
+      "target": "p2-c4-numero",
+      "type": "NoFilter"
+    },
+    {
+      "source": "p2-distanza",
+      "target": "p2-senzadist-numero",
+      "type": "NoFilter"
+    },
+    {
       "source": "p2-stati",
       "target": "p2-c3-numero",
       "type": "NoFilter"

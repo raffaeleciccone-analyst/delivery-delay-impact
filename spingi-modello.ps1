@@ -1,4 +1,4 @@
-# Spinge il modello TMDL dentro un'istanza di Power BI Desktop già aperta.
+﻿# Spinge il modello TMDL dentro un'istanza di Power BI Desktop già aperta.
 #
 # È la stessa strada che usano gli strumenti esterni (Tabular Editor & co.):
 # ci si collega al motore locale del file aperto e si scrive il modello.

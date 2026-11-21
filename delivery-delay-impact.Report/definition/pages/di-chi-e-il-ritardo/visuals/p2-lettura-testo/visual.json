@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p2-lettura-testo",
   "position": {
-    "x": 992,
+    "x": 1300,
     "y": 300,
     "z": 12,
     "height": 168,
-    "width": 860,
+    "width": 552,
     "tabOrder": 12
   },
   "visual": {
@@ -41,28 +41,6 @@
               {
                 "textRuns": [
                   {
-                    "value": "Due intervalli registrati: dall'approvazione al corriere (venditore), e da lì alla consegna (logistica).",
-                    "textStyle": {
-                      "fontSize": "11pt",
-                      "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
-                      "color": "#4B5563"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "",
-                    "textStyle": {
-                      "fontSize": "6pt"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
                     "value": "In orario: 1,8 giorni il venditore, 7,0 la logistica.",
                     "textStyle": {
                       "fontSize": "11pt",
@@ -89,9 +67,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "",
+                    "value": "Sono mediane, non si sommano.",
                     "textStyle": {
-                      "fontSize": "6pt"
+                      "fontSize": "11pt",
+                      "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
+                      "color": "#4B5563"
                     }
                   }
                 ]
@@ -99,11 +79,12 @@
               {
                 "textRuns": [
                   {
-                    "value": "Sono mediane, non si sommano. Dicono dove si accumula il tempo, non di chi è la colpa: dopo il corriere i dati tacciono.",
+                    "value": "Più lontano, più ritardo: 4,5% sotto i 100 km, 12,0% oltre i 2.000.",
                     "textStyle": {
                       "fontSize": "11pt",
-                      "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
-                      "color": "#4B5563"
+                      "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
+                      "color": "#1F2328",
+                      "fontWeight": "bold"
                     }
                   }
                 ]

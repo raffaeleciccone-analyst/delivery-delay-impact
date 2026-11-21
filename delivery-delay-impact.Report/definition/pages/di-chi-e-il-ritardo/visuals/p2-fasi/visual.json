@@ -6,7 +6,7 @@
     "y": 282,
     "z": 10,
     "height": 202,
-    "width": 900,
+    "width": 592,
     "tabOrder": 10
   },
   "visual": {
@@ -482,7 +482,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Giorni mediani per fase della consegna'"
+                  "Value": "'Giorni mediani per fase'"
                 }
               }
             },

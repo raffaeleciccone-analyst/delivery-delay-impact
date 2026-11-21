@@ -163,8 +163,11 @@ Passaggio: `Un punto per CAP (mediana di lat/lng)`, dopo
 `Scarta i punti fuori dal Brasile`. La mediana e non la media, perché un punto
 sbagliato sposta la media e non la mediana.
 
-Restano **278** CAP di clienti e 7 di venditori senza corrispondenza: la distanza per
-quegli ordini non si calcola, e vanno contati, non nascosti.
+Restano **158** CAP di clienti (**279** clienti) e 7 di venditori senza corrispondenza:
+la distanza per quegli ordini non si calcola, e vanno contati, non nascosti.
+`[corretto il 21/11]` La prima stesura diceva «278 CAP»: erano i clienti, contati prima di
+scartare i punti fuori dal Brasile. I CAP distinti assenti dal file sono 157, più uno che ha
+solo punti fuori confine.
 
 ## 10. Ordini senza righe, senza recensione, senza pagamento
 

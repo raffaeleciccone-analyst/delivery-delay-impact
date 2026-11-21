@@ -1,4 +1,4 @@
-# Costruisce il modello semantico dell'analisi e lo scrive in TMDL.
+﻿# Costruisce il modello semantico dell'analisi e lo scrive in TMDL.
 #
 # Non tocca i dati: legge le query M da power-query\*.m e monta tabelle,
 # relazioni e misure con le API di Power BI. Alla fine rilegge quello che ha
@@ -44,7 +44,8 @@ $espressioni = @(
     @{ Nome = "PercorsoDati";        File = "00-PercorsoDati.m" },
     @{ Nome = "OrdiniGrezzi";        File = "01-OrdiniGrezzi.m" },
     @{ Nome = "RecensioniPerOrdine"; File = "05-RecensioniPerOrdine.m" },
-    @{ Nome = "CategorieTradotte";   File = "08-CategorieTradotte.m" }
+    @{ Nome = "CategorieTradotte";   File = "08-CategorieTradotte.m" },
+    @{ Nome = "CoordinateCAP";       File = "11-CoordinateCAP.m" }
 )
 foreach ($e in $espressioni) {
     $ne = New-Object Microsoft.AnalysisServices.Tabular.NamedExpression
@@ -116,7 +117,10 @@ $null = Aggiungi-Tabella "Ordini" "02-Ordini.m" @(
     @("voto_negativo", "Boolean", "voto <= 2"),
     @("recensito", "Boolean", "distingue le due basi: 96.470 consegnati, 95.824 recensiti"),
     @("recensione_prima_del_pacco", "Boolean", "il cliente ha risposto prima che il pacco arrivasse: giudica l'attesa, non la consegna"),
-    @("momento_recensione", "String", "prima / dopo aver ricevuto il pacco, in parole")
+    @("momento_recensione", "String", "prima / dopo aver ricevuto il pacco, in parole"),
+    @("distanza_km", "Double", "in linea d'aria fra cliente e venditore più lontano; vuota se un CAP non ha coordinate", $null, "#,0"),
+    @("fascia_distanza", "String", "cinque fasce di distanza, più 'Distanza non calcolabile'"),
+    @("fascia_distanza_ordine", "Int64", "ordina le fasce di distanza")
 ) "Un ordine consegnato. Base dei tempi e dei venditori."
 
 $null = Aggiungi-Tabella "RigheOrdine" "04-RigheOrdine.m" @(
@@ -186,6 +190,8 @@ $cal.Columns["Etichetta mese"].SortByColumn = $cal.Columns["Anno-mese"]
 $ord = $mod.Tables["Ordini"]
 $ord.Columns["fascia_ritardo"].SortByColumn = $ord.Columns["fascia_ordine"]
 $ord.Columns["fascia_ordine"].IsHidden = $true
+$ord.Columns["fascia_distanza"].SortByColumn = $ord.Columns["fascia_distanza_ordine"]
+$ord.Columns["fascia_distanza_ordine"].IsHidden = $true
 
 # tabella-contenitore per le misure: una colonna sola, nascosta
 $mis = Aggiungi-Tabella "Misure" "99-Misure.m" @(
@@ -233,6 +239,17 @@ Aggiungi-Misura "Ordini recensiti" "CALCULATE( [Ordini consegnati], Ordini[recen
     "Base dei voti: 95.824. Non è la stessa dei tempi."
 Aggiungi-Misura "Ordini in ritardo" "CALCULATE( [Ordini consegnati], Ordini[in_ritardo] = TRUE() )" "#,0" $null
 Aggiungi-Misura "% ordini in ritardo" "DIVIDE( [Ordini in ritardo], [Ordini consegnati] )" "0.0%" $null
+
+# F10/C17: gli ordini fuori dal grafico della distanza si contano, non si nascondono.
+# REMOVEFILTERS sulla fascia: il numero resta lo stesso anche se il grafico filtra le cinque fasce.
+Aggiungi-Misura "Ordini senza distanza" `
+    "CALCULATE( [Ordini consegnati], REMOVEFILTERS( Ordini[fascia_distanza] ), ISBLANK( Ordini[distanza_km] ) )" "#,0" `
+    "Ordini con un CAP senza coordinate: fuori dal grafico della distanza (C17)."
+# Il grafico della distanza mostra solo le cinque fasce: sulla sesta la misura è vuota
+# e Power BI non disegna la barra (C21).
+Aggiungi-Misura "% in ritardo per distanza" `
+    "IF( SELECTEDVALUE( Ordini[fascia_distanza] ) = ""Distanza non calcolabile"", BLANK(), [% ordini in ritardo] )" "0.0%" `
+    "% ordini in ritardo per fascia di distanza, senza la fascia non calcolabile."
 
 Aggiungi-Misura "Giorni di ritardo (mediana)" `
     "MEDIANX( FILTER( Ordini, Ordini[in_ritardo] = TRUE() ), Ordini[giorni_ritardo] )" "0.0" `

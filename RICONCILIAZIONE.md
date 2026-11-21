@@ -45,6 +45,23 @@ di allora, sta in `CHANGELOG.md`.
 Non cambiano: 96.470, 95.824, 2.970, 627, 97.811, 2.963, 1.388, le negative gen-ago
 (10,5% e 13,3%, che dipendono dal mese d'acquisto e non dal ritardo).
 
+## La distanza, aggiunta il 21/11 (F10 di SPEC.md)
+
+Calcolati da `tests/riferimento.py` sui CSV del 23/08. Da qui in poi sono fissi: li controllano
+`tests/test_distanza.py` e `tests/test_documenti.py`, e con il report aperto `tests/test_powerbi.py`.
+
+| Fascia di distanza | Ordini | % in ritardo | Dal modello |
+|---|---:|---:|---:|
+| Sotto 100 km | 17.794 | 4,5% | da spuntare |
+| 100-500 km | 36.964 | 6,1% | da spuntare |
+| 500-1.000 km | 25.841 | 7,1% | da spuntare |
+| 1.000-2.000 km | 9.765 | 9,5% | da spuntare |
+| Oltre 2.000 km | 5.625 | 12,0% | da spuntare |
+| Distanza non calcolabile | 481 | 9,4% | fuori dal grafico |
+| **Totale** | **96.470** | | |
+
+CAP senza coordinate: 158 di clienti (279 clienti) e 7 di venditori.
+
 ## Le due basi, da non confondere mai
 
 Nel cruscotto convivono due popolazioni diverse, e ogni misura deve dichiarare la sua:

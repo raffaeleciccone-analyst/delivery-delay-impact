@@ -15,6 +15,14 @@ table Misure
 	measure '% ordini in ritardo' = DIVIDE( [Ordini in ritardo], [Ordini consegnati] )
 		formatString: 0.0%
 
+	/// Ordini con un CAP senza coordinate: fuori dal grafico della distanza (C17).
+	measure 'Ordini senza distanza' = CALCULATE( [Ordini consegnati], REMOVEFILTERS( Ordini[fascia_distanza] ), ISBLANK( Ordini[distanza_km] ) )
+		formatString: #,0
+
+	/// % ordini in ritardo per fascia di distanza, senza la fascia non calcolabile.
+	measure '% in ritardo per distanza' = IF( SELECTEDVALUE( Ordini[fascia_distanza] ) = "Distanza non calcolabile", BLANK(), [% ordini in ritardo] )
+		formatString: 0.0%
+
 	/// Mediana e non media: la coda arriva a 188 giorni e la media la segue.
 	measure 'Giorni di ritardo (mediana)' = MEDIANX( FILTER( Ordini, Ordini[in_ritardo] = TRUE() ), Ordini[giorni_ritardo] )
 		formatString: 0.0
