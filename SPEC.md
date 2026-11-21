@@ -80,7 +80,9 @@ I numeri attesi sono quelli di `RICONCILIAZIONE.md` (ricontati il 2/10), calcola
   restano fuori dai calcoli sulla distanza, e il report dice quanti sono. *(corretto il 21/11:
   DATI-SPORCHI §9 diceva "278 CAP", ma 278 erano i clienti, non i CAP)*
 - C18 (F10). Le fasce di distanza insieme agli esclusi danno il totale degli ordini consegnati (96.470):
-  nessun ordine perso o contato due volte.
+  nessun ordine perso o contato due volte. Valori fissati il 21/11: sotto 100 km 17.794 (4,5% in ritardo),
+  100-500 km 36.964 (6,1%), 500-1.000 km 25.841 (7,1%), 1.000-2.000 km 9.765 (9,5%), oltre 2.000 km 5.625
+  (12,0%), distanza non calcolabile 481.
 - C19 (F10). Un ordine con più venditori usa la distanza del venditore più lontano. *(proposta di Claude)*
 - C21 (F10). La pagina 2 contiene il grafico "% in ritardo per fascia di distanza", con le cinque fasce
   in ordine (sotto 100 km → oltre 2.000 km).
