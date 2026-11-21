@@ -317,47 +317,47 @@ table Ordini
 				            in
 				                2 * 6371 * Number.Asin(Number.Sqrt(a)),
 				
-				    PuntoCliente = Table.NestedJoin(
-				        Table.SelectColumns(Clienti, {"customer_id", "cap"}), {"cap"},
-				        CoordinateCAP, {"cap"}, "pc", JoinKind.LeftOuter
-				    ),
-				    CoordCliente = Table.ExpandTableColumn(PuntoCliente, "pc", {"lat", "lng"}, {"lat_cliente", "lng_cliente"}),
+				    // Le tabelle di appoggio si tengono in memoria (Table.Buffer): senza, Power Query le
+				    // ricalcola da capo per ogni ordine, e l'aggiornamento non finisce più (21/11: oltre 20 minuti).
+				    Punti = Table.Buffer(CoordinateCAP),
+				    CoordCliente = Table.Buffer(Table.ExpandTableColumn(
+				        Table.NestedJoin(Table.SelectColumns(Clienti, {"customer_id", "cap"}), {"cap"}, Punti, {"cap"}, "pc", JoinKind.LeftOuter),
+				        "pc", {"lat", "lng"}, {"lat_cliente", "lng_cliente"}
+				    )),
+				    CoordVenditore = Table.Buffer(Table.ExpandTableColumn(
+				        Table.NestedJoin(Table.SelectColumns(Venditori, {"seller_id", "cap"}), {"cap"}, Punti, {"cap"}, "pv", JoinKind.LeftOuter),
+				        "pv", {"lat", "lng"}, {"lat_venditore", "lng_venditore"}
+				    )),
 				
-				    PuntoVenditore = Table.NestedJoin(
-				        Table.SelectColumns(Venditori, {"seller_id", "cap"}), {"cap"},
-				        CoordinateCAP, {"cap"}, "pv", JoinKind.LeftOuter
+				    // Una riga per coppia ordine-venditore, con le due coordinate accanto: le distanze si
+				    // calcolano tutte insieme su una tabella piatta, poi si tiene la massima per ordine (C19).
+				    ClienteDellOrdine = Table.SelectColumns(#"Togli l'istante della risposta", {"order_id", "customer_id"}),
+				    Coppie = Table.Distinct(Table.SelectColumns(RigheOrdine, {"order_id", "seller_id"})),
+				    CoppieConCliente = Table.ExpandTableColumn(
+				        Table.NestedJoin(Coppie, {"order_id"}, Table.Buffer(ClienteDellOrdine), {"order_id"}, "o", JoinKind.Inner),
+				        "o", {"customer_id"}
 				    ),
-				    CoordVenditore = Table.ExpandTableColumn(PuntoVenditore, "pv", {"lat", "lng"}, {"lat_venditore", "lng_venditore"}),
-				
-				    VenditoriDellOrdine = Table.Distinct(Table.SelectColumns(RigheOrdine, {"order_id", "seller_id"})),
-				    ConVenditore = Table.ExpandTableColumn(
-				        Table.NestedJoin(VenditoriDellOrdine, {"seller_id"}, CoordVenditore, {"seller_id"}, "v", JoinKind.LeftOuter),
-				        "v", {"lat_venditore", "lng_venditore"}
-				    ),
-				
-				    #"Aggancia il punto del cliente" = Table.ExpandTableColumn(
-				        Table.NestedJoin(#"Togli l'istante della risposta", {"customer_id"}, CoordCliente, {"customer_id"}, "c", JoinKind.LeftOuter),
+				    CoppieConCoordCliente = Table.ExpandTableColumn(
+				        Table.NestedJoin(CoppieConCliente, {"customer_id"}, CoordCliente, {"customer_id"}, "c", JoinKind.LeftOuter),
 				        "c", {"lat_cliente", "lng_cliente"}
 				    ),
-				    #"Aggancia i venditori" = Table.NestedJoin(
-				        #"Aggancia il punto del cliente", {"order_id"}, ConVenditore, {"order_id"}, "vend", JoinKind.LeftOuter
+				    CoppieConPunti = Table.ExpandTableColumn(
+				        Table.NestedJoin(CoppieConCoordCliente, {"seller_id"}, CoordVenditore, {"seller_id"}, "v", JoinKind.LeftOuter),
+				        "v", {"lat_venditore", "lng_venditore"}
 				    ),
-				    #"Distanza dal venditore più lontano" = Table.AddColumn(
-				        #"Aggancia i venditori",
-				        "distanza_km",
-				        each
-				            let
-				                riga = _,
-				                d = List.Transform(
-				                    Table.ToRecords(riga[vend]),
-				                    (v) => Distanza(riga[lat_cliente], riga[lng_cliente], v[lat_venditore], v[lng_venditore])
-				                )
-				            in
-				                if List.IsEmpty(d) or List.Contains(d, null) then null else List.Max(d),
-				        type number
+				    DistanzaCoppia = Table.AddColumn(
+				        CoppieConPunti, "km",
+				        each Distanza([lat_cliente], [lng_cliente], [lat_venditore], [lng_venditore]),
+				        type nullable number
 				    ),
-				    #"Togli le coordinate" = Table.RemoveColumns(
-				        #"Distanza dal venditore più lontano", {"vend", "lat_cliente", "lng_cliente"}
+				    // se una coppia non ha distanza, l'ordine resta senza (C17): niente massimo sui soli noti
+				    DistanzaOrdine = Table.Buffer(Table.Group(
+				        DistanzaCoppia, {"order_id"},
+				        {{"distanza_km", each if List.Contains([km], null) then null else List.Max([km]), type nullable number}}
+				    )),
+				    #"Togli le coordinate" = Table.ExpandTableColumn(
+				        Table.NestedJoin(#"Togli l'istante della risposta", {"order_id"}, DistanzaOrdine, {"order_id"}, "d", JoinKind.LeftOuter),
+				        "d", {"distanza_km"}
 				    ),
 				
 				    // Q3 di SPEC.md - cinque fasce; il taglio cade nella fascia superiore (100 km -> "100-500")

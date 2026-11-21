@@ -16,7 +16,7 @@ ATTESI = {
     "[Ordini in ritardo]": (6_534, 0),
     "[% ordini in ritardo]": (0.068, 3),
     "[Giorni di ritardo (mediana)]": (7, 0),
-    "[% negative (consegne in orario)]": (0.092, 3),
+    "[% recensioni negative in orario]": (0.092, 3),
     "[% recensioni in ritardo scritte prima del pacco]": (0.701, 3),
     "[% negative prima del pacco]": (0.806, 3),
     "[% negative in ritardo dopo il pacco]": (0.194, 3),
@@ -29,6 +29,13 @@ ATTESI = {
     "[Venditori sopra soglia]": (627, 0),
     "[% ordini in ritardo gen-ago 2017]": (0.035, 3),
     "[% ordini in ritardo gen-ago 2018]": (0.077, 3),
+    # la distanza (F10): gli stessi numeri di RICONCILIAZIONE.md, letti dal modello
+    "CALCULATE([% ordini in ritardo], Ordini[fascia_distanza] = \"Sotto 100 km\")": (0.045, 3),
+    "CALCULATE([% ordini in ritardo], Ordini[fascia_distanza] = \"100-500 km\")": (0.061, 3),
+    "CALCULATE([% ordini in ritardo], Ordini[fascia_distanza] = \"500-1.000 km\")": (0.071, 3),
+    "CALCULATE([% ordini in ritardo], Ordini[fascia_distanza] = \"1.000-2.000 km\")": (0.095, 3),
+    "CALCULATE([% ordini in ritardo], Ordini[fascia_distanza] = \"Oltre 2.000 km\")": (0.120, 3),
+    "[Ordini senza distanza]": (481, 0),
 }
 
 
