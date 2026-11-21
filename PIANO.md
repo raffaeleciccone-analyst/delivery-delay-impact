@@ -52,7 +52,7 @@ aggiusta il numero atteso (è la regola di RICONCILIAZIONE.md). C20 è il test c
 - **Mediana delle coordinate, non media.** Motivo: C16 e DATI-SPORCHI §9 (un punto sbagliato sposta la
   media, non la mediana). "Centro" in C16 vuol dire questo.
 - **Confini del Brasile: latitudine da −33,75 a 5,27, longitudine da −73,99 a −34,79.** Motivo: §9 conta
-  47 punti fuori dal Brasile; il riferimento Python e la query M usano gli stessi quattro numeri, scritti
+  42 punti fuori dal Brasile; il riferimento Python e la query M usano gli stessi quattro numeri, scritti
   in un posto solo per lato.
 - **Formula dell'emisenoverso (haversine), raggio 6.371 km.** Motivo: C15, distanza in linea d'aria
   (§4 della spec: niente distanza su strada).

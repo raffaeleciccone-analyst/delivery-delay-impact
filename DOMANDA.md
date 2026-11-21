@@ -57,8 +57,8 @@ serve a una di queste, non entra nella tela.
 
    `[verificato]` Ed è la sotto-domanda che ha cambiato il cruscotto. Il venditore
    ci mette 1,2 giorni in più sugli ordini in ritardo; la logistica ne mette 17 in
-   più (mediana da 6,9 a 23,9 giorni). `[corretto il 2/10, contando per data: 1,3 e 19,
-   da 7,0 a 26,2; 1.274 venditori con un ritardo, i venti peggiori il 25%]` Nessuna manciata di colpevoli: 1.390 venditori su
+   più (mediana da 6,9 a 23,9 giorni). `[corretto il 2/10, con il ritardo deciso per data (§4b): 1,3 e 19,
+   da 7,0 a 26,2 — le fasi restano misurate fra istanti, in giorni con i decimali; 1.274 venditori con un ritardo, i venti peggiori il 25%]` Nessuna manciata di colpevoli: 1.390 venditori su
    2.970 producono almeno un ritardo, e i venti peggiori spiegano solo il 24% dei ritardi.
    **La seconda metà del titolo ha una risposta scomoda: in larga parte non sono i
    venditori.** La pagina 2 smette di essere una classifica e diventa una scomposizione

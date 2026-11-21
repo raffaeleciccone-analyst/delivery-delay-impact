@@ -154,7 +154,8 @@ geografico affidabile, si usa lo stato, non la città, e si dice perché.
 ## 9. La geolocalizzazione non è una dimensione
 
 1.000.163 righe per **19.015** prefissi di CAP: mediana 29 righe per prefisso, massimo
-1.146. Più 261.831 duplicati esatti e 47 punti fuori dai confini del Brasile.
+1.146. Più 261.831 duplicati esatti e 42 punti fuori dai confini del Brasile (33 senza i duplicati)
+`[corretto il 21/11: la prima stesura diceva 47, con confini diversi da quelli poi usati]`.
 
 Non è una tabella di anagrafica, è un elenco di rilevazioni. Usata com'è in una
 relazione, moltiplica le righe dei fatti.

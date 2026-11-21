@@ -91,6 +91,25 @@ I numeri attesi sono quelli di `RICONCILIAZIONE.md` (ricontati il 2/10), calcola
 **Documenti**
 - C14 (U2). I numeri citati nel README coincidono con quelli dei criteri C1-C7.
 
+## 5b. Regole di calcolo
+*(aggiunte il 21/11/2026 dopo una ricostruzione alla cieca: un agente che aveva solo i documenti ha
+riprodotto tutti i numeri, ma su questi punti ha dovuto scegliere da solo.)*
+
+- R1. **Ritardo:** si confrontano due date (giorno di consegna contro giorno promesso), §4b.
+  **Fasi** venditore e corriere: differenze fra istanti, in giorni con i decimali.
+- R2. **Cronologia incoerente:** affidato al corriere *strettamente* prima dell'approvazione, o consegnato
+  strettamente prima dell'affidamento, o una delle due date mancante.
+- R3. **Recensione negativa:** media dei voti dell'ordine ≤ 2. Un ordine con media 2,5 non è negativo.
+  "Prima del pacco" = la prima risposta è precedente all'istante di consegna.
+- R4. **Fasce di ritardo:** giorni interi, estremi compresi come dicono le etichette (−10 o meno; −9..−5;
+  −4..0; 1..3; 4..7; 8..15; 16..30; oltre 30).
+- R5. **Distanza:** se anche un solo venditore dell'ordine non ha coordinate, la distanza dell'ordine è
+  vuota (4 ordini su 96.470 sono in questo caso).
+- R6. **CAP senza coordinate (C17):** contati sui prefissi distinti di tutta l'anagrafica clienti e
+  venditori, non solo degli ordini consegnati.
+- R7. **Centri per C15:** San Paolo −23,5505 / −46,6333; Rio de Janeiro −22,9068 / −43,1729.
+- R8. Le 547 recensioni multiple sono sull'intero file; dentro i 96.470 consegnati sono 525.
+
 ## 6. Vincoli
 - Power BI Desktop in formato `.pbip` (modello e report come file di testo).
 - I controlli devono girare senza Power BI, con Python, anche in CI su GitHub.
