@@ -1,27 +1,33 @@
 /// Dimensione cliente.
 table Clienti
+	lineageTag: 887e5cc3-44b7-480c-9815-a9872eac8648
 
 	/// chiave: una per ordine
 	column customer_id
 		dataType: string
+		lineageTag: c7a0a241-4e1d-43b2-85fd-37dc8bb71f18
 		sourceColumn: customer_id
 
 	/// la persona: 96.096 contro 99.441 ordini
 	column customer_unique_id
 		dataType: string
+		lineageTag: 6a720a19-6bda-4b3f-b8b1-f567f5ec1d6d
 		sourceColumn: customer_unique_id
 
 	column cap
 		dataType: int64
+		lineageTag: ae71e3aa-43ee-410e-8eba-143d82b469ed
 		sourceColumn: cap
 
 	/// normalizzata; per raggruppare è più affidabile lo stato
 	column citta
 		dataType: string
+		lineageTag: 6b808e2d-82f1-4ffd-9ec7-d6c7d5530fbe
 		sourceColumn: citta
 
 	column stato
 		dataType: string
+		lineageTag: fca64eb3-7764-4ae7-8939-8fb3e5561fbf
 		sourceColumn: stato
 
 	partition Clienti = m

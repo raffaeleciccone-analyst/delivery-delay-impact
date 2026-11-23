@@ -4,6 +4,7 @@ expression PercorsoDati =
 		// si cambia qui e tutte le altre query seguono. costruisci-modello.ps1 lo
 		// riscrive da solo con la cartella in cui si trova il progetto.
 		"C:\dev\_powerbi\dati_grezzi\csv"
+	lineageTag: 5f04fc8b-16a8-4c5e-a0db-930bfec918b8
 
 expression OrdiniGrezzi =
 		// Query: OrdiniGrezzi
@@ -38,6 +39,7 @@ expression OrdiniGrezzi =
 		    )
 		in
 		    #"Tipi dichiarati in en-US"
+	lineageTag: b34484ac-0b76-474c-8b49-af4ad370bada
 
 expression RecensioniPerOrdine =
 		// Query: RecensioniPerOrdine   -- NON caricata nel modello (serve al merge di Ordini)
@@ -104,6 +106,7 @@ expression RecensioniPerOrdine =
 		    )
 		in
 		    #"Voto negativo"
+	lineageTag: 2ec2e3ec-d798-48ff-a9fa-0c8f5867be2f
 
 expression CategorieTradotte =
 		// Query: CategorieTradotte   -- NON caricata nel modello (serve al merge di Prodotti)
@@ -126,6 +129,7 @@ expression CategorieTradotte =
 		    )
 		in
 		    #"Tipi dichiarati in en-US"
+	lineageTag: 9b8340fc-094d-4aa0-bbd2-45bc100fd1df
 
 expression CoordinateCAP =
 		// Query: CoordinateCAP   -- NON caricata nel modello (serve alla distanza di Ordini)
@@ -172,4 +176,5 @@ expression CoordinateCAP =
 		    )
 		in
 		    #"Rinomina in italiano"
+	lineageTag: e29b390e-2ac3-4f40-9369-22f8f7df383f
 

@@ -1,20 +1,25 @@
 /// Dimensione venditore. La soglia dei 30 ordini sta nelle misure, non qui.
 table Venditori
+	lineageTag: c56cedb3-5fea-44cc-9a28-d3d5f7ae0dab
 
 	column seller_id
 		dataType: string
+		lineageTag: da27e843-d17e-4e94-a9e7-f1e06293a615
 		sourceColumn: seller_id
 
 	column cap
 		dataType: int64
+		lineageTag: 1866e0c2-334e-4070-8a59-2ba59c913bd9
 		sourceColumn: cap
 
 	column citta
 		dataType: string
+		lineageTag: 1f7d6849-ac51-4648-9bf2-4b4d1721b095
 		sourceColumn: citta
 
 	column stato
 		dataType: string
+		lineageTag: d4913fe4-27e4-4b06-95ae-f11baea718ee
 		sourceColumn: stato
 
 	partition Venditori = m

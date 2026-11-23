@@ -5,6 +5,11 @@
   "displayOption": "FitToPage",
   "height": 424,
   "width": 380,
+  "pageBinding": {
+    "name": "dettaglio-fascia",
+    "type": "Tooltip",
+    "parameters": []
+  },
   "objects": {
     "background": [
       {
@@ -55,10 +60,6 @@
       }
     ]
   },
-  "type": "Tooltip",
-  "pageBinding": {
-    "name": "dettaglio-fascia",
-    "type": "Tooltip"
-  },
-  "visibility": "HiddenInViewMode"
+  "visibility": "HiddenInViewMode",
+  "type": "Tooltip"
 }

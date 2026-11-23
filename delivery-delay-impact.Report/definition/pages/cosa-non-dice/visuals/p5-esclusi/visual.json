@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "p5-esclusi",
   "position": {
     "x": 1434,
@@ -183,15 +183,7 @@
       ],
       "general": [
         {
-          "properties": {
-            "autoSizeColumnWidth": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ],
       "columnWidth": [

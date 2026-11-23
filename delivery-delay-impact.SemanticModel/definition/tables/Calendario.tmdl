@@ -1,45 +1,55 @@
 /// Tabella data creata, non derivata. Novembre 2016 non ha ordini e deve restare visibile.
 table Calendario
+	lineageTag: b655cca5-13a5-45a8-81e9-365e4835dc60
 	dataCategory: Time
 
 	column Data
 		dataType: dateTime
 		isKey
+		lineageTag: 0d75ac1e-aa7f-4e4d-96ef-ef0ff45fa9dc
 		sourceColumn: Data
 
 	column Anno
 		dataType: int64
+		lineageTag: 331ca02e-78cb-4092-89bc-787049b53c53
 		sourceColumn: Anno
 
 	column 'Numero mese'
 		dataType: int64
+		lineageTag: d110ba93-bf30-452b-b8ff-b0ff2562410f
 		sourceColumn: Numero mese
 
 	column Mese
 		dataType: string
+		lineageTag: 550e0590-76f4-4e55-a81e-fcf22208bf0b
 		sourceColumn: Mese
 
 	column Anno-mese
 		dataType: string
+		lineageTag: 8750e1c3-90ca-4294-a761-16216c9698e3
 		sourceColumn: Anno-mese
 
 	column Trimestre
 		dataType: string
+		lineageTag: 4c68a76f-472d-46b3-962f-b30882351b70
 		sourceColumn: Trimestre
 
 	/// gennaio 2017 - agosto 2018
 	column periodo_utile
 		dataType: boolean
+		lineageTag: 6eb82692-780f-4d1e-8f5b-562e19355e44
 		sourceColumn: periodo_utile
 
 	/// mesi presenti in entrambi gli anni pieni: gennaio-agosto
 	column confrontabile
 		dataType: boolean
+		lineageTag: 394cc569-5ea7-46fc-9391-17085db94e90
 		sourceColumn: confrontabile
 
 	/// quella che va sull'asse: gen 17, feb 17, ...
 	column 'Etichetta mese'
 		dataType: string
+		lineageTag: 4f5b9a6a-93f4-499e-b59f-eaa84fc697f1
 		sourceColumn: Etichetta mese
 		sortByColumn: Anno-mese
 

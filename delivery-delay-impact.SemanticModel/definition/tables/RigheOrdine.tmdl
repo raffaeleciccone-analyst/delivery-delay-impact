@@ -1,38 +1,47 @@
 /// Una riga d'ordine. Qui sta il fatturato.
 table RigheOrdine
+	lineageTag: 77bec505-e90c-488f-bac4-ed888800d145
 
 	column order_id
 		dataType: string
+		lineageTag: b32e745d-d1f8-45f0-94d9-d72c4043543b
 		sourceColumn: order_id
 
 	column order_item_id
 		dataType: int64
+		lineageTag: f7f30186-8c23-4fab-9dca-aa413250c54b
 		sourceColumn: order_item_id
 
 	column product_id
 		dataType: string
+		lineageTag: cd656d38-3e18-4ce1-a9cc-dd06e8b79b11
 		sourceColumn: product_id
 
 	column seller_id
 		dataType: string
+		lineageTag: 28df5876-b4ff-4275-bba1-57f640158cd0
 		sourceColumn: seller_id
 
 	/// scadenza contrattuale, arriva al 2020: NON collegata al calendario
 	column shipping_limit_date
 		dataType: dateTime
+		lineageTag: 5e62ef7a-bfa2-413c-ae53-eb60344814f8
 		sourceColumn: shipping_limit_date
 
 	column price
 		dataType: double
+		lineageTag: 54e40661-9b0d-498b-bd8d-91e2644555ce
 		sourceColumn: price
 
 	column freight_value
 		dataType: double
+		lineageTag: 631f2d31-8ba4-42a9-a19e-cac76fbce8cb
 		sourceColumn: freight_value
 
 	/// price + freight_value
 	column valore_riga
 		dataType: double
+		lineageTag: 7e3e4e0d-78ed-4bc6-88b2-0aed6be5cbf9
 		sourceColumn: valore_riga
 
 	partition RigheOrdine = m

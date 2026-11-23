@@ -1,58 +1,122 @@
 /// Un ordine consegnato. Base dei tempi e dei venditori.
 table Ordini
+	lineageTag: fe27c78e-97a4-4765-842c-bf65fc83e685
 
 	/// chiave dell'ordine
 	column order_id
 		dataType: string
+		lineageTag: ca4a13b3-8b95-457e-a615-3d4bd3ba525b
 		sourceColumn: order_id
 
 	/// chiave cliente-ordine, NON la persona (vedi Clienti)
 	column customer_id
 		dataType: string
+		lineageTag: 5b801529-a489-4b29-b7ab-a35b067de500
 		sourceColumn: customer_id
 
 	column order_status
 		dataType: string
+		lineageTag: ba8979db-7208-440d-b294-56406f3b8787
 		sourceColumn: order_status
 
 	column order_purchase_timestamp
 		dataType: dateTime
+		lineageTag: 08a7e051-bf26-4ec2-a455-cae22d3271db
 		sourceColumn: order_purchase_timestamp
 
 	column order_approved_at
 		dataType: dateTime
+		lineageTag: 3090094f-7bfd-4da6-bfca-59aa3699b4aa
 		sourceColumn: order_approved_at
 
 	column order_delivered_carrier_date
 		dataType: dateTime
+		lineageTag: 5b6f77a4-5d46-4241-860c-3f7d02eb5186
 		sourceColumn: order_delivered_carrier_date
 
 	column order_delivered_customer_date
 		dataType: dateTime
+		lineageTag: b4644198-1297-4f41-9dd9-ad6be1e3dc7a
 		sourceColumn: order_delivered_customer_date
 
 	/// data PROMESSA al cliente, non una previsione
 	column order_estimated_delivery_date
 		dataType: dateTime
+		lineageTag: fecc9f82-64bc-4052-aca2-65b79cc2d648
 		sourceColumn: order_estimated_delivery_date
 
 	/// giorni fra la data promessa e la data di consegna; positivo = in ritardo
 	column giorni_ritardo
 		dataType: int64
+		lineageTag: 0af5f7ab-32b1-46e3-9e32-78f19678bd8c
 		sourceColumn: giorni_ritardo
 
 	column in_ritardo
 		dataType: boolean
+		lineageTag: 6749923b-725e-4c5c-b223-e2489d74e092
 		sourceColumn: in_ritardo
+
+	/// approvazione -> affidamento al corriere
+	column giorni_fase_venditore
+		dataType: double
+		lineageTag: 6c1f797c-f60e-4193-8962-1d0ad27c056e
+		sourceColumn: giorni_fase_venditore
+
+	/// affidamento al corriere -> consegna
+	column giorni_fase_logistica
+		dataType: double
+		lineageTag: 17f40180-4158-4ec9-b191-d1c8a0fc1127
+		sourceColumn: giorni_fase_logistica
+
+	/// falso su 1.388 ordini con timestamp incoerenti: escono dalle misure di durata
+	column cronologia_ok
+		dataType: boolean
+		lineageTag: 3442f7e7-215a-48a3-86f4-36b49f5a6c46
+		sourceColumn: cronologia_ok
+
+	column data_acquisto
+		dataType: dateTime
+		lineageTag: a6b10ee8-61b9-404e-badb-83f6cce57c71
+		sourceColumn: data_acquisto
+
+	column data_consegna
+		dataType: dateTime
+		lineageTag: 8224b14a-a4f7-4345-b7de-67185cca38bd
+		sourceColumn: data_consegna
+
+	/// media dei punteggi quando l'ordine ha più di una recensione
+	column voto
+		dataType: double
+		lineageTag: 60b34cd4-b7bf-4040-b663-6de1a78beda3
+		sourceColumn: voto
+
+	column recensioni_sull_ordine
+		dataType: int64
+		lineageTag: 73276d84-1f2e-46cc-a1c1-f38708ab7729
+		sourceColumn: recensioni_sull_ordine
+
+	/// voto <= 2
+	column voto_negativo
+		dataType: boolean
+		lineageTag: 0758ac14-0413-4148-bb8b-c15159146bf3
+		sourceColumn: voto_negativo
+
+	/// distingue le due basi: 96.470 consegnati, 95.824 recensiti
+	column recensito
+		dataType: boolean
+		lineageTag: 283a6b4f-b367-484c-ae5e-fe7148f68491
+		sourceColumn: recensito
 
 	/// in orario / in ritardo, in parole invece che Vero-Falso
 	column esito_consegna
 		dataType: string
+		lineageTag: 22127937-2963-47d5-8391-632e1a25995c
 		sourceColumn: esito_consegna
 
 	/// serve a mostrare il dirupo: il legame non è una pendenza
 	column fascia_ritardo
 		dataType: string
+		lineageTag: 88e8a8e9-40fb-403a-9ad3-7dbc2a1fa1f4
 		sourceColumn: fascia_ritardo
 		sortByColumn: fascia_ordine
 
@@ -60,69 +124,32 @@ table Ordini
 	column fascia_ordine
 		dataType: int64
 		isHidden
+		lineageTag: 7fe84079-fb8c-4727-b8aa-1e55bd807ecc
 		sourceColumn: fascia_ordine
-
-	/// approvazione -> affidamento al corriere
-	column giorni_fase_venditore
-		dataType: double
-		sourceColumn: giorni_fase_venditore
-
-	/// affidamento al corriere -> consegna
-	column giorni_fase_logistica
-		dataType: double
-		sourceColumn: giorni_fase_logistica
-
-	/// falso su 1.388 ordini con timestamp incoerenti: escono dalle misure di durata
-	column cronologia_ok
-		dataType: boolean
-		sourceColumn: cronologia_ok
-
-	column data_acquisto
-		dataType: dateTime
-		sourceColumn: data_acquisto
-
-	column data_consegna
-		dataType: dateTime
-		sourceColumn: data_consegna
-
-	/// media dei punteggi quando l'ordine ha più di una recensione
-	column voto
-		dataType: double
-		sourceColumn: voto
-
-	column recensioni_sull_ordine
-		dataType: int64
-		sourceColumn: recensioni_sull_ordine
-
-	/// voto <= 2
-	column voto_negativo
-		dataType: boolean
-		sourceColumn: voto_negativo
-
-	/// distingue le due basi: 96.470 consegnati, 95.824 recensiti
-	column recensito
-		dataType: boolean
-		sourceColumn: recensito
 
 	/// il cliente ha risposto prima che il pacco arrivasse: giudica l'attesa, non la consegna
 	column recensione_prima_del_pacco
 		dataType: boolean
+		lineageTag: 4a201d71-48cf-471a-9507-0456ce828e64
 		sourceColumn: recensione_prima_del_pacco
 
 	/// prima / dopo aver ricevuto il pacco, in parole
 	column momento_recensione
 		dataType: string
+		lineageTag: d928dcc8-5621-4139-b49a-71cfb22843b2
 		sourceColumn: momento_recensione
 
 	/// in linea d'aria fra cliente e venditore più lontano; vuota se un CAP non ha coordinate
 	column distanza_km
 		dataType: double
 		formatString: #,0
+		lineageTag: a136c960-7c46-4881-9e9b-5745e6e5fe54
 		sourceColumn: distanza_km
 
 	/// cinque fasce di distanza, più 'Distanza non calcolabile'
 	column fascia_distanza
 		dataType: string
+		lineageTag: 0c8a83bc-9ffa-4a9d-a7b2-917b427ac131
 		sourceColumn: fascia_distanza
 		sortByColumn: fascia_distanza_ordine
 
@@ -130,6 +157,7 @@ table Ordini
 	column fascia_distanza_ordine
 		dataType: int64
 		isHidden
+		lineageTag: 558c1917-9e98-4a4e-9c9d-dc6193238996
 		sourceColumn: fascia_distanza_ordine
 
 	partition Ordini = m

@@ -3,6 +3,8 @@ model Model
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	sourceQueryCulture: en-US
 
+annotation PBI_ProTooling = ["DevMode"]
+
 ref table Ordini
 ref table RigheOrdine
 ref table ControlloStatiOrdine

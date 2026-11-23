@@ -1,18 +1,22 @@
 /// Conta gli ordini esclusi per stato. NON collegata di proposito: deve mostrare sempre tutti gli 8 stati, anche quando l'analisi è filtrata.
 table ControlloStatiOrdine
-
-	column 'Stato dell''ordine'
-		dataType: string
-		sourceColumn: order_status
+	lineageTag: 530d3f09-8bbb-4ea1-a3a0-9539561a0d96
 
 	column Ordini
 		dataType: int64
 		formatString: #,0
+		lineageTag: ab137187-dd09-4619-8ece-fde059ff6f74
 		sourceColumn: ordini
 
 	column nell_analisi
 		dataType: boolean
+		lineageTag: 16a9257b-94cc-4b73-ab80-ba63bc6bc085
 		sourceColumn: nell_analisi
+
+	column 'Stato dell''ordine'
+		dataType: string
+		lineageTag: 84e2f9a6-e632-4e6a-8d42-a0a0c4bb87ce
+		sourceColumn: order_status
 
 	partition ControlloStatiOrdine = m
 		mode: import
