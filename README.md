@@ -24,7 +24,7 @@ consegnati tra settembre 2016 e ottobre 2018.
   le recensioni negative passano dall'8,9% all'11,3%. Con 4-7 giorni di ritardo salgono al
   67,6%. Per questo il report mostra fasce di ritardo e non una correlazione, che su tutti
   gli ordini varrebbe solo −0,18.
-- **Il ritardo si accumula nel trasporto, non dal venditore.** Sugli ordini in ritardo la
+- **Il ritardo si accumula nel trasporto.** Sugli ordini in ritardo la
   fase del venditore dura 1,3 giorni in più del solito, quella del corriere 19 (mediane).
   I 20 venditori con più ritardi hanno un tasso dell'8%, vicino al 6,7% generale.
 - **Anche la distanza conta, ma non spiega tutto.** Fra venditore e cliente a meno di
